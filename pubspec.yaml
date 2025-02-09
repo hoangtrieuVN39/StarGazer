@@ -30,7 +30,7 @@ dependencies:
   path: ^1.9.0
   camera: ^0.10.6
   cupertino_icons: ^1.0.8
-  camera_android_camerax: ^0.6.11
+  camera_android: ^0.10.10
 
 dev_dependencies:
   flutter_test:
@@ -47,11 +47,26 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: SF Pro
+      fonts:
+        - asset: lib/assets/fonts/SF-Pro/SF-Pro-Display-Light.otf
+          weight: 300
+        - asset: lib/assets/fonts/SF-Pro/SF-Pro-Display-Regular.otf
+          weight: 400
+        - asset: lib/assets/fonts/SF-Pro/SF-Pro-Display-Medium.otf
+          weight: 500
+        - asset: lib/assets/fonts/SF-Pro/SF-Pro-Display-Semibold.otf
+          weight: 600
+
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

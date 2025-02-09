@@ -10,6 +10,8 @@ part 'camera_bloc.freezed.dart';
 class CameraBloc extends Bloc<CameraEvent, CameraState> {
   final CameraUtils cameraUtils = CameraUtils();
   late CameraController cameraController;
+  final CameraLensDirection cameraLensDirection = CameraLensDirection.back;
+  final ResolutionPreset resolutionPreset = ResolutionPreset.high;
 
   getCameraController() => cameraController;
 
@@ -20,13 +22,15 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     });
 
     on<_Initialized>((event, emit) async {
-      final cameras = await availableCameras();
-      final camera = cameras.last;
-      cameraController = CameraController(camera, ResolutionPreset.high);
+      cameraController = await cameraUtils.getCameraController(
+        resolutionPreset,
+        cameraLensDirection,
+      );
       await cameraController.initialize().then((_) {
         emit(state.copyWith(CameraInitial: true));
       });
     });
+
     on<_Stopped>((event, emit) async {
       await cameraController.dispose();
       emit(state.copyWith(CameraFailure: true));
