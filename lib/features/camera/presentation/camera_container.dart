@@ -22,51 +22,10 @@ class CameraContainer extends StatelessWidget {
 
         return Scaffold(
           body: Stack(
+            fit: StackFit.expand,
             children: [
               // Camera Preview
               CameraPreview(cameraBloc.getCameraController()),
-
-              // Top Bar
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  color: Colors.black26,
-                  child: SafeArea(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.menu, color: Colors.white),
-                          onPressed: () {
-                            // Handle menu button press
-                          },
-                        ),
-                        const Text(
-                          'StarGazer',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: 'SF Pro',
-                          ),
-                        ),
-
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Colors.grey[300],
-                          child: CircleAvatar(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
 
               // Bottom Controls
               Positioned(

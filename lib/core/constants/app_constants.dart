@@ -1,3 +1,3 @@
-class App {
+class AppConstants {
   static const String appName = 'StarGazer';
 }
