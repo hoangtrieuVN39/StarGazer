@@ -7,8 +7,8 @@ import 'package:stargazer/core/constants.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
 
-class HomeContainer extends StatelessWidget {
-  const HomeContainer({super.key});
+class ChatContainer extends StatelessWidget {
+  const ChatContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
