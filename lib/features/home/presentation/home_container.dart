@@ -25,8 +25,8 @@ class _HomeContainerState extends State<HomeContainer> {
   void initState() {
     super.initState();
     homeBloc = context.read<HomeBloc>();
-    user = context.read<UserProvider>().getUser();
-    homeBloc.add(HomeEvent.userLoaded(user!));
+    // user = context.read<UserProvider>().getUser();
+    // homeBloc.add(HomeEvent.userLoaded(user!));
   }
 
   @override
@@ -34,11 +34,11 @@ class _HomeContainerState extends State<HomeContainer> {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (user == null) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
+        // if (user == null) {
+        //   return const Scaffold(
+        //     body: Center(child: CircularProgressIndicator()),
+        //   );
+        // }
         return Stack(
           children: [
             Scaffold(
