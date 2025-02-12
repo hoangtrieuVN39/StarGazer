@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stargazer/features/camera/presentation/camera_page.dart';
+import 'package:stargazer/features/chat/presentation/chat_page.dart';
 import 'package:stargazer/features/home/presentation/home_page.dart';
 import '../constants.dart';
 
@@ -10,6 +12,11 @@ class AppRoutes {
     // RouteConstants.login,
   ];
 
+  static const List<String> homeRoutes = [
+    RouteConstants.camera,
+    RouteConstants.chat,
+  ];
+
   static const List<String> cameraRoutes = [
     RouteConstants.face,
     RouteConstants.hand,
@@ -17,6 +24,10 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> getPages() {
     return {for (var route in mainRoutes) route: (context) => getPage(route)};
+  }
+
+  static List<Widget> getHomePages() {
+    return homeRoutes.map((route) => getPage(route)).toList();
   }
 
   static Widget getPage(String route) {
@@ -29,6 +40,10 @@ class AppRoutes {
       //   return const SettingPage();
       // case RouteConstants.login:
       //   return const LoginPage();
+      case RouteConstants.camera:
+        return const CameraPage();
+      case RouteConstants.chat:
+        return const ChatPage();
       default:
         throw Exception('Route not found');
     }

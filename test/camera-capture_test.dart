@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stargazer/features/camera/presentation/bloc/camera_bloc.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
   group('Camera Capture Tests', () {
@@ -21,7 +20,6 @@ void main() {
       cameraBloc.add(const CameraEvent.captured());
       expect(cameraBloc.state.image, isA<XFile>());
     });
-
 
     // test('CameraCaptureFailure should contain error message', () {
     //   final failureState = CameraCaptureFailure(

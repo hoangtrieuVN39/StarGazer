@@ -1,10 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart';
-import 'package:stargazer/core/constants.dart';
-import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/chat/presentation/bloc/chat_bloc.dart';
 
 class ChatContainer extends StatelessWidget {

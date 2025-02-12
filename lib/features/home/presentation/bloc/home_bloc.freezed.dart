@@ -21,32 +21,38 @@ mixin _$HomeEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
+    required TResult Function(User user) userLoaded,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
+    TResult? Function(User user)? userLoaded,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
+    TResult Function(User user)? userLoaded,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
+    required TResult Function(_UserLoaded value) userLoaded,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_UserLoaded value)? userLoaded,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
+    TResult Function(_UserLoaded value)? userLoaded,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -143,6 +149,7 @@ class _$IndexChangedImpl implements _IndexChanged {
   TResult when<TResult extends Object?>({
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
+    required TResult Function(User user) userLoaded,
   }) {
     return indexChanged(index);
   }
@@ -152,6 +159,7 @@ class _$IndexChangedImpl implements _IndexChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
+    TResult? Function(User user)? userLoaded,
   }) {
     return indexChanged?.call(index);
   }
@@ -161,6 +169,7 @@ class _$IndexChangedImpl implements _IndexChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
+    TResult Function(User user)? userLoaded,
     required TResult orElse(),
   }) {
     if (indexChanged != null) {
@@ -174,6 +183,7 @@ class _$IndexChangedImpl implements _IndexChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
+    required TResult Function(_UserLoaded value) userLoaded,
   }) {
     return indexChanged(this);
   }
@@ -183,6 +193,7 @@ class _$IndexChangedImpl implements _IndexChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_UserLoaded value)? userLoaded,
   }) {
     return indexChanged?.call(this);
   }
@@ -192,6 +203,7 @@ class _$IndexChangedImpl implements _IndexChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
+    TResult Function(_UserLoaded value)? userLoaded,
     required TResult orElse(),
   }) {
     if (indexChanged != null) {
@@ -258,6 +270,7 @@ class _$InitializedImpl implements _Initialized {
   TResult when<TResult extends Object?>({
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
+    required TResult Function(User user) userLoaded,
   }) {
     return initialized();
   }
@@ -267,6 +280,7 @@ class _$InitializedImpl implements _Initialized {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
+    TResult? Function(User user)? userLoaded,
   }) {
     return initialized?.call();
   }
@@ -276,6 +290,7 @@ class _$InitializedImpl implements _Initialized {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
+    TResult Function(User user)? userLoaded,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -289,6 +304,7 @@ class _$InitializedImpl implements _Initialized {
   TResult map<TResult extends Object?>({
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
+    required TResult Function(_UserLoaded value) userLoaded,
   }) {
     return initialized(this);
   }
@@ -298,6 +314,7 @@ class _$InitializedImpl implements _Initialized {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_UserLoaded value)? userLoaded,
   }) {
     return initialized?.call(this);
   }
@@ -307,6 +324,7 @@ class _$InitializedImpl implements _Initialized {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
+    TResult Function(_UserLoaded value)? userLoaded,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -321,9 +339,157 @@ abstract class _Initialized implements HomeEvent {
 }
 
 /// @nodoc
+abstract class _$$UserLoadedImplCopyWith<$Res> {
+  factory _$$UserLoadedImplCopyWith(
+    _$UserLoadedImpl value,
+    $Res Function(_$UserLoadedImpl) then,
+  ) = __$$UserLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({User user});
+}
+
+/// @nodoc
+class __$$UserLoadedImplCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$UserLoadedImpl>
+    implements _$$UserLoadedImplCopyWith<$Res> {
+  __$$UserLoadedImplCopyWithImpl(
+    _$UserLoadedImpl _value,
+    $Res Function(_$UserLoadedImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? user = null}) {
+    return _then(
+      _$UserLoadedImpl(
+        null == user
+            ? _value.user
+            : user // ignore: cast_nullable_to_non_nullable
+                as User,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$UserLoadedImpl implements _UserLoaded {
+  const _$UserLoadedImpl(this.user);
+
+  @override
+  final User user;
+
+  @override
+  String toString() {
+    return 'HomeEvent.userLoaded(user: $user)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserLoadedImpl &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, user);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserLoadedImplCopyWith<_$UserLoadedImpl> get copyWith =>
+      __$$UserLoadedImplCopyWithImpl<_$UserLoadedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int index) indexChanged,
+    required TResult Function() initialized,
+    required TResult Function(User user) userLoaded,
+  }) {
+    return userLoaded(user);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int index)? indexChanged,
+    TResult? Function()? initialized,
+    TResult? Function(User user)? userLoaded,
+  }) {
+    return userLoaded?.call(user);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int index)? indexChanged,
+    TResult Function()? initialized,
+    TResult Function(User user)? userLoaded,
+    required TResult orElse(),
+  }) {
+    if (userLoaded != null) {
+      return userLoaded(user);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_IndexChanged value) indexChanged,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_UserLoaded value) userLoaded,
+  }) {
+    return userLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_IndexChanged value)? indexChanged,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_UserLoaded value)? userLoaded,
+  }) {
+    return userLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_IndexChanged value)? indexChanged,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_UserLoaded value)? userLoaded,
+    required TResult orElse(),
+  }) {
+    if (userLoaded != null) {
+      return userLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UserLoaded implements HomeEvent {
+  const factory _UserLoaded(final User user) = _$UserLoadedImpl;
+
+  User get user;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UserLoadedImplCopyWith<_$UserLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HomeState {
   int get index => throw _privateConstructorUsedError;
-  List<Widget> get widgets => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -337,7 +503,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({int index, List<Widget> widgets});
+  $Res call({int index, User? user});
 }
 
 /// @nodoc
@@ -354,7 +520,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? index = null, Object? widgets = null}) {
+  $Res call({Object? index = null, Object? user = freezed}) {
     return _then(
       _value.copyWith(
             index:
@@ -362,11 +528,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
                     ? _value.index
                     : index // ignore: cast_nullable_to_non_nullable
                         as int,
-            widgets:
-                null == widgets
-                    ? _value.widgets
-                    : widgets // ignore: cast_nullable_to_non_nullable
-                        as List<Widget>,
+            user:
+                freezed == user
+                    ? _value.user
+                    : user // ignore: cast_nullable_to_non_nullable
+                        as User?,
           )
           as $Val,
     );
@@ -382,7 +548,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   ) = __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int index, List<Widget> widgets});
+  $Res call({int index, User? user});
 }
 
 /// @nodoc
@@ -398,7 +564,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? index = null, Object? widgets = null}) {
+  $Res call({Object? index = null, Object? user = freezed}) {
     return _then(
       _$HomeStateImpl(
         index:
@@ -406,11 +572,11 @@ class __$$HomeStateImplCopyWithImpl<$Res>
                 ? _value.index
                 : index // ignore: cast_nullable_to_non_nullable
                     as int,
-        widgets:
-            null == widgets
-                ? _value._widgets
-                : widgets // ignore: cast_nullable_to_non_nullable
-                    as List<Widget>,
+        user:
+            freezed == user
+                ? _value.user
+                : user // ignore: cast_nullable_to_non_nullable
+                    as User?,
       ),
     );
   }
@@ -419,24 +585,18 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeStateImpl implements _HomeState {
-  const _$HomeStateImpl({this.index = 1, final List<Widget> widgets = const []})
-    : _widgets = widgets;
+  const _$HomeStateImpl({this.index = 1, this.user = null});
 
   @override
   @JsonKey()
   final int index;
-  final List<Widget> _widgets;
   @override
   @JsonKey()
-  List<Widget> get widgets {
-    if (_widgets is EqualUnmodifiableListView) return _widgets;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_widgets);
-  }
+  final User? user;
 
   @override
   String toString() {
-    return 'HomeState(index: $index, widgets: $widgets)';
+    return 'HomeState(index: $index, user: $user)';
   }
 
   @override
@@ -445,15 +605,11 @@ class _$HomeStateImpl implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
             (identical(other.index, index) || other.index == index) &&
-            const DeepCollectionEquality().equals(other._widgets, _widgets));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    index,
-    const DeepCollectionEquality().hash(_widgets),
-  );
+  int get hashCode => Object.hash(runtimeType, index, user);
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -465,13 +621,13 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final int index, final List<Widget> widgets}) =
+  const factory _HomeState({final int index, final User? user}) =
       _$HomeStateImpl;
 
   @override
   int get index;
   @override
-  List<Widget> get widgets;
+  User? get user;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
