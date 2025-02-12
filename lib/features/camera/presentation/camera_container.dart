@@ -9,9 +9,10 @@ class CameraContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cameraBloc = context.read<CameraBloc>();
+
     return BlocConsumer<CameraBloc, CameraState>(
       listener: (context, state) {
-        // Handle state changes if needed
+        if (state.image != null) {}
       },
       builder: (context, state) {
         if (!state.CameraInitial) {
@@ -25,7 +26,7 @@ class CameraContainer extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               // Camera Preview
-              CameraPreview(cameraBloc.getCameraController()),
+              CameraPreview(cameraBloc.getCameraController()!),
 
               // Bottom Controls
               Positioned(
@@ -40,7 +41,7 @@ class CameraContainer extends StatelessWidget {
                       _buildBottomButton(
                         icon: Icons.photo_library,
                         onTap: () {
-                          // Handle gallery button press
+                          cameraBloc.add(const CameraEvent.openGallery());
                         },
                       ),
                       // Capture Button
@@ -60,7 +61,9 @@ class CameraContainer extends StatelessWidget {
                       _buildBottomButton(
                         icon: Icons.flip_camera_ios,
                         onTap: () {
-                          // Handle camera flip
+                          cameraBloc.add(
+                            const CameraEvent.cameraLensDirectionChanged(),
+                          );
                         },
                       ),
                     ],
@@ -108,34 +111,4 @@ class CameraContainer extends StatelessWidget {
       ),
     );
   }
-
-  // _bottomNavigationBar() {
-  //   return Container(
-  //     color: Colors.black12,
-  //     child: SafeArea(
-  //       child: Padding(
-  //         padding: const EdgeInsets.symmetric(vertical: 8),
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //           children: [
-  //             TextButton(
-  //               onPressed: () {},
-  //               child: const Text(
-  //                 'Chatbot',
-  //                 style: TextStyle(color: Colors.black54, fontSize: 16),
-  //               ),
-  //             ),
-  //             TextButton(
-  //               onPressed: () {},
-  //               child: const Text(
-  //                 'Fortune teller',
-  //                 style: TextStyle(color: Colors.black54, fontSize: 16),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

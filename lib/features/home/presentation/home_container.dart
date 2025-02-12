@@ -22,23 +22,20 @@ class _HomeContainerState extends State<HomeContainer> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    super.initState();
-    homeBloc = context.read<HomeBloc>();
-    // user = context.read<UserProvider>().getUser();
-    // homeBloc.add(HomeEvent.userLoaded(user!));
-  }
-
-  @override
   Widget build(BuildContext context) {
+    homeBloc = context.read<HomeBloc>();
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.user != null && user == null) {
+          user = state.user;
+          context.read<UserProvider>().setUser(user!);
+        }
+      },
       builder: (context, state) {
-        // if (user == null) {
-        //   return const Scaffold(
-        //     body: Center(child: CircularProgressIndicator()),
-        //   );
-        // }
+        if (user == null) {
+          return Center(child: CircularProgressIndicator());
+        }
+
         return Stack(
           children: [
             Scaffold(
@@ -76,7 +73,12 @@ class _HomeContainerState extends State<HomeContainer> {
           style: TextStyle(color: AppColors.rice(1.0)),
         ),
       ),
-      actions: [IconButton(onPressed: () {}, icon: CircleAvatar())],
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: CircleAvatar(backgroundImage: NetworkImage(user?.image ?? '')),
+        ),
+      ],
       backgroundColor: AppColors.coal(1.0),
     );
   }
@@ -120,53 +122,73 @@ class _HomeContainerState extends State<HomeContainer> {
   }
 
   _sideBar(BuildContext context) {
-    final user = context.read<UserProvider>().getUser();
-    return Padding(
-      padding: EdgeInsets.only(top: 32),
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(color: AppColors.rice(0.5), width: 2),
-              ),
-              color: AppColors.coal(1.0),
-            ),
-            width: 320,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(right: BorderSide(color: AppColors.rice(0.5), width: 2)),
+        color: AppColors.coal(1.0),
+      ),
+      width: 320,
+      child: Padding(
+        padding: EdgeInsets.only(top: 64, left: 16, right: 16, bottom: 32),
+        child: Column(
+          children: [
+            Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sidebarItem(CircleAvatar(), user?.name ?? '', () {}),
+                  _sidebarItem(
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(user?.image ?? ''),
+                      radius: 18,
+                    ),
+                    user?.name ?? '',
+                    () {},
+                    AppColors.rice(1.0),
+                  ),
+                  Divider(color: AppColors.rice(0.5), thickness: 2),
+                  _sidebarItem(
+                    Icon(Icons.home, color: AppColors.rice(1.0), size: 36),
+                    'Home',
+                    () {},
+                    AppColors.rice(1.0),
+                  ),
+                  _sidebarItem(
+                    Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
+                    'Settings',
+                    () {},
+                    AppColors.rice(1.0),
+                  ),
                 ],
               ),
             ),
-          ),
-
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            color: AppColors.coal(0.5),
-          ),
-        ],
+            Divider(color: AppColors.rice(0.5), thickness: 2),
+            _sidebarItem(
+              Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
+              'Logout',
+              () {},
+              AppColors.red(1.0),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  _sidebarItem(leading, title, onPressed) {
+  _sidebarItem(leading, title, onPressed, color) {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
         backgroundColor: AppColors.rice(0.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        fixedSize: Size(double.infinity, 48),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         spacing: 12,
         children: [
           leading,
-          Text(title, style: TextStyle(color: AppColors.rice(1.0))),
+          Text(title, style: TextStyle(color: color, fontSize: 16)),
         ],
       ),
     );

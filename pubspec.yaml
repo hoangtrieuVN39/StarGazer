@@ -32,6 +32,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   camera_android: ^0.10.10
   http: ^1.1.0
+  tflite_flutter: ^0.11.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
