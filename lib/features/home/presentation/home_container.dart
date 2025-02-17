@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:camera/camera.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/core/constants.dart';
@@ -9,6 +10,7 @@ import 'package:stargazer/core/routes.dart';
 import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class HomeContainer extends StatefulWidget {
@@ -136,20 +138,23 @@ class _HomeContainerState extends State<HomeContainer> {
                     ),
                     user?.name ?? '',
                     () {},
-                    AppColors.rice(1.0),
+                    AppColors.rice(1.0)
                   ),
                   Divider(color: AppColors.rice(0.5), thickness: 2),
                   _sidebarItem(
                     Icon(Icons.home, color: AppColors.rice(1.0), size: 36),
                     'Home',
                     () {},
-                    AppColors.rice(1.0),
+                    AppColors.rice(1.0)
                   ),
                   _sidebarItem(
                     Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
                     'Settings',
-                    () {},
+                    () {
+                      Navigator.pushNamed(context,RouteConstants.setting );
+                    },
                     AppColors.rice(1.0),
+
                   ),
                 ],
               ),
@@ -159,7 +164,7 @@ class _HomeContainerState extends State<HomeContainer> {
               Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
               'Logout',
               () {},
-              AppColors.red(1.0),
+              AppColors.red(1.0)
             ),
           ],
         ),

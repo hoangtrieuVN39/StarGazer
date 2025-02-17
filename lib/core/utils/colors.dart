@@ -11,3 +11,5 @@ class AppColors {
   static Color black(alpha) => Color(0xFF000000).withValues(alpha: alpha);
   static Color red(alpha) => Color(0xFFE32A2A).withValues(alpha: alpha);
 }
+
+
