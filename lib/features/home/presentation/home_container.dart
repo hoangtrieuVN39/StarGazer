@@ -153,7 +153,8 @@ class _HomeContainerState extends State<HomeContainer> {
                     () {
                       Navigator.pushNamed(context,RouteConstants.setting );
                     },
-                    AppColors.rice(1.0)
+                    AppColors.rice(1.0),
+
                   ),
                 ],
               ),

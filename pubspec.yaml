@@ -72,14 +72,14 @@ flutter:
           weight: 600
 
 
-
-
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/
     - lib/assets/images/
     - lib/assets/svgs/
     - lib/assets/model/
+    - lib/assets/model.tflite
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
