@@ -51,9 +51,3 @@ class _TickerProvider extends TickerProvider {
     return Ticker(onTick);
   }
 }
-class _TickerProvider extends TickerProvider {
-  @override
-  Ticker createTicker(TickerCallback onTick) {
-    return Ticker(onTick);
-  }
-}

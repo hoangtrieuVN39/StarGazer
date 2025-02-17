@@ -6,7 +6,6 @@ class User extends Equatable {
   final String email;
   final String password;
   final String image;
-  final String image;
 
   const User({
     required this.id,
