@@ -33,6 +33,7 @@ class AppRoutes {
     //   return const SettingPage();
     // case RouteConstants.login:
     //   return const LoginPage();
+    RouteConstants.setting: (context) => const SettingScreen(),
     RouteConstants.camera: (context) => const CameraPage(),
     RouteConstants.chat: (context) => const ChatPage(),
   };
