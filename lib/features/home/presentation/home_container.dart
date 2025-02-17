@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:camera/camera.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/core/constants.dart';
@@ -148,7 +149,9 @@ class _HomeContainerState extends State<HomeContainer> {
                   _sidebarItem(
                     Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
                     'Settings',
-                    () {},
+                    () {
+                      Navigator.pushNamed(context,RouteConstants.setting );
+                    },
                     AppColors.rice(1.0),
                   ),
                 ],
