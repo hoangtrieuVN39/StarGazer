@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:camera/camera.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/core/constants.dart';
@@ -10,7 +9,6 @@ import 'package:stargazer/core/routes.dart';
 import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
-import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class HomeContainer extends StatefulWidget {
