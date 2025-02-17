@@ -49,18 +49,20 @@ class PredictingUsecase {
     // Get output shape and create output array
     final outputShape = _interpreter!.getOutputTensor(0).shape;
     final outputSize = outputShape.reduce((a, b) => a * b);
-    final output = List<double>.filled(outputSize, 0).reshape(outputShape);
+    var output = List<double>.filled(outputSize, 0).reshape(outputShape);
 
     try {
       _interpreter!.run(inputArray, output);
-      return drawPrediction(imageFile, output);
+      // Extract the predictions from the nested list
+      List<double> flattenedOutput = output[0]; // Get first batch
+      return drawPrediction(imageFile, flattenedOutput);
     } catch (e) {
       print('Error during inference: $e');
       rethrow;
     }
   }
 
-  Future<XFile> drawPrediction(XFile image, List<dynamic> prediction) async {
+  Future<XFile> drawPrediction(XFile image, List<double> prediction) async {
     final file = File(image.path);
     final bytes = await file.readAsBytes();
     final originalImage = img.decodeImage(bytes)!;
@@ -71,29 +73,52 @@ class PredictingUsecase {
     final scaleX = originalWidth / imageSize;
     final scaleY = originalHeight / imageSize;
 
-    // Process each set of coordinates (x1, y1, x2, y2)
-    for (int i = 0; i + 3 < prediction.length; i += 4) {
-      final x1 = prediction[i] * scaleX;
-      final y1 = prediction[i + 1] * scaleY;
-      final x2 = prediction[i + 2] * scaleX;
-      final y2 = prediction[i + 3] * scaleY;
+    // Store coordinates for drawing lines
+    List<Point> points = [];
+
+    // Process each set of coordinates (x, y)
+    for (int i = 0; i < prediction.length; i += 2) {
+      final x = (prediction[i] * scaleX).toDouble();
+      final y = (prediction[i + 1] * scaleY).toDouble();
 
       // Convert to integers and clamp within image bounds
-      final intX1 = x1.toInt().clamp(0, originalWidth - 1);
-      final intY1 = y1.toInt().clamp(0, originalHeight - 1);
-      final intX2 = x2.toInt().clamp(0, originalWidth - 1);
-      final intY2 = y2.toInt().clamp(0, originalHeight - 1);
+      final intX = x.toInt().clamp(0, originalWidth - 1);
+      final intY = y.toInt().clamp(0, originalHeight - 1);
 
-      // Draw rectangle with red border
-      img.drawRect(
+      points.add(Point(intX, intY));
+
+      // Draw a filled circle at each point
+      img.fillCircle(
         originalImage,
-        x1: intX1,
-        y1: intY1,
-        x2: intX2,
-        y2: intY2,
-        color: img.ColorRgba8(255, 0, 0, 255),
-        thickness: 2,
+        x: intX,
+        y: intY,
+        radius: 10,
+        color: img.ColorRgba8(255, 0, 0, 255), // Red color
       );
+    }
+
+    // Draw lines connecting points within each group of 5
+    for (int i = 0; i < points.length; i += 5) {
+      final endIndex = (i + 5).clamp(0, points.length);
+      final groupPoints = points.sublist(i, endIndex);
+
+      // Connect points within the group
+      for (int j = 0; j < groupPoints.length - 1; j++) {
+        img.drawLine(
+          originalImage,
+          x1: groupPoints[j].x,
+          y1: groupPoints[j].y,
+          x2: groupPoints[j + 1].x,
+          y2: groupPoints[j + 1].y,
+          color: img.ColorRgba8(
+            255,
+            255,
+            255,
+            200,
+          ), // White lines with some transparency
+          thickness: 4,
+        );
+      }
     }
 
     // Save to temporary file
@@ -141,4 +166,10 @@ class PredictingUsecase {
       _isInitialized = false;
     }
   }
+}
+
+class Point {
+  final int x;
+  final int y;
+  Point(this.x, this.y);
 }
