@@ -37,6 +37,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(image: event.image));
     });
 
+    on<_ImageCaptured>((event, emit) async {
+      emit(state.copyWith(image: event.image));
+    });
+
     add(const _Initialized());
   }
 }

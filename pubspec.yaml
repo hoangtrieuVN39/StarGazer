@@ -17,7 +17,7 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^8.1.1
-  # bloc: ^8.1.1 
+  bloc: ^8.1.1
   equatable: ^2.0.5
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
@@ -79,6 +79,7 @@ flutter:
     - lib/assets/svgs/
     - lib/assets/model/
     - lib/assets/model.tflite
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
