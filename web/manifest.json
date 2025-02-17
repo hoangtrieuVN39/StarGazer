@@ -1,6 +1,6 @@
 {
-    "name": "stargazer2",
-    "short_name": "stargazer2",
+    "name": "stargazer",
+    "short_name": "stargazer",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
