@@ -11,7 +11,6 @@ class PredictionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final predictionBloc = context.read<PredictionBloc>();
     final homeBloc = context.read<HomeBloc>();
 
     return BlocConsumer<PredictionBloc, PredictionState>(

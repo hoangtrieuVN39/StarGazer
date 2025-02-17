@@ -69,8 +69,8 @@ flutter:
         - asset: lib/assets/fonts/SF-Pro/SF-Pro-Display-Semibold.otf
           weight: 600
 
-
-
+  assets:
+    - lib/assets/model.tflite
 
   # To add assets to your application, add an assets section, like this:
   # assets:

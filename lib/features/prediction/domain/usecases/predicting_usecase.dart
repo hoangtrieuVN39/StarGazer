@@ -5,14 +5,34 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:io' show Platform;
 import 'package:path_provider/path_provider.dart';
+import 'package:stargazer/core/constants.dart';
 
 class PredictingUsecase {
   static const imageSize = 224; // Define your model's required image size
   Interpreter? _interpreter;
+  bool _isInitialized = false;
+
+  Future<void> initialize() async {
+    try {
+      if (!_isInitialized) {
+        _interpreter = await Interpreter.fromAsset(MODEL_PATH);
+        _isInitialized = true;
+      }
+    } catch (e) {
+      print('Error initializing interpreter: $e');
+      rethrow;
+    }
+  }
 
   Future<XFile> call(XFile imageFile) async {
-    // Ensure interpreter is initialized
-    _interpreter = await Interpreter.fromAsset('lib/assets/model/model.tflite');
+    // Check if interpreter is initialized
+    if (!_isInitialized || _interpreter == null) {
+      await initialize();
+    }
+
+    if (_interpreter == null) {
+      throw StateError('Failed to initialize TFLite interpreter');
+    }
 
     // Read the image file
     final File file = File(imageFile.path);
@@ -23,14 +43,21 @@ class PredictingUsecase {
     if (image == null) throw Exception('Failed to decode image');
     final processedImage = preprocessImage(image);
 
-    // Run inference
+    // Reshape the input to match model's expected shape [1, 224, 224, 3]
+    final inputArray = processedImage.reshape([1, imageSize, imageSize, 3]);
+
+    // Get output shape and create output array
     final outputShape = _interpreter!.getOutputTensor(0).shape;
     final outputSize = outputShape.reduce((a, b) => a * b);
     final output = List<double>.filled(outputSize, 0).reshape(outputShape);
 
-    _interpreter!.run(processedImage, output);
-
-    return drawPrediction(imageFile, output);
+    try {
+      _interpreter!.run(inputArray, output);
+      return drawPrediction(imageFile, output);
+    } catch (e) {
+      print('Error during inference: $e');
+      rethrow;
+    }
   }
 
   Future<XFile> drawPrediction(XFile image, List<dynamic> prediction) async {
@@ -76,7 +103,6 @@ class PredictingUsecase {
       '${tempDir.path}/processed_${DateTime.now().millisecondsSinceEpoch}.jpg',
     );
     await tempFile.writeAsBytes(modifiedBytes);
-
     return XFile(tempFile.path);
   }
 
@@ -109,7 +135,10 @@ class PredictingUsecase {
   }
 
   void dispose() {
-    _interpreter?.close();
-    _interpreter = null;
+    if (_isInitialized) {
+      _interpreter?.close();
+      _interpreter = null;
+      _isInitialized = false;
+    }
   }
 }
