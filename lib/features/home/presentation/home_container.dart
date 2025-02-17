@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/core/constants.dart';
@@ -8,6 +9,7 @@ import 'package:stargazer/core/routes.dart';
 import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class HomeContainer extends StatefulWidget {
   const HomeContainer({super.key});
@@ -35,12 +37,19 @@ class _HomeContainerState extends State<HomeContainer> {
         if (user == null) {
           return Center(child: CircularProgressIndicator());
         }
-
         return Stack(
           children: [
             Scaffold(
               key: _scaffoldKey,
-              body: AppRoutes.getHomePages()[state.index],
+              body: TabBarView(
+                controller: homeBloc.tabController,
+                children: [
+                  state.image == null
+                      ? AppRoutes.getHomePages()[0]
+                      : PredictionPage(image: state.image!),
+                  AppRoutes.getHomePages()[1],
+                ],
+              ),
               bottomNavigationBar: _buildBottomNavigationBar(context),
               appBar: _buildAppBar(_scaffoldKey),
               drawer: _sideBar(context),
@@ -84,40 +93,24 @@ class _HomeContainerState extends State<HomeContainer> {
   }
 
   _buildBottomNavigationBar(BuildContext context) {
-    final List<String> labels = TextConstants.bottomNavigationBarLabels;
-
     return Container(
-      decoration: BoxDecoration(color: AppColors.coal(1.0)),
+      color: AppColors.coal(1.0),
       padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 24),
-      child: Row(
-        children: List.generate(
-          labels.length,
-          (index) => Expanded(
-            child: _buildBottomNavigationBarItem(
-              labels[index],
-              index == homeBloc.state.index,
-              onPressed: () {
-                homeBloc.add(HomeEvent.indexChanged(index));
-              },
-            ),
+      child: TabBar(
+        controller: homeBloc.tabController,
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          gradient: LinearGradient(
+            colors: [AppColors.rice(0.25), AppColors.rice(0.75)],
+            transform: GradientRotation(pi / 4),
           ),
         ),
+        dividerHeight: 0,
+        indicatorSize: TabBarIndicatorSize.tab,
+        labelColor: AppColors.rice(1.0),
+        unselectedLabelColor: AppColors.rice(1.0),
+        tabs: [Tab(text: 'Fortune teller'), Tab(text: 'Chat')],
       ),
-    );
-  }
-
-  _buildBottomNavigationBarItem(
-    String label,
-    bool isSelected, {
-    required Function() onPressed,
-  }) {
-    return TextButton(
-      onPressed: () => onPressed(),
-      style: TextButton.styleFrom(
-        backgroundColor:
-            isSelected ? AppColors.rice(0.25) : AppColors.rice(0.0),
-      ),
-      child: Text(label, style: TextStyle(color: AppColors.rice(1.0))),
     );
   }
 

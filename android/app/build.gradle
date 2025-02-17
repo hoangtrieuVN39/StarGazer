@@ -1,0 +1,21 @@
+apply plugin: 'com.android.application'
+// apply plugin: 'kotlin-android'
+// apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 34
+    buildToolsVersion "34.0.0"
+    namespace "com.example.stargazer"
+
+    defaultConfig {
+        applicationId "com.example.stargazer"
+        minSdkVersion 21
+        targetSdkVersion 34
+
+        manifestPlaceholders += [appAuthRedirectScheme: "com.example.stargazer"]
+        
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+    }
+}

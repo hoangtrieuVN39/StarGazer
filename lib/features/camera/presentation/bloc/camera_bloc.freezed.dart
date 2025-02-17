@@ -738,11 +738,11 @@ abstract class _OpenGallery implements CameraEvent {
 
 /// @nodoc
 mixin _$CameraState {
-  bool get CameraInitial => throw _privateConstructorUsedError;
-  bool get CameraCaptureInProgress => throw _privateConstructorUsedError;
-  bool get CameraCaptureSuccess => throw _privateConstructorUsedError;
-  bool get CameraCaptureFailure => throw _privateConstructorUsedError;
-  bool get CameraFailure => throw _privateConstructorUsedError;
+  bool get cameraInitial => throw _privateConstructorUsedError;
+  bool get cameraCaptureInProgress => throw _privateConstructorUsedError;
+  bool get cameraCaptureSuccess => throw _privateConstructorUsedError;
+  bool get cameraCaptureFailure => throw _privateConstructorUsedError;
+  bool get cameraFailure => throw _privateConstructorUsedError;
   XFile? get image => throw _privateConstructorUsedError;
   CameraLensDirection? get cameraLensDirection =>
       throw _privateConstructorUsedError;
@@ -764,11 +764,11 @@ abstract class $CameraStateCopyWith<$Res> {
   ) = _$CameraStateCopyWithImpl<$Res, CameraState>;
   @useResult
   $Res call({
-    bool CameraInitial,
-    bool CameraCaptureInProgress,
-    bool CameraCaptureSuccess,
-    bool CameraCaptureFailure,
-    bool CameraFailure,
+    bool cameraInitial,
+    bool cameraCaptureInProgress,
+    bool cameraCaptureSuccess,
+    bool cameraCaptureFailure,
+    bool cameraFailure,
     XFile? image,
     CameraLensDirection? cameraLensDirection,
     bool openGallery,
@@ -791,11 +791,11 @@ class _$CameraStateCopyWithImpl<$Res, $Val extends CameraState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? CameraInitial = null,
-    Object? CameraCaptureInProgress = null,
-    Object? CameraCaptureSuccess = null,
-    Object? CameraCaptureFailure = null,
-    Object? CameraFailure = null,
+    Object? cameraInitial = null,
+    Object? cameraCaptureInProgress = null,
+    Object? cameraCaptureSuccess = null,
+    Object? cameraCaptureFailure = null,
+    Object? cameraFailure = null,
     Object? image = freezed,
     Object? cameraLensDirection = freezed,
     Object? openGallery = null,
@@ -803,30 +803,30 @@ class _$CameraStateCopyWithImpl<$Res, $Val extends CameraState>
   }) {
     return _then(
       _value.copyWith(
-            CameraInitial:
-                null == CameraInitial
-                    ? _value.CameraInitial
-                    : CameraInitial // ignore: cast_nullable_to_non_nullable
+            cameraInitial:
+                null == cameraInitial
+                    ? _value.cameraInitial
+                    : cameraInitial // ignore: cast_nullable_to_non_nullable
                         as bool,
-            CameraCaptureInProgress:
-                null == CameraCaptureInProgress
-                    ? _value.CameraCaptureInProgress
-                    : CameraCaptureInProgress // ignore: cast_nullable_to_non_nullable
+            cameraCaptureInProgress:
+                null == cameraCaptureInProgress
+                    ? _value.cameraCaptureInProgress
+                    : cameraCaptureInProgress // ignore: cast_nullable_to_non_nullable
                         as bool,
-            CameraCaptureSuccess:
-                null == CameraCaptureSuccess
-                    ? _value.CameraCaptureSuccess
-                    : CameraCaptureSuccess // ignore: cast_nullable_to_non_nullable
+            cameraCaptureSuccess:
+                null == cameraCaptureSuccess
+                    ? _value.cameraCaptureSuccess
+                    : cameraCaptureSuccess // ignore: cast_nullable_to_non_nullable
                         as bool,
-            CameraCaptureFailure:
-                null == CameraCaptureFailure
-                    ? _value.CameraCaptureFailure
-                    : CameraCaptureFailure // ignore: cast_nullable_to_non_nullable
+            cameraCaptureFailure:
+                null == cameraCaptureFailure
+                    ? _value.cameraCaptureFailure
+                    : cameraCaptureFailure // ignore: cast_nullable_to_non_nullable
                         as bool,
-            CameraFailure:
-                null == CameraFailure
-                    ? _value.CameraFailure
-                    : CameraFailure // ignore: cast_nullable_to_non_nullable
+            cameraFailure:
+                null == cameraFailure
+                    ? _value.cameraFailure
+                    : cameraFailure // ignore: cast_nullable_to_non_nullable
                         as bool,
             image:
                 freezed == image
@@ -864,11 +864,11 @@ abstract class _$$CameraStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    bool CameraInitial,
-    bool CameraCaptureInProgress,
-    bool CameraCaptureSuccess,
-    bool CameraCaptureFailure,
-    bool CameraFailure,
+    bool cameraInitial,
+    bool cameraCaptureInProgress,
+    bool cameraCaptureSuccess,
+    bool cameraCaptureFailure,
+    bool cameraFailure,
     XFile? image,
     CameraLensDirection? cameraLensDirection,
     bool openGallery,
@@ -890,11 +890,11 @@ class __$$CameraStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? CameraInitial = null,
-    Object? CameraCaptureInProgress = null,
-    Object? CameraCaptureSuccess = null,
-    Object? CameraCaptureFailure = null,
-    Object? CameraFailure = null,
+    Object? cameraInitial = null,
+    Object? cameraCaptureInProgress = null,
+    Object? cameraCaptureSuccess = null,
+    Object? cameraCaptureFailure = null,
+    Object? cameraFailure = null,
     Object? image = freezed,
     Object? cameraLensDirection = freezed,
     Object? openGallery = null,
@@ -902,30 +902,30 @@ class __$$CameraStateImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$CameraStateImpl(
-        CameraInitial:
-            null == CameraInitial
-                ? _value.CameraInitial
-                : CameraInitial // ignore: cast_nullable_to_non_nullable
+        cameraInitial:
+            null == cameraInitial
+                ? _value.cameraInitial
+                : cameraInitial // ignore: cast_nullable_to_non_nullable
                     as bool,
-        CameraCaptureInProgress:
-            null == CameraCaptureInProgress
-                ? _value.CameraCaptureInProgress
-                : CameraCaptureInProgress // ignore: cast_nullable_to_non_nullable
+        cameraCaptureInProgress:
+            null == cameraCaptureInProgress
+                ? _value.cameraCaptureInProgress
+                : cameraCaptureInProgress // ignore: cast_nullable_to_non_nullable
                     as bool,
-        CameraCaptureSuccess:
-            null == CameraCaptureSuccess
-                ? _value.CameraCaptureSuccess
-                : CameraCaptureSuccess // ignore: cast_nullable_to_non_nullable
+        cameraCaptureSuccess:
+            null == cameraCaptureSuccess
+                ? _value.cameraCaptureSuccess
+                : cameraCaptureSuccess // ignore: cast_nullable_to_non_nullable
                     as bool,
-        CameraCaptureFailure:
-            null == CameraCaptureFailure
-                ? _value.CameraCaptureFailure
-                : CameraCaptureFailure // ignore: cast_nullable_to_non_nullable
+        cameraCaptureFailure:
+            null == cameraCaptureFailure
+                ? _value.cameraCaptureFailure
+                : cameraCaptureFailure // ignore: cast_nullable_to_non_nullable
                     as bool,
-        CameraFailure:
-            null == CameraFailure
-                ? _value.CameraFailure
-                : CameraFailure // ignore: cast_nullable_to_non_nullable
+        cameraFailure:
+            null == cameraFailure
+                ? _value.cameraFailure
+                : cameraFailure // ignore: cast_nullable_to_non_nullable
                     as bool,
         image:
             freezed == image
@@ -956,11 +956,11 @@ class __$$CameraStateImplCopyWithImpl<$Res>
 
 class _$CameraStateImpl implements _CameraState {
   const _$CameraStateImpl({
-    this.CameraInitial = false,
-    this.CameraCaptureInProgress = false,
-    this.CameraCaptureSuccess = false,
-    this.CameraCaptureFailure = false,
-    this.CameraFailure = false,
+    this.cameraInitial = false,
+    this.cameraCaptureInProgress = false,
+    this.cameraCaptureSuccess = false,
+    this.cameraCaptureFailure = false,
+    this.cameraFailure = false,
     this.image = null,
     this.cameraLensDirection = CameraLensDirection.back,
     this.openGallery = false,
@@ -969,19 +969,19 @@ class _$CameraStateImpl implements _CameraState {
 
   @override
   @JsonKey()
-  final bool CameraInitial;
+  final bool cameraInitial;
   @override
   @JsonKey()
-  final bool CameraCaptureInProgress;
+  final bool cameraCaptureInProgress;
   @override
   @JsonKey()
-  final bool CameraCaptureSuccess;
+  final bool cameraCaptureSuccess;
   @override
   @JsonKey()
-  final bool CameraCaptureFailure;
+  final bool cameraCaptureFailure;
   @override
   @JsonKey()
-  final bool CameraFailure;
+  final bool cameraFailure;
   @override
   @JsonKey()
   final XFile? image;
@@ -997,7 +997,7 @@ class _$CameraStateImpl implements _CameraState {
 
   @override
   String toString() {
-    return 'CameraState(CameraInitial: $CameraInitial, CameraCaptureInProgress: $CameraCaptureInProgress, CameraCaptureSuccess: $CameraCaptureSuccess, CameraCaptureFailure: $CameraCaptureFailure, CameraFailure: $CameraFailure, image: $image, cameraLensDirection: $cameraLensDirection, openGallery: $openGallery, imageSelected: $imageSelected)';
+    return 'CameraState(cameraInitial: $cameraInitial, cameraCaptureInProgress: $cameraCaptureInProgress, cameraCaptureSuccess: $cameraCaptureSuccess, cameraCaptureFailure: $cameraCaptureFailure, cameraFailure: $cameraFailure, image: $image, cameraLensDirection: $cameraLensDirection, openGallery: $openGallery, imageSelected: $imageSelected)';
   }
 
   @override
@@ -1005,19 +1005,19 @@ class _$CameraStateImpl implements _CameraState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CameraStateImpl &&
-            (identical(other.CameraInitial, CameraInitial) ||
-                other.CameraInitial == CameraInitial) &&
+            (identical(other.cameraInitial, cameraInitial) ||
+                other.cameraInitial == cameraInitial) &&
             (identical(
-                  other.CameraCaptureInProgress,
-                  CameraCaptureInProgress,
+                  other.cameraCaptureInProgress,
+                  cameraCaptureInProgress,
                 ) ||
-                other.CameraCaptureInProgress == CameraCaptureInProgress) &&
-            (identical(other.CameraCaptureSuccess, CameraCaptureSuccess) ||
-                other.CameraCaptureSuccess == CameraCaptureSuccess) &&
-            (identical(other.CameraCaptureFailure, CameraCaptureFailure) ||
-                other.CameraCaptureFailure == CameraCaptureFailure) &&
-            (identical(other.CameraFailure, CameraFailure) ||
-                other.CameraFailure == CameraFailure) &&
+                other.cameraCaptureInProgress == cameraCaptureInProgress) &&
+            (identical(other.cameraCaptureSuccess, cameraCaptureSuccess) ||
+                other.cameraCaptureSuccess == cameraCaptureSuccess) &&
+            (identical(other.cameraCaptureFailure, cameraCaptureFailure) ||
+                other.cameraCaptureFailure == cameraCaptureFailure) &&
+            (identical(other.cameraFailure, cameraFailure) ||
+                other.cameraFailure == cameraFailure) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.cameraLensDirection, cameraLensDirection) ||
                 other.cameraLensDirection == cameraLensDirection) &&
@@ -1030,11 +1030,11 @@ class _$CameraStateImpl implements _CameraState {
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    CameraInitial,
-    CameraCaptureInProgress,
-    CameraCaptureSuccess,
-    CameraCaptureFailure,
-    CameraFailure,
+    cameraInitial,
+    cameraCaptureInProgress,
+    cameraCaptureSuccess,
+    cameraCaptureFailure,
+    cameraFailure,
     image,
     cameraLensDirection,
     openGallery,
@@ -1052,11 +1052,11 @@ class _$CameraStateImpl implements _CameraState {
 
 abstract class _CameraState implements CameraState {
   const factory _CameraState({
-    final bool CameraInitial,
-    final bool CameraCaptureInProgress,
-    final bool CameraCaptureSuccess,
-    final bool CameraCaptureFailure,
-    final bool CameraFailure,
+    final bool cameraInitial,
+    final bool cameraCaptureInProgress,
+    final bool cameraCaptureSuccess,
+    final bool cameraCaptureFailure,
+    final bool cameraFailure,
     final XFile? image,
     final CameraLensDirection? cameraLensDirection,
     final bool openGallery,
@@ -1064,15 +1064,15 @@ abstract class _CameraState implements CameraState {
   }) = _$CameraStateImpl;
 
   @override
-  bool get CameraInitial;
+  bool get cameraInitial;
   @override
-  bool get CameraCaptureInProgress;
+  bool get cameraCaptureInProgress;
   @override
-  bool get CameraCaptureSuccess;
+  bool get cameraCaptureSuccess;
   @override
-  bool get CameraCaptureFailure;
+  bool get cameraCaptureFailure;
   @override
-  bool get CameraFailure;
+  bool get cameraFailure;
   @override
   XFile? get image;
   @override

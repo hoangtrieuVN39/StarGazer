@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:camera/camera.dart';
+import 'package:stargazer/core/constants/route_constants.dart';
 import 'package:stargazer/features/camera/presentation/camera_utils.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 
 part 'camera_event.dart';
 part 'camera_state.dart';
@@ -15,16 +17,16 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
   ResolutionPreset resolutionPreset = ResolutionPreset.high;
 
   CameraController? getCameraController() =>
-      state.CameraInitial ? cameraController : null;
+      state.cameraInitial ? cameraController : null;
 
   CameraBloc() : super(const CameraState()) {
     on<_Captured>((event, emit) async {
-      if (!state.CameraInitial) return;
+      if (!state.cameraInitial) return;
       try {
         final image = await cameraController.takePicture();
-        emit(state.copyWith(CameraCaptureSuccess: true, image: image));
+        emit(state.copyWith(cameraCaptureSuccess: true, image: image));
       } catch (e) {
-        emit(state.copyWith(CameraCaptureFailure: true));
+        emit(state.copyWith(cameraCaptureFailure: true));
       }
     });
 
@@ -35,15 +37,15 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
           cameraLensDirection,
         );
         await cameraController.initialize();
-        emit(state.copyWith(CameraInitial: true));
+        emit(state.copyWith(cameraInitial: true));
       } catch (e) {
-        emit(state.copyWith(CameraFailure: true));
+        emit(state.copyWith(cameraFailure: true));
       }
     });
 
     on<_CameraLensDirectionChanged>((event, emit) async {
       try {
-        emit(state.copyWith(CameraInitial: false));
+        emit(state.copyWith(cameraInitial: false));
         await cameraController.dispose();
         cameraLensDirection =
             cameraLensDirection == CameraLensDirection.back
@@ -54,9 +56,9 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
           cameraLensDirection,
         );
         await cameraController.initialize();
-        emit(state.copyWith(CameraInitial: true));
+        emit(state.copyWith(cameraInitial: true));
       } catch (e) {
-        emit(state.copyWith(CameraFailure: true));
+        emit(state.copyWith(cameraFailure: true));
       }
     });
 
@@ -68,17 +70,17 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
         );
         emit(state.copyWith(openGallery: false, image: image));
       } catch (e) {
-        emit(state.copyWith(openGallery: false, CameraFailure: true));
+        emit(state.copyWith(openGallery: false, cameraFailure: true));
       }
     });
 
     on<_Stopped>((event, emit) async {
-      if (!state.CameraInitial) return;
+      if (!state.cameraInitial) return;
       try {
         await cameraController.dispose();
-        emit(state.copyWith(CameraFailure: true));
+        emit(state.copyWith(cameraFailure: true));
       } catch (e) {
-        emit(state.copyWith(CameraFailure: true));
+        emit(state.copyWith(cameraFailure: true));
       }
     });
 
@@ -87,9 +89,13 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
 
   @override
   Future<void> close() async {
-    if (state.CameraInitial) {
+    if (state.cameraInitial) {
       await cameraController.dispose();
     }
     return super.close();
+  }
+
+  void navigateToPrediction(BuildContext context) {
+    Navigator.pushReplacementNamed(context, RouteConstants.prediction);
   }
 }

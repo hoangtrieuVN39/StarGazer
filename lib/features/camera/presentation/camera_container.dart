@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/features/camera/presentation/bloc/camera_bloc.dart';
+import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class CameraContainer extends StatelessWidget {
   const CameraContainer({super.key});
@@ -12,10 +14,12 @@ class CameraContainer extends StatelessWidget {
 
     return BlocConsumer<CameraBloc, CameraState>(
       listener: (context, state) {
-        if (state.image != null) {}
+        if (state.image != null) {
+          context.read<HomeBloc>().add(HomeEvent.imageCaptured(state.image));
+        }
       },
       builder: (context, state) {
-        if (!state.CameraInitial) {
+        if (!state.cameraInitial) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
