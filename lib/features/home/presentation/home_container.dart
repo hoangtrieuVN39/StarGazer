@@ -11,7 +11,6 @@ import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
-import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class HomeContainer extends StatefulWidget {
   const HomeContainer({super.key});
