@@ -11,6 +11,7 @@ void main() async {
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.initialRoute,
         routes: AppRoutes.routes,
       ),

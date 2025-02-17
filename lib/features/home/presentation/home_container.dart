@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:camera/camera.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/core/constants.dart';
@@ -9,6 +10,8 @@ import 'package:stargazer/core/routes.dart';
 import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class HomeContainer extends StatefulWidget {
@@ -128,6 +131,7 @@ class _HomeContainerState extends State<HomeContainer> {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _sidebarItem(
                     CircleAvatar(
@@ -148,7 +152,9 @@ class _HomeContainerState extends State<HomeContainer> {
                   _sidebarItem(
                     Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
                     'Settings',
-                    () {},
+                    () {
+                      Navigator.pushNamed(context,RouteConstants.setting );
+                    },
                     AppColors.rice(1.0),
                   ),
                 ],
@@ -167,7 +173,7 @@ class _HomeContainerState extends State<HomeContainer> {
     );
   }
 
-  _sidebarItem(leading, title, onPressed, color) {
+  _sidebarItem(leading, title, onPressed, color, color) {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(

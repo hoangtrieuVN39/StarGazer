@@ -37,10 +37,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(image: event.image));
     });
 
+    on<_ImageCaptured>((event, emit) async {
+      emit(state.copyWith(image: event.image));
+    });
+
     add(const _Initialized());
   }
 }
 
+class _TickerProvider extends TickerProvider {
+  @override
+  Ticker createTicker(TickerCallback onTick) {
+    return Ticker(onTick);
+  }
+}
 class _TickerProvider extends TickerProvider {
   @override
   Ticker createTicker(TickerCallback onTick) {
