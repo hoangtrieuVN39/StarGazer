@@ -22,18 +22,21 @@ mixin _$HomeEvent {
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
     required TResult Function(User user) userLoaded,
+    required TResult Function(XFile? image) imageCaptured,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
     TResult? Function(User user)? userLoaded,
+    TResult? Function(XFile? image)? imageCaptured,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
     TResult Function(User user)? userLoaded,
+    TResult Function(XFile? image)? imageCaptured,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,18 +44,21 @@ mixin _$HomeEvent {
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_UserLoaded value) userLoaded,
+    required TResult Function(_ImageCaptured value) imageCaptured,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_UserLoaded value)? userLoaded,
+    TResult? Function(_ImageCaptured value)? imageCaptured,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
     TResult Function(_UserLoaded value)? userLoaded,
+    TResult Function(_ImageCaptured value)? imageCaptured,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -150,6 +156,7 @@ class _$IndexChangedImpl implements _IndexChanged {
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
     required TResult Function(User user) userLoaded,
+    required TResult Function(XFile? image) imageCaptured,
   }) {
     return indexChanged(index);
   }
@@ -160,6 +167,7 @@ class _$IndexChangedImpl implements _IndexChanged {
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
     TResult? Function(User user)? userLoaded,
+    TResult? Function(XFile? image)? imageCaptured,
   }) {
     return indexChanged?.call(index);
   }
@@ -170,6 +178,7 @@ class _$IndexChangedImpl implements _IndexChanged {
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
     TResult Function(User user)? userLoaded,
+    TResult Function(XFile? image)? imageCaptured,
     required TResult orElse(),
   }) {
     if (indexChanged != null) {
@@ -184,6 +193,7 @@ class _$IndexChangedImpl implements _IndexChanged {
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_UserLoaded value) userLoaded,
+    required TResult Function(_ImageCaptured value) imageCaptured,
   }) {
     return indexChanged(this);
   }
@@ -194,6 +204,7 @@ class _$IndexChangedImpl implements _IndexChanged {
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_UserLoaded value)? userLoaded,
+    TResult? Function(_ImageCaptured value)? imageCaptured,
   }) {
     return indexChanged?.call(this);
   }
@@ -204,6 +215,7 @@ class _$IndexChangedImpl implements _IndexChanged {
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
     TResult Function(_UserLoaded value)? userLoaded,
+    TResult Function(_ImageCaptured value)? imageCaptured,
     required TResult orElse(),
   }) {
     if (indexChanged != null) {
@@ -271,6 +283,7 @@ class _$InitializedImpl implements _Initialized {
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
     required TResult Function(User user) userLoaded,
+    required TResult Function(XFile? image) imageCaptured,
   }) {
     return initialized();
   }
@@ -281,6 +294,7 @@ class _$InitializedImpl implements _Initialized {
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
     TResult? Function(User user)? userLoaded,
+    TResult? Function(XFile? image)? imageCaptured,
   }) {
     return initialized?.call();
   }
@@ -291,6 +305,7 @@ class _$InitializedImpl implements _Initialized {
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
     TResult Function(User user)? userLoaded,
+    TResult Function(XFile? image)? imageCaptured,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -305,6 +320,7 @@ class _$InitializedImpl implements _Initialized {
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_UserLoaded value) userLoaded,
+    required TResult Function(_ImageCaptured value) imageCaptured,
   }) {
     return initialized(this);
   }
@@ -315,6 +331,7 @@ class _$InitializedImpl implements _Initialized {
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_UserLoaded value)? userLoaded,
+    TResult? Function(_ImageCaptured value)? imageCaptured,
   }) {
     return initialized?.call(this);
   }
@@ -325,6 +342,7 @@ class _$InitializedImpl implements _Initialized {
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
     TResult Function(_UserLoaded value)? userLoaded,
+    TResult Function(_ImageCaptured value)? imageCaptured,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -411,6 +429,7 @@ class _$UserLoadedImpl implements _UserLoaded {
     required TResult Function(int index) indexChanged,
     required TResult Function() initialized,
     required TResult Function(User user) userLoaded,
+    required TResult Function(XFile? image) imageCaptured,
   }) {
     return userLoaded(user);
   }
@@ -421,6 +440,7 @@ class _$UserLoadedImpl implements _UserLoaded {
     TResult? Function(int index)? indexChanged,
     TResult? Function()? initialized,
     TResult? Function(User user)? userLoaded,
+    TResult? Function(XFile? image)? imageCaptured,
   }) {
     return userLoaded?.call(user);
   }
@@ -431,6 +451,7 @@ class _$UserLoadedImpl implements _UserLoaded {
     TResult Function(int index)? indexChanged,
     TResult Function()? initialized,
     TResult Function(User user)? userLoaded,
+    TResult Function(XFile? image)? imageCaptured,
     required TResult orElse(),
   }) {
     if (userLoaded != null) {
@@ -445,6 +466,7 @@ class _$UserLoadedImpl implements _UserLoaded {
     required TResult Function(_IndexChanged value) indexChanged,
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_UserLoaded value) userLoaded,
+    required TResult Function(_ImageCaptured value) imageCaptured,
   }) {
     return userLoaded(this);
   }
@@ -455,6 +477,7 @@ class _$UserLoadedImpl implements _UserLoaded {
     TResult? Function(_IndexChanged value)? indexChanged,
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_UserLoaded value)? userLoaded,
+    TResult? Function(_ImageCaptured value)? imageCaptured,
   }) {
     return userLoaded?.call(this);
   }
@@ -465,6 +488,7 @@ class _$UserLoadedImpl implements _UserLoaded {
     TResult Function(_IndexChanged value)? indexChanged,
     TResult Function(_Initialized value)? initialized,
     TResult Function(_UserLoaded value)? userLoaded,
+    TResult Function(_ImageCaptured value)? imageCaptured,
     required TResult orElse(),
   }) {
     if (userLoaded != null) {
@@ -487,9 +511,164 @@ abstract class _UserLoaded implements HomeEvent {
 }
 
 /// @nodoc
+abstract class _$$ImageCapturedImplCopyWith<$Res> {
+  factory _$$ImageCapturedImplCopyWith(
+    _$ImageCapturedImpl value,
+    $Res Function(_$ImageCapturedImpl) then,
+  ) = __$$ImageCapturedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({XFile? image});
+}
+
+/// @nodoc
+class __$$ImageCapturedImplCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$ImageCapturedImpl>
+    implements _$$ImageCapturedImplCopyWith<$Res> {
+  __$$ImageCapturedImplCopyWithImpl(
+    _$ImageCapturedImpl _value,
+    $Res Function(_$ImageCapturedImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? image = freezed}) {
+    return _then(
+      _$ImageCapturedImpl(
+        freezed == image
+            ? _value.image
+            : image // ignore: cast_nullable_to_non_nullable
+                as XFile?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$ImageCapturedImpl implements _ImageCaptured {
+  const _$ImageCapturedImpl(this.image);
+
+  @override
+  final XFile? image;
+
+  @override
+  String toString() {
+    return 'HomeEvent.imageCaptured(image: $image)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImageCapturedImpl &&
+            (identical(other.image, image) || other.image == image));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, image);
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImageCapturedImplCopyWith<_$ImageCapturedImpl> get copyWith =>
+      __$$ImageCapturedImplCopyWithImpl<_$ImageCapturedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int index) indexChanged,
+    required TResult Function() initialized,
+    required TResult Function(User user) userLoaded,
+    required TResult Function(XFile? image) imageCaptured,
+  }) {
+    return imageCaptured(image);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int index)? indexChanged,
+    TResult? Function()? initialized,
+    TResult? Function(User user)? userLoaded,
+    TResult? Function(XFile? image)? imageCaptured,
+  }) {
+    return imageCaptured?.call(image);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int index)? indexChanged,
+    TResult Function()? initialized,
+    TResult Function(User user)? userLoaded,
+    TResult Function(XFile? image)? imageCaptured,
+    required TResult orElse(),
+  }) {
+    if (imageCaptured != null) {
+      return imageCaptured(image);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_IndexChanged value) indexChanged,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_UserLoaded value) userLoaded,
+    required TResult Function(_ImageCaptured value) imageCaptured,
+  }) {
+    return imageCaptured(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_IndexChanged value)? indexChanged,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_UserLoaded value)? userLoaded,
+    TResult? Function(_ImageCaptured value)? imageCaptured,
+  }) {
+    return imageCaptured?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_IndexChanged value)? indexChanged,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_UserLoaded value)? userLoaded,
+    TResult Function(_ImageCaptured value)? imageCaptured,
+    required TResult orElse(),
+  }) {
+    if (imageCaptured != null) {
+      return imageCaptured(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ImageCaptured implements HomeEvent {
+  const factory _ImageCaptured(final XFile? image) = _$ImageCapturedImpl;
+
+  XFile? get image;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ImageCapturedImplCopyWith<_$ImageCapturedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HomeState {
   int get index => throw _privateConstructorUsedError;
   User? get user => throw _privateConstructorUsedError;
+  XFile? get image => throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -503,7 +682,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({int index, User? user});
+  $Res call({int index, User? user, XFile? image});
 }
 
 /// @nodoc
@@ -520,7 +699,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? index = null, Object? user = freezed}) {
+  $Res call({
+    Object? index = null,
+    Object? user = freezed,
+    Object? image = freezed,
+  }) {
     return _then(
       _value.copyWith(
             index:
@@ -533,6 +716,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
                     ? _value.user
                     : user // ignore: cast_nullable_to_non_nullable
                         as User?,
+            image:
+                freezed == image
+                    ? _value.image
+                    : image // ignore: cast_nullable_to_non_nullable
+                        as XFile?,
           )
           as $Val,
     );
@@ -548,7 +736,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   ) = __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int index, User? user});
+  $Res call({int index, User? user, XFile? image});
 }
 
 /// @nodoc
@@ -564,7 +752,11 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? index = null, Object? user = freezed}) {
+  $Res call({
+    Object? index = null,
+    Object? user = freezed,
+    Object? image = freezed,
+  }) {
     return _then(
       _$HomeStateImpl(
         index:
@@ -577,6 +769,11 @@ class __$$HomeStateImplCopyWithImpl<$Res>
                 ? _value.user
                 : user // ignore: cast_nullable_to_non_nullable
                     as User?,
+        image:
+            freezed == image
+                ? _value.image
+                : image // ignore: cast_nullable_to_non_nullable
+                    as XFile?,
       ),
     );
   }
@@ -585,7 +782,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HomeStateImpl implements _HomeState {
-  const _$HomeStateImpl({this.index = 1, this.user = null});
+  const _$HomeStateImpl({this.index = 1, this.user = null, this.image = null});
 
   @override
   @JsonKey()
@@ -593,10 +790,13 @@ class _$HomeStateImpl implements _HomeState {
   @override
   @JsonKey()
   final User? user;
+  @override
+  @JsonKey()
+  final XFile? image;
 
   @override
   String toString() {
-    return 'HomeState(index: $index, user: $user)';
+    return 'HomeState(index: $index, user: $user, image: $image)';
   }
 
   @override
@@ -605,11 +805,12 @@ class _$HomeStateImpl implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
             (identical(other.index, index) || other.index == index) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, user);
+  int get hashCode => Object.hash(runtimeType, index, user, image);
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -621,13 +822,18 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final int index, final User? user}) =
-      _$HomeStateImpl;
+  const factory _HomeState({
+    final int index,
+    final User? user,
+    final XFile? image,
+  }) = _$HomeStateImpl;
 
   @override
   int get index;
   @override
   User? get user;
+  @override
+  XFile? get image;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.

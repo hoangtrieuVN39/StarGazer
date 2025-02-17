@@ -1,15 +1,16 @@
 import 'dart:math';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:stargazer/core/constants.dart';
 import 'package:stargazer/core/providers.dart';
 import 'package:stargazer/core/routes.dart';
 import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:stargazer/features/setting/presentation/view/SettingScreen.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
+import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class HomeContainer extends StatefulWidget {
   const HomeContainer({super.key});
@@ -19,45 +20,37 @@ class HomeContainer extends StatefulWidget {
 }
 
 class _HomeContainerState extends State<HomeContainer> {
-    // with SingleTickerProviderStateMixin {
   late HomeBloc homeBloc;
   User? user;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  // late AnimationController _controller;
-  @override
-  void initState() {
-    // _controller = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(seconds: 2),
-    // );
-    // _controller.repeat();
-    super.initState();
-    homeBloc = context.read<HomeBloc>();
-    // user = context.read<UserProvider>().getUser();
-    // homeBloc.add(HomeEvent.userLoaded(user!));
-  }
-
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
+    homeBloc = context.read<HomeBloc>();
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.user != null && user == null) {
+          user = state.user;
+          context.read<UserProvider>().setUser(user!);
+        }
+      },
       builder: (context, state) {
-        // if (user == null) {
-        //   return const Scaffold(
-        //     body: Center(child: CircularProgressIndicator()),
-        //   );
-        // }
+        if (user == null) {
+          return Center(child: CircularProgressIndicator());
+        }
         return Stack(
           children: [
             Scaffold(
               key: _scaffoldKey,
-              body: AppRoutes.getHomePages()[state.index],
+              body: TabBarView(
+                controller: homeBloc.tabController,
+                children: [
+                  state.image == null
+                      ? AppRoutes.getHomePages()[0]
+                      : PredictionPage(image: state.image!),
+                  AppRoutes.getHomePages()[1],
+                ],
+              ),
               bottomNavigationBar: _buildBottomNavigationBar(context),
               appBar: _buildAppBar(_scaffoldKey),
               drawer: _sideBar(context),
@@ -90,169 +83,109 @@ class _HomeContainerState extends State<HomeContainer> {
           style: TextStyle(color: AppColors.rice(1.0)),
         ),
       ),
-      // title: AnimatedTextKit(
-      //   animatedTexts: [
-      //     ColorizeAnimatedText(
-      //       AppConstants.appName,
-      //       colors: [AppColors.rice(1.0), AppColors.blue(1.0), Colors.white],
-      //       textStyle: TextStyle(fontSize: 24.0),
-      //       speed: Duration(milliseconds: 500),
-      //     ),
-      //   ],
-      //   isRepeatingAnimation: true,
-      //   totalRepeatCount: 10000,
-      //   pause: Duration(milliseconds: 200),
-      // ),
-      actions: [IconButton(onPressed: () {}, icon: CircleAvatar())],
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: CircleAvatar(backgroundImage: NetworkImage(user?.image ?? '')),
+        ),
+      ],
       backgroundColor: AppColors.coal(1.0),
     );
   }
 
   _buildBottomNavigationBar(BuildContext context) {
-    final List<String> labels = TextConstants.bottomNavigationBarLabels;
-
     return Container(
-      decoration: BoxDecoration(color: AppColors.coal(1.0)),
+      color: AppColors.coal(1.0),
       padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 24),
-      child: Row(
-        children: List.generate(
-          labels.length,
-          (index) => Expanded(
-            child: _buildBottomNavigationBarItem(
-              labels[index],
-              index == homeBloc.state.index,
-              onPressed: () {
-                homeBloc.add(HomeEvent.indexChanged(index));
-              },
-            ),
+      child: TabBar(
+        controller: homeBloc.tabController,
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          gradient: LinearGradient(
+            colors: [AppColors.rice(0.25), AppColors.rice(0.75)],
+            transform: GradientRotation(pi / 4),
           ),
         ),
+        dividerHeight: 0,
+        indicatorSize: TabBarIndicatorSize.tab,
+        labelColor: AppColors.rice(1.0),
+        unselectedLabelColor: AppColors.rice(1.0),
+        tabs: [Tab(text: 'Fortune teller'), Tab(text: 'Chat')],
       ),
-    );
-  }
-
-  _buildBottomNavigationBarItem(
-    String label,
-    bool isSelected, {
-    required Function() onPressed,
-  }) {
-    return TextButton(
-      onPressed: () => onPressed(),
-      style: TextButton.styleFrom(
-        backgroundColor:
-            isSelected ? AppColors.rice(0.25) : AppColors.rice(0.0),
-      ),
-      child: Text(label, style: TextStyle(color: AppColors.rice(1.0))),
     );
   }
 
   _sideBar(BuildContext context) {
-    final user = context.read<UserProvider>().getUser();
-    return Padding(
-      padding: EdgeInsets.only(top: 32),
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(color: AppColors.rice(0.5), width: 2),
-              ),
-              color: AppColors.coal(1.0),
-            ),
-            width: 320,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(right: BorderSide(color: AppColors.rice(0.5), width: 2)),
+        color: AppColors.coal(1.0),
+      ),
+      width: 320,
+      child: Padding(
+        padding: EdgeInsets.only(top: 64, left: 16, right: 16, bottom: 32),
+        child: Column(
+          children: [
+            Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sidebarItem(CircleAvatar(), user?.name ?? '', () {}),
-                  _sidebarSelectItem(
-                    'lib/assets/svgs/home-svgrepo-com.svg',
+                  _sidebarItem(
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(user?.image ?? ''),
+                      radius: 18,
+                    ),
+                    user?.name ?? '',
+                    () {},
+                    AppColors.rice(1.0),
+                  ),
+                  Divider(color: AppColors.rice(0.5), thickness: 2),
+                  _sidebarItem(
+                    Icon(Icons.home, color: AppColors.rice(1.0), size: 36),
                     'Home',
                     () {},
-                    Color.fromRGBO(245, 223, 210, 0.25),
+                    AppColors.rice(1.0),
                   ),
-                  _sidebarSelectItem(
-                    'lib/assets/svgs/setting-svgrepo-com.svg',
+                  _sidebarItem(
+                    Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
                     'Settings',
                     () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingScreen()),
-                      );
+                      Navigator.pushNamed(context,RouteConstants.setting );
                     },
-                    AppColors.coal(1.0),
+                    AppColors.rice(1.0),
                   ),
                 ],
               ),
             ),
-          ),
-
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            color: AppColors.coal(0.5),
-          ),
-        ],
+            Divider(color: AppColors.rice(0.5), thickness: 2),
+            _sidebarItem(
+              Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
+              'Logout',
+              () {},
+              AppColors.red(1.0),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  _sidebarItem(leading, title, onPressed) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextButton(
-          onPressed: onPressed,
-          style: TextButton.styleFrom(
-            backgroundColor: AppColors.rice(0.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            spacing: 12,
-            children: [
-              leading,
-              Text(title, style: TextStyle(color: AppColors.rice(1.0))),
-            ],
-          ),
-        ),
-        Container(color: Colors.white, width: 280, height: 2),
-      ],
-    );
-  }
-
-  _sidebarSelectItem(icon, title, onPressed, background_color) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Padding(
-        padding: EdgeInsets.only(top: 13),
-        child: Container(
-          width: 285,
-          height: 60,
-          decoration: BoxDecoration(
-            // color: Color.fromRGBO(245, 223, 210, 0.25),
-            color: background_color,
-            borderRadius: BorderRadius.circular(9), // BorderRadius 15
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(padding: EdgeInsets.only(left: 10, right: 20) ,child: SvgPicture.asset(
-                icon,
-                width: 35.0,
-                height: 35.0,
-                // ignore: deprecated_member_use
-                color: Colors.white,
-              ),),
-              
-              Text(title, style: TextStyle(fontSize: 18, color: Colors.white)),
-            ],
-          ),
-        ),
+  _sidebarItem(leading, title, onPressed, color) {
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        backgroundColor: AppColors.rice(0.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        fixedSize: Size(double.infinity, 48),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        spacing: 12,
+        children: [
+          leading,
+          Text(title, style: TextStyle(color: color, fontSize: 16)),
+        ],
       ),
     );
   }

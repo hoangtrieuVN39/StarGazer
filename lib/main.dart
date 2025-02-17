@@ -8,6 +8,7 @@ void main() {
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.initialRoute,
         routes: AppRoutes.getPages(),
       ),
