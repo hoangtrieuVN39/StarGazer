@@ -10,6 +10,7 @@ class CameraState with _$CameraState {
     @Default(false) bool cameraFailure,
     @Default(null) XFile? image,
     @Default(CameraLensDirection.back) CameraLensDirection? cameraLensDirection,
+    @Default(false) bool cameraLensDirectionFailure,
     @Default(false) bool openGallery,
     @Default(false) bool imageSelected,
   }) = _CameraState;

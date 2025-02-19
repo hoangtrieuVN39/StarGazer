@@ -10,6 +10,12 @@ class AppColors {
   static Color white(alpha) => Color(0xFFFFFFFF).withValues(alpha: alpha);
   static Color black(alpha) => Color(0xFF000000).withValues(alpha: alpha);
   static Color red(alpha) => Color(0xFFE32A2A).withValues(alpha: alpha);
+
+  // Gradient Colors
+  static Color gradientDarkBlue(alpha) =>
+      Color(0xFF00033D).withValues(alpha: alpha);
+  static Color gradientBlue(alpha) =>
+      Color(0xFF0033FF).withValues(alpha: alpha);
+  static Color gradientPink(alpha) =>
+      Color(0xFF977DFF).withValues(alpha: alpha);
 }
-
-

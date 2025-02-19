@@ -24,7 +24,8 @@ class PredictionContainer extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: AppColors.coalLight(1.0),
-          body: SingleChildScrollView(
+          body: Container(
+            padding: const EdgeInsets.all(24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 16,

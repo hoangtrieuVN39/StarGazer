@@ -23,6 +23,7 @@ mixin _$CameraEvent {
     required TResult Function() captured,
     required TResult Function() stopped,
     required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
     required TResult Function() openGallery,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,6 +32,7 @@ mixin _$CameraEvent {
     TResult? Function()? captured,
     TResult? Function()? stopped,
     TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
     TResult? Function()? openGallery,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +41,7 @@ mixin _$CameraEvent {
     TResult Function()? captured,
     TResult Function()? stopped,
     TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
     TResult Function()? openGallery,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -49,6 +52,8 @@ mixin _$CameraEvent {
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_CameraLensDirectionChanged value)
     cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
     required TResult Function(_OpenGallery value) openGallery,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +63,8 @@ mixin _$CameraEvent {
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult? Function(_OpenGallery value)? openGallery,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +74,8 @@ mixin _$CameraEvent {
     TResult Function(_Stopped value)? stopped,
     TResult Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult Function(_OpenGallery value)? openGallery,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -141,6 +150,7 @@ class _$InitializedImpl implements _Initialized {
     required TResult Function() captured,
     required TResult Function() stopped,
     required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
     required TResult Function() openGallery,
   }) {
     return initialized();
@@ -153,6 +163,7 @@ class _$InitializedImpl implements _Initialized {
     TResult? Function()? captured,
     TResult? Function()? stopped,
     TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
     TResult? Function()? openGallery,
   }) {
     return initialized?.call();
@@ -165,6 +176,7 @@ class _$InitializedImpl implements _Initialized {
     TResult Function()? captured,
     TResult Function()? stopped,
     TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
     TResult Function()? openGallery,
     required TResult orElse(),
   }) {
@@ -182,6 +194,8 @@ class _$InitializedImpl implements _Initialized {
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_CameraLensDirectionChanged value)
     cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
     required TResult Function(_OpenGallery value) openGallery,
   }) {
     return initialized(this);
@@ -195,6 +209,8 @@ class _$InitializedImpl implements _Initialized {
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult? Function(_OpenGallery value)? openGallery,
   }) {
     return initialized?.call(this);
@@ -208,6 +224,8 @@ class _$InitializedImpl implements _Initialized {
     TResult Function(_Stopped value)? stopped,
     TResult Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult Function(_OpenGallery value)? openGallery,
     required TResult orElse(),
   }) {
@@ -269,6 +287,7 @@ class _$CapturedImpl implements _Captured {
     required TResult Function() captured,
     required TResult Function() stopped,
     required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
     required TResult Function() openGallery,
   }) {
     return captured();
@@ -281,6 +300,7 @@ class _$CapturedImpl implements _Captured {
     TResult? Function()? captured,
     TResult? Function()? stopped,
     TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
     TResult? Function()? openGallery,
   }) {
     return captured?.call();
@@ -293,6 +313,7 @@ class _$CapturedImpl implements _Captured {
     TResult Function()? captured,
     TResult Function()? stopped,
     TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
     TResult Function()? openGallery,
     required TResult orElse(),
   }) {
@@ -310,6 +331,8 @@ class _$CapturedImpl implements _Captured {
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_CameraLensDirectionChanged value)
     cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
     required TResult Function(_OpenGallery value) openGallery,
   }) {
     return captured(this);
@@ -323,6 +346,8 @@ class _$CapturedImpl implements _Captured {
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult? Function(_OpenGallery value)? openGallery,
   }) {
     return captured?.call(this);
@@ -336,6 +361,8 @@ class _$CapturedImpl implements _Captured {
     TResult Function(_Stopped value)? stopped,
     TResult Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult Function(_OpenGallery value)? openGallery,
     required TResult orElse(),
   }) {
@@ -397,6 +424,7 @@ class _$StoppedImpl implements _Stopped {
     required TResult Function() captured,
     required TResult Function() stopped,
     required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
     required TResult Function() openGallery,
   }) {
     return stopped();
@@ -409,6 +437,7 @@ class _$StoppedImpl implements _Stopped {
     TResult? Function()? captured,
     TResult? Function()? stopped,
     TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
     TResult? Function()? openGallery,
   }) {
     return stopped?.call();
@@ -421,6 +450,7 @@ class _$StoppedImpl implements _Stopped {
     TResult Function()? captured,
     TResult Function()? stopped,
     TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
     TResult Function()? openGallery,
     required TResult orElse(),
   }) {
@@ -438,6 +468,8 @@ class _$StoppedImpl implements _Stopped {
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_CameraLensDirectionChanged value)
     cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
     required TResult Function(_OpenGallery value) openGallery,
   }) {
     return stopped(this);
@@ -451,6 +483,8 @@ class _$StoppedImpl implements _Stopped {
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult? Function(_OpenGallery value)? openGallery,
   }) {
     return stopped?.call(this);
@@ -464,6 +498,8 @@ class _$StoppedImpl implements _Stopped {
     TResult Function(_Stopped value)? stopped,
     TResult Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult Function(_OpenGallery value)? openGallery,
     required TResult orElse(),
   }) {
@@ -526,6 +562,7 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
     required TResult Function() captured,
     required TResult Function() stopped,
     required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
     required TResult Function() openGallery,
   }) {
     return cameraLensDirectionChanged();
@@ -538,6 +575,7 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
     TResult? Function()? captured,
     TResult? Function()? stopped,
     TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
     TResult? Function()? openGallery,
   }) {
     return cameraLensDirectionChanged?.call();
@@ -550,6 +588,7 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
     TResult Function()? captured,
     TResult Function()? stopped,
     TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
     TResult Function()? openGallery,
     required TResult orElse(),
   }) {
@@ -567,6 +606,8 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_CameraLensDirectionChanged value)
     cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
     required TResult Function(_OpenGallery value) openGallery,
   }) {
     return cameraLensDirectionChanged(this);
@@ -580,6 +621,8 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult? Function(_OpenGallery value)? openGallery,
   }) {
     return cameraLensDirectionChanged?.call(this);
@@ -593,6 +636,8 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
     TResult Function(_Stopped value)? stopped,
     TResult Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult Function(_OpenGallery value)? openGallery,
     required TResult orElse(),
   }) {
@@ -606,6 +651,145 @@ class _$CameraLensDirectionChangedImpl implements _CameraLensDirectionChanged {
 abstract class _CameraLensDirectionChanged implements CameraEvent {
   const factory _CameraLensDirectionChanged() =
       _$CameraLensDirectionChangedImpl;
+}
+
+/// @nodoc
+abstract class _$$CameraLensDirectionFailureImplCopyWith<$Res> {
+  factory _$$CameraLensDirectionFailureImplCopyWith(
+    _$CameraLensDirectionFailureImpl value,
+    $Res Function(_$CameraLensDirectionFailureImpl) then,
+  ) = __$$CameraLensDirectionFailureImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CameraLensDirectionFailureImplCopyWithImpl<$Res>
+    extends _$CameraEventCopyWithImpl<$Res, _$CameraLensDirectionFailureImpl>
+    implements _$$CameraLensDirectionFailureImplCopyWith<$Res> {
+  __$$CameraLensDirectionFailureImplCopyWithImpl(
+    _$CameraLensDirectionFailureImpl _value,
+    $Res Function(_$CameraLensDirectionFailureImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of CameraEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$CameraLensDirectionFailureImpl implements _CameraLensDirectionFailure {
+  const _$CameraLensDirectionFailureImpl();
+
+  @override
+  String toString() {
+    return 'CameraEvent.cameraLensDirectionFailure()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CameraLensDirectionFailureImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialized,
+    required TResult Function() captured,
+    required TResult Function() stopped,
+    required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
+    required TResult Function() openGallery,
+  }) {
+    return cameraLensDirectionFailure();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialized,
+    TResult? Function()? captured,
+    TResult? Function()? stopped,
+    TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
+    TResult? Function()? openGallery,
+  }) {
+    return cameraLensDirectionFailure?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialized,
+    TResult Function()? captured,
+    TResult Function()? stopped,
+    TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
+    TResult Function()? openGallery,
+    required TResult orElse(),
+  }) {
+    if (cameraLensDirectionFailure != null) {
+      return cameraLensDirectionFailure();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Captured value) captured,
+    required TResult Function(_Stopped value) stopped,
+    required TResult Function(_CameraLensDirectionChanged value)
+    cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
+    required TResult Function(_OpenGallery value) openGallery,
+  }) {
+    return cameraLensDirectionFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_Captured value)? captured,
+    TResult? Function(_Stopped value)? stopped,
+    TResult? Function(_CameraLensDirectionChanged value)?
+    cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
+    TResult? Function(_OpenGallery value)? openGallery,
+  }) {
+    return cameraLensDirectionFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Captured value)? captured,
+    TResult Function(_Stopped value)? stopped,
+    TResult Function(_CameraLensDirectionChanged value)?
+    cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
+    TResult Function(_OpenGallery value)? openGallery,
+    required TResult orElse(),
+  }) {
+    if (cameraLensDirectionFailure != null) {
+      return cameraLensDirectionFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CameraLensDirectionFailure implements CameraEvent {
+  const factory _CameraLensDirectionFailure() =
+      _$CameraLensDirectionFailureImpl;
 }
 
 /// @nodoc
@@ -655,6 +839,7 @@ class _$OpenGalleryImpl implements _OpenGallery {
     required TResult Function() captured,
     required TResult Function() stopped,
     required TResult Function() cameraLensDirectionChanged,
+    required TResult Function() cameraLensDirectionFailure,
     required TResult Function() openGallery,
   }) {
     return openGallery();
@@ -667,6 +852,7 @@ class _$OpenGalleryImpl implements _OpenGallery {
     TResult? Function()? captured,
     TResult? Function()? stopped,
     TResult? Function()? cameraLensDirectionChanged,
+    TResult? Function()? cameraLensDirectionFailure,
     TResult? Function()? openGallery,
   }) {
     return openGallery?.call();
@@ -679,6 +865,7 @@ class _$OpenGalleryImpl implements _OpenGallery {
     TResult Function()? captured,
     TResult Function()? stopped,
     TResult Function()? cameraLensDirectionChanged,
+    TResult Function()? cameraLensDirectionFailure,
     TResult Function()? openGallery,
     required TResult orElse(),
   }) {
@@ -696,6 +883,8 @@ class _$OpenGalleryImpl implements _OpenGallery {
     required TResult Function(_Stopped value) stopped,
     required TResult Function(_CameraLensDirectionChanged value)
     cameraLensDirectionChanged,
+    required TResult Function(_CameraLensDirectionFailure value)
+    cameraLensDirectionFailure,
     required TResult Function(_OpenGallery value) openGallery,
   }) {
     return openGallery(this);
@@ -709,6 +898,8 @@ class _$OpenGalleryImpl implements _OpenGallery {
     TResult? Function(_Stopped value)? stopped,
     TResult? Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult? Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult? Function(_OpenGallery value)? openGallery,
   }) {
     return openGallery?.call(this);
@@ -722,6 +913,8 @@ class _$OpenGalleryImpl implements _OpenGallery {
     TResult Function(_Stopped value)? stopped,
     TResult Function(_CameraLensDirectionChanged value)?
     cameraLensDirectionChanged,
+    TResult Function(_CameraLensDirectionFailure value)?
+    cameraLensDirectionFailure,
     TResult Function(_OpenGallery value)? openGallery,
     required TResult orElse(),
   }) {
@@ -746,6 +939,7 @@ mixin _$CameraState {
   XFile? get image => throw _privateConstructorUsedError;
   CameraLensDirection? get cameraLensDirection =>
       throw _privateConstructorUsedError;
+  bool get cameraLensDirectionFailure => throw _privateConstructorUsedError;
   bool get openGallery => throw _privateConstructorUsedError;
   bool get imageSelected => throw _privateConstructorUsedError;
 
@@ -771,6 +965,7 @@ abstract class $CameraStateCopyWith<$Res> {
     bool cameraFailure,
     XFile? image,
     CameraLensDirection? cameraLensDirection,
+    bool cameraLensDirectionFailure,
     bool openGallery,
     bool imageSelected,
   });
@@ -798,6 +993,7 @@ class _$CameraStateCopyWithImpl<$Res, $Val extends CameraState>
     Object? cameraFailure = null,
     Object? image = freezed,
     Object? cameraLensDirection = freezed,
+    Object? cameraLensDirectionFailure = null,
     Object? openGallery = null,
     Object? imageSelected = null,
   }) {
@@ -838,6 +1034,11 @@ class _$CameraStateCopyWithImpl<$Res, $Val extends CameraState>
                     ? _value.cameraLensDirection
                     : cameraLensDirection // ignore: cast_nullable_to_non_nullable
                         as CameraLensDirection?,
+            cameraLensDirectionFailure:
+                null == cameraLensDirectionFailure
+                    ? _value.cameraLensDirectionFailure
+                    : cameraLensDirectionFailure // ignore: cast_nullable_to_non_nullable
+                        as bool,
             openGallery:
                 null == openGallery
                     ? _value.openGallery
@@ -871,6 +1072,7 @@ abstract class _$$CameraStateImplCopyWith<$Res>
     bool cameraFailure,
     XFile? image,
     CameraLensDirection? cameraLensDirection,
+    bool cameraLensDirectionFailure,
     bool openGallery,
     bool imageSelected,
   });
@@ -897,6 +1099,7 @@ class __$$CameraStateImplCopyWithImpl<$Res>
     Object? cameraFailure = null,
     Object? image = freezed,
     Object? cameraLensDirection = freezed,
+    Object? cameraLensDirectionFailure = null,
     Object? openGallery = null,
     Object? imageSelected = null,
   }) {
@@ -937,6 +1140,11 @@ class __$$CameraStateImplCopyWithImpl<$Res>
                 ? _value.cameraLensDirection
                 : cameraLensDirection // ignore: cast_nullable_to_non_nullable
                     as CameraLensDirection?,
+        cameraLensDirectionFailure:
+            null == cameraLensDirectionFailure
+                ? _value.cameraLensDirectionFailure
+                : cameraLensDirectionFailure // ignore: cast_nullable_to_non_nullable
+                    as bool,
         openGallery:
             null == openGallery
                 ? _value.openGallery
@@ -963,6 +1171,7 @@ class _$CameraStateImpl implements _CameraState {
     this.cameraFailure = false,
     this.image = null,
     this.cameraLensDirection = CameraLensDirection.back,
+    this.cameraLensDirectionFailure = false,
     this.openGallery = false,
     this.imageSelected = false,
   });
@@ -990,6 +1199,9 @@ class _$CameraStateImpl implements _CameraState {
   final CameraLensDirection? cameraLensDirection;
   @override
   @JsonKey()
+  final bool cameraLensDirectionFailure;
+  @override
+  @JsonKey()
   final bool openGallery;
   @override
   @JsonKey()
@@ -997,7 +1209,7 @@ class _$CameraStateImpl implements _CameraState {
 
   @override
   String toString() {
-    return 'CameraState(cameraInitial: $cameraInitial, cameraCaptureInProgress: $cameraCaptureInProgress, cameraCaptureSuccess: $cameraCaptureSuccess, cameraCaptureFailure: $cameraCaptureFailure, cameraFailure: $cameraFailure, image: $image, cameraLensDirection: $cameraLensDirection, openGallery: $openGallery, imageSelected: $imageSelected)';
+    return 'CameraState(cameraInitial: $cameraInitial, cameraCaptureInProgress: $cameraCaptureInProgress, cameraCaptureSuccess: $cameraCaptureSuccess, cameraCaptureFailure: $cameraCaptureFailure, cameraFailure: $cameraFailure, image: $image, cameraLensDirection: $cameraLensDirection, cameraLensDirectionFailure: $cameraLensDirectionFailure, openGallery: $openGallery, imageSelected: $imageSelected)';
   }
 
   @override
@@ -1021,6 +1233,12 @@ class _$CameraStateImpl implements _CameraState {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.cameraLensDirection, cameraLensDirection) ||
                 other.cameraLensDirection == cameraLensDirection) &&
+            (identical(
+                  other.cameraLensDirectionFailure,
+                  cameraLensDirectionFailure,
+                ) ||
+                other.cameraLensDirectionFailure ==
+                    cameraLensDirectionFailure) &&
             (identical(other.openGallery, openGallery) ||
                 other.openGallery == openGallery) &&
             (identical(other.imageSelected, imageSelected) ||
@@ -1037,6 +1255,7 @@ class _$CameraStateImpl implements _CameraState {
     cameraFailure,
     image,
     cameraLensDirection,
+    cameraLensDirectionFailure,
     openGallery,
     imageSelected,
   );
@@ -1059,6 +1278,7 @@ abstract class _CameraState implements CameraState {
     final bool cameraFailure,
     final XFile? image,
     final CameraLensDirection? cameraLensDirection,
+    final bool cameraLensDirectionFailure,
     final bool openGallery,
     final bool imageSelected,
   }) = _$CameraStateImpl;
@@ -1077,6 +1297,8 @@ abstract class _CameraState implements CameraState {
   XFile? get image;
   @override
   CameraLensDirection? get cameraLensDirection;
+  @override
+  bool get cameraLensDirectionFailure;
   @override
   bool get openGallery;
   @override

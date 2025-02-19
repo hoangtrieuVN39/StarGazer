@@ -4,11 +4,12 @@ import 'package:stargazer/features/chat/presentation/chat_page.dart';
 import 'package:stargazer/features/home/presentation/home_page.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 import 'package:stargazer/features/setting/presentation/view/SettingScreen.dart';
+import 'package:stargazer/features/splash/presentations/splash_page.dart';
 import '../constants.dart';
 
 class AppRoutes {
   static const List<String> mainRoutes = [
-    // RouteConstants.splash,
+    RouteConstants.splash,
     RouteConstants.home,
     RouteConstants.setting,
     // RouteConstants.login,
@@ -26,14 +27,10 @@ class AppRoutes {
   ];
 
   static Map<String, Widget Function(BuildContext)> routes = {
-    // case RouteConstants.splash:
-    //   return const SplashPage();
+    RouteConstants.splash: (context) => const SplashPage(),
     RouteConstants.home: (context) => const HomePage(),
-    // case RouteConstants.setting:
-    //   return const SettingPage();
-    // case RouteConstants.login:
-    //   return const LoginPage();
     RouteConstants.setting: (context) => const SettingScreen(),
+    // RouteConstants.login: (context) => const LoginPage(),
     RouteConstants.camera: (context) => const CameraPage(),
     RouteConstants.chat: (context) => const ChatPage(),
   };
@@ -48,8 +45,8 @@ class AppRoutes {
 
   static Widget getPage(String route) {
     switch (route) {
-      // case RouteConstants.splash:
-      //   return const SplashPage();
+      case RouteConstants.splash:
+        return const SplashPage();
       case RouteConstants.home:
         return const HomePage();
       case RouteConstants.setting:
@@ -65,7 +62,7 @@ class AppRoutes {
     }
   }
 
-  static const initialRoute = RouteConstants.home;
+  static const initialRoute = RouteConstants.splash;
 
   static bool isMainRoute(String routeName) {
     return mainRoutes.contains(routeName);
