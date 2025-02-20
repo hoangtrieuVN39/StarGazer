@@ -12,4 +12,7 @@ class RouteConstants {
   //Camera
   static const String face = '/face';
   static const String hand = '/hand';
+
+  // minor screen
+  static const String language = '/language';
 }
