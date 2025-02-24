@@ -15,4 +15,7 @@ class RouteConstants {
 
   //Prediction
   static const String prediction = '/prediction';
+
+  // minor screen
+  static const String language = '/language';
 }
