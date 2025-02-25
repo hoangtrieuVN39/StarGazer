@@ -14,17 +14,6 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  // int? theme = 0;
-  // int? language = 0;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<SettingBloc>().add(const SettingEvent.Initialized());
-  //   setState(() {
-  //     theme = context.read<SettingBloc>().state.theme;
-  //     language = context.read<SettingBloc>().state.language;
-  //   });
-  // }
   int? selectedLanguage;
   @override
   void didChangeDependencies() {
@@ -32,10 +21,15 @@ class _SettingScreenState extends State<SettingScreen> {
     final args = ModalRoute.of(context)?.settings.arguments;
     if (args is int) {
       setState(() {
-        print('received arg ');
         selectedLanguage = args;
       });
     }
+  }
+
+  void yourFunction(int index) {
+    setState(() {
+      selectedLanguage = index;
+    });
   }
 
   @override
@@ -61,19 +55,16 @@ class _SettingScreenState extends State<SettingScreen> {
         create: (content) => SettingBloc(),
         child: BlocConsumer<SettingBloc, SettingState>(
           listener: (context, state) {
-            if (selectedLanguage != null) {
-              context.read<SettingBloc>().add(
-                SettingEvent.LanguageChanged(selectedLanguage!),
-              );
-            }
-            if (selectedLanguage != null &&
-                selectedLanguage != state.language) {
-              print('da thay doi');
+            if (state.language != null && state.language != selectedLanguage) {
+              setState(() {
+                selectedLanguage = state.language;
+              });
             }
           },
           builder: (BuildContext context, SettingState state) {
             if (state.initialization == 0) {
               context.read<SettingBloc>().add(const SettingEvent.Initialized());
+              selectedLanguage = state.language;
             }
             return Container(
               color: Color.fromRGBO(53, 48, 46, 1),
@@ -103,12 +94,23 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RouteConstants.language);
+                          Navigator.pushNamed(
+                            context,
+                            RouteConstants.language,
+                          ).then((result) {
+                            if (result != null) {
+                              context
+                                  .findAncestorStateOfType<
+                                    _SettingScreenState
+                                  >()
+                                  ?.yourFunction(result as int);
+                            }
+                          });
                         },
                         child: Center(
                           child: ListTile(
                             title: Text(
-                              state.language == 0 ? 'English' : 'VietNamese',
+                              selectedLanguage == 0 ? 'English' : 'VietNamese',
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
@@ -137,66 +139,66 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 20),
-                              child: Container(
-                                height: 70,
-                                width: 70,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin:
-                                        Alignment
-                                            .topLeft, // Bắt đầu từ góc trên bên trái
-                                    end:
-                                        Alignment
-                                            .bottomRight, // Kết thúc ở góc dưới bên phải
-                                    colors: [
-                                      Color.fromRGBO(
-                                        242,
-                                        230,
-                                        238,
-                                        1,
-                                      ), // Màu đầu tiên
-                                      Color.fromRGBO(
-                                        151,
-                                        125,
-                                        255,
-                                        1,
-                                      ), // Màu thứ hai
-                                    ],
-                                  ), // Màu nền
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ), // Bo góc
+                        InkWell(
+                          onTap: (){
+                            context.read<SettingBloc>().add(
+                              SettingEvent.ThemeChanged(0),
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Container(
+                                  height: 70,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin:
+                                          Alignment
+                                              .topLeft, // Bắt đầu từ góc trên bên trái
+                                      end:
+                                          Alignment
+                                              .bottomRight, // Kết thúc ở góc dưới bên phải
+                                      colors: [
+                                        Color.fromRGBO(
+                                          242,
+                                          230,
+                                          238,
+                                          1,
+                                        ), // Màu đầu tiên
+                                        Color.fromRGBO(
+                                          151,
+                                          125,
+                                          255,
+                                          1,
+                                        ), // Màu thứ hai
+                                      ],
+                                    ), // Màu nền
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ), // Bo góc
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 20, top: 7),
-                              child: Text(
-                                'Light',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
+                              Padding(
+                                padding: EdgeInsets.only(left: 20, top: 7),
+                                child: Text(
+                                  'Light',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-
-                            Padding(
-                              padding: EdgeInsets.only(left: 20, top: 7),
-                              child:
-                                  state.theme != 0
-                                      ? InkWell(
-                                        onTap: () {
-                                          context.read<SettingBloc>().add(
-                                            SettingEvent.ThemeChanged(0),
-                                          );
-                                        },
-                                        child: Container(
+                          
+                              Padding(
+                                padding: EdgeInsets.only(left: 20, top: 7),
+                                child:
+                                    state.theme != 0
+                                        ? Container(
                                           decoration: BoxDecoration(
                                             shape:
                                                 BoxShape
@@ -215,68 +217,68 @@ class _SettingScreenState extends State<SettingScreen> {
                                               1,
                                             ), // Bán kính của CircleAvatar // Màu nền
                                           ),
+                                        )
+                                        : SvgPicture.asset(
+                                          'lib/assets/svgs/check.svg',
+                                          width: 22.0,
+                                          height: 22.0,
+                                          // ignore: deprecated_member_use
+                                          color: Colors.lightBlue,
                                         ),
-                                      )
-                                      : SvgPicture.asset(
-                                        'lib/assets/svgs/check.svg',
-                                        width: 22.0,
-                                        height: 22.0,
-                                        // ignore: deprecated_member_use
-                                        color: Colors.lightBlue,
-                                      ),
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 40),
-                              child: Container(
-                                height: 70,
-                                width: 70,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin:
-                                        Alignment
-                                            .topLeft, // Bắt đầu từ góc trên bên trái
-                                    end:
-                                        Alignment
-                                            .bottomRight, // Kết thúc ở góc dưới bên phải
-                                    colors: [
-                                      Color(0xFF0033FF), // Màu đầu tiên
-                                      Color(0xFF00033D), // Màu thứ hai
-                                    ],
-                                  ), // Màu nền
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ), // Bo góc
+                        InkWell(
+                          onTap: (){
+                            context.read<SettingBloc>().add(
+                              SettingEvent.ThemeChanged(1),
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 40),
+                                child: Container(
+                                  height: 70,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin:
+                                          Alignment
+                                              .topLeft, // Bắt đầu từ góc trên bên trái
+                                      end:
+                                          Alignment
+                                              .bottomRight, // Kết thúc ở góc dưới bên phải
+                                      colors: [
+                                        Color(0xFF0033FF), // Màu đầu tiên
+                                        Color(0xFF00033D), // Màu thứ hai
+                                      ],
+                                    ), // Màu nền
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ), // Bo góc
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 40, top: 7),
-                              child: Text(
-                                'Dark',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
+                              Padding(
+                                padding: EdgeInsets.only(left: 40, top: 7),
+                                child: Text(
+                                  'Dark',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-
-                            Padding(
-                              padding: EdgeInsets.only(left: 40, top: 7),
-                              child:
-                                  state.theme != 1
-                                      ? InkWell(
-                                        onTap: () {
-                                          context.read<SettingBloc>().add(
-                                            SettingEvent.ThemeChanged(1),
-                                          );
-                                        },
-                                        child: Container(
+                          
+                              Padding(
+                                padding: EdgeInsets.only(left: 40, top: 7),
+                                child:
+                                    state.theme != 1
+                                        ? Container(
                                           decoration: BoxDecoration(
                                             shape:
                                                 BoxShape
@@ -295,17 +297,17 @@ class _SettingScreenState extends State<SettingScreen> {
                                               1,
                                             ), // Bán kính của CircleAvatar // Màu nền
                                           ),
+                                        )
+                                        : SvgPicture.asset(
+                                          'lib/assets/svgs/check.svg',
+                                          width: 22.0,
+                                          height: 22.0,
+                                          // ignore: deprecated_member_use
+                                          color: Colors.lightBlue,
                                         ),
-                                      )
-                                      : SvgPicture.asset(
-                                        'lib/assets/svgs/check.svg',
-                                        width: 22.0,
-                                        height: 22.0,
-                                        // ignore: deprecated_member_use
-                                        color: Colors.lightBlue,
-                                      ),
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

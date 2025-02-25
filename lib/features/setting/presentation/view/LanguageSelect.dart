@@ -32,7 +32,7 @@ class _LanguageSelectState extends State<LanguageSelect> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () {
-                  Navigator.pop(context, index);
+                  Navigator.pop(context,index);
                 },
               ),
               centerTitle: true,
