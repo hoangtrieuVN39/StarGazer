@@ -11,3 +11,17 @@ class TextConstants {
 
   static const List<String> bottomNavigationBarLabels = [camera, chat];
 }
+
+class TextConstants_Vietnam {
+  static const String empty = '';
+
+  static const String camera = 'Máy ảnh';
+  static const String chat = 'Trò chuyện';
+
+  static const String face = 'Khuôn mặt';
+  static const String hand = 'Bàn tay';
+
+  static const String backButtonText = 'Quay lại';
+
+  static const List<String> bottomNavigationBarLabels = [camera, chat];
+}
