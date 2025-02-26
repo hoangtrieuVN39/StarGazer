@@ -16,6 +16,6 @@ class SettingUseCase {
 
   static Future<int> getLanguage() async {
     int language = await SettingLocalDatasource().getLanguage();
-    return language; // Trả về 0 nếu không tồn tại
+    return language; 
   }
 }

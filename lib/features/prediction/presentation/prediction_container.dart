@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:stargazer/features/prediction/presentation/bloc/prediction_bloc.dart';
+import 'package:stargazer/features/setting/presentation/provider/setting_provider.dart';
 
 class PredictionContainer extends StatelessWidget {
   const PredictionContainer({super.key});
@@ -12,7 +14,7 @@ class PredictionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeBloc = context.read<HomeBloc>();
-
+    int text = Provider.of<SettingProvider>(context, listen: false).language;
     return BlocConsumer<PredictionBloc, PredictionState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -29,7 +31,7 @@ class PredictionContainer extends StatelessWidget {
             spacing: 16,
             children: [
               Text(
-                'The Universe is seeking...',
+                text==0?'The Universe is seeking...':'Vũ trụ đang tìm kiếm...',
                 style: TextStyle(color: AppColors.rice(1.0), fontSize: 16),
               ),
               ClipRRect(
@@ -58,7 +60,7 @@ class PredictionContainer extends StatelessWidget {
                           size: 56,
                         ),
                         Text(
-                          'Choose again',
+                          text==0?'Choose again':'Chọn lại',
                           style: TextStyle(
                             color: AppColors.rice(1.0),
                             fontSize: 12,
@@ -78,7 +80,7 @@ class PredictionContainer extends StatelessWidget {
                           size: 56,
                         ),
                         Text(
-                          'Done',
+                          text==0?'Done':'Hoàn thành',
                           style: TextStyle(
                             color: AppColors.rice(1.0),
                             fontSize: 12,
