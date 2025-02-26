@@ -136,33 +136,63 @@ class _HomeContainerState extends State<HomeContainer> {
                     ),
                     user?.name ?? '',
                     () {},
-                    AppColors.rice(1.0)
+                    AppColors.rice(1.0),
                   ),
                   Divider(color: AppColors.rice(0.5), thickness: 2),
                   _sidebarItem(
                     Icon(Icons.home, color: AppColors.rice(1.0), size: 36),
                     'Home',
                     () {},
-                    AppColors.rice(1.0)
+                    AppColors.rice(1.0),
                   ),
                   _sidebarItem(
                     Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
                     'Settings',
                     () {
-                      Navigator.pushNamed(context,RouteConstants.setting );
+                      Navigator.pushNamed(context, RouteConstants.setting);
                     },
                     AppColors.rice(1.0),
-
                   ),
                 ],
               ),
             ),
             Divider(color: AppColors.rice(0.5), thickness: 2),
             _sidebarItem(
-              Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [AppColors.blue(0.5), AppColors.blue(1.0)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Icon(Icons.login, color: AppColors.rice(1.0), size: 28),
+              ),
+              'Login',
+              () {
+                Navigator.pushNamed(context, RouteConstants.login);
+              },
+              AppColors.rice(1.0),
+            ),
+            SizedBox(height: 10), // Add spacing between buttons
+            _sidebarItem(
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [AppColors.red(0.5), AppColors.red(1.0)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Icon(Icons.logout, color: AppColors.rice(1.0), size: 28),
+              ),
               'Logout',
               () {},
-              AppColors.red(1.0)
+              AppColors.red(1.0),
             ),
           ],
         ),
@@ -181,9 +211,9 @@ class _HomeContainerState extends State<HomeContainer> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 12,
         children: [
           leading,
+          SizedBox(width: 10), // Add spacing between icon and text
           Text(title, style: TextStyle(color: color, fontSize: 16)),
         ],
       ),

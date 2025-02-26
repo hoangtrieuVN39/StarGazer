@@ -12,7 +12,7 @@ class AppRoutes {
     RouteConstants.home,
     RouteConstants.setting,
     RouteConstants.language,
-    // RouteConstants.login,
+    RouteConstants.login,
   ];
 
   static const List<String> homeRoutes = [
