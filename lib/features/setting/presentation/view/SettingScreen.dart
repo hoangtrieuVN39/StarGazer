@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:stargazer/core/constants/route_constants.dart';
+import 'package:stargazer/core/constants/text_constants.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/setting/presentation/bloc/setting_bloc.dart';
+import 'package:stargazer/features/setting/presentation/provider/setting_provider.dart';
 
 class SettingScreen extends StatefulWidget {
   final int? index;
@@ -15,16 +18,6 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   int? selectedLanguage;
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args = ModalRoute.of(context)?.settings.arguments;
-    if (args is int) {
-      setState(() {
-        selectedLanguage = args;
-      });
-    }
-  }
 
   void yourFunction(int index) {
     setState(() {
@@ -34,10 +27,12 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic text = Provider.of<SettingProvider>(context, listen: false).language;
+    dynamic theme = Provider.of<SettingProvider>(context).theme; 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color:theme ==1 ? Colors.white : Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -46,36 +41,30 @@ class _SettingScreenState extends State<SettingScreen> {
         actionsPadding: EdgeInsets.symmetric(horizontal: 16),
         toolbarHeight: 80,
         title: Text(
-          'Settings',
-          style: TextStyle(fontSize: 24, color: Colors.white),
+          text == 0 ? TextConstants.setting : TextConstants_Vietnam.setting,
+          style: TextStyle(fontSize: 24, color:theme == 1? Colors.white : Colors.black),
         ),
-        backgroundColor: AppColors.coal(1.0),
+        backgroundColor:theme == 1? AppColors.coal(1.0) : AppColors.rice(0.3),
       ),
       body: BlocProvider(
         create: (content) => SettingBloc(),
         child: BlocConsumer<SettingBloc, SettingState>(
-          listener: (context, state) {
-            if (state.language != null && state.language != selectedLanguage) {
-              setState(() {
-                selectedLanguage = state.language;
-              });
-            }
-          },
+          listener: (context, state) {},
           builder: (BuildContext context, SettingState state) {
             if (state.initialization == 0) {
               context.read<SettingBloc>().add(const SettingEvent.Initialized());
               selectedLanguage = state.language;
             }
             return Container(
-              color: Color.fromRGBO(53, 48, 46, 1),
+              color:theme == 1? Color.fromRGBO(53, 48, 46, 1) : AppColors.white(1.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 10, top: 10),
                     child: Text(
-                      'Language',
-                      style: TextStyle(fontSize: 22, color: Colors.white),
+                      text == 0 ? TextConstants.language : TextConstants_Vietnam.language,
+                      style : TextStyle(fontSize: 22, color:theme ==1 ? Colors.white : Colors.black),
                     ),
                   ),
                   Padding(
@@ -114,12 +103,12 @@ class _SettingScreenState extends State<SettingScreen> {
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color:theme ==1 ? Colors.white: Colors.black,
                               ),
                             ),
                             trailing: Icon(
                               Icons.arrow_forward_ios,
-                              color: Colors.white,
+                              color:theme ==1 ? Colors.white : Colors.black,
                             ),
                           ),
                         ),
@@ -129,8 +118,8 @@ class _SettingScreenState extends State<SettingScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10, top: 10),
                     child: Text(
-                      'Appearance',
-                      style: TextStyle(fontSize: 22, color: Colors.white),
+                      text == 0 ? TextConstants.theme : TextConstants_Vietnam.theme,
+                      style: TextStyle(fontSize: 22, color:theme ==1? Colors.white : Colors.black),
                     ),
                   ),
 
@@ -140,10 +129,14 @@ class _SettingScreenState extends State<SettingScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             context.read<SettingBloc>().add(
                               SettingEvent.ThemeChanged(0),
                             );
+                            Provider.of<SettingProvider>(
+                              context,
+                              listen: false,
+                            ).changeTheme(0);
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -186,14 +179,14 @@ class _SettingScreenState extends State<SettingScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 20, top: 7),
                                 child: Text(
-                                  'Light',
+                                  text==0?'Light':'Nền sáng',
                                   style: TextStyle(
                                     fontSize: 22,
-                                    color: Colors.white,
+                                    color:theme ==1? Colors.white : Colors.black,
                                   ),
                                 ),
                               ),
-                          
+
                               Padding(
                                 padding: EdgeInsets.only(left: 20, top: 7),
                                 child:
@@ -210,12 +203,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                           ),
                                           child: CircleAvatar(
                                             radius: 8,
-                                            backgroundColor: Color.fromRGBO(
+                                            backgroundColor:theme == 1? Color.fromRGBO(
                                               53,
                                               48,
                                               46,
                                               1,
-                                            ), // Bán kính của CircleAvatar // Màu nền
+                                            ) : AppColors.white(0.5), // Bán kính của CircleAvatar // Màu nền
                                           ),
                                         )
                                         : SvgPicture.asset(
@@ -230,10 +223,14 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             context.read<SettingBloc>().add(
                               SettingEvent.ThemeChanged(1),
                             );
+                            Provider.of<SettingProvider>(
+                              context,
+                              listen: false,
+                            ).changeTheme(1);
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -266,14 +263,14 @@ class _SettingScreenState extends State<SettingScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 40, top: 7),
                                 child: Text(
-                                  'Dark',
+                                  text==0?'Dark':'Nền tối',
                                   style: TextStyle(
                                     fontSize: 22,
-                                    color: Colors.white,
+                                    color:theme ==1? Colors.white : Colors.black,
                                   ),
                                 ),
                               ),
-                          
+
                               Padding(
                                 padding: EdgeInsets.only(left: 40, top: 7),
                                 child:
@@ -290,12 +287,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                           ),
                                           child: CircleAvatar(
                                             radius: 8,
-                                            backgroundColor: Color.fromRGBO(
+                                            backgroundColor:theme ==1 ? Color.fromRGBO(
                                               53,
                                               48,
                                               46,
                                               1,
-                                            ), // Bán kính của CircleAvatar // Màu nền
+                                            ) : AppColors.white(0.5), // Bán kính của CircleAvatar // Màu nền
                                           ),
                                         )
                                         : SvgPicture.asset(

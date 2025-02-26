@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:stargazer/core/constants/text_constants.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/setting/presentation/bloc/setting_bloc.dart';
+import 'package:stargazer/features/setting/presentation/provider/setting_provider.dart';
 
 class LanguageSelect extends StatefulWidget {
   const LanguageSelect({super.key});
@@ -30,22 +33,22 @@ class _LanguageSelectState extends State<LanguageSelect> {
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
+                icon: Icon(Icons.arrow_back, color:state.theme == 1 ? Colors.white : Colors.black),
                 onPressed: () {
-                  Navigator.pop(context,index);
+                  Navigator.pop(context, index);
                 },
               ),
               centerTitle: true,
               actionsPadding: EdgeInsets.symmetric(horizontal: 16),
               toolbarHeight: 80,
               title: Text(
-                'Language',
-                style: TextStyle(fontSize: 24, color: Colors.white),
+                Provider.of<SettingProvider>(context, listen: false).language == 0 ? TextConstants.language : TextConstants_Vietnam.language,
+                style: TextStyle(fontSize: 24, color:state.theme == 1? Colors.white : Colors.black),
               ),
-              backgroundColor: AppColors.coal(1.0),
+              backgroundColor:state.theme == 1 ? AppColors.coal(1.0) : AppColors.rice(0.3),
             ),
             body: Container(
-              color: Color.fromRGBO(53, 48, 46, 1),
+              color:state.theme == 1 ? Color.fromRGBO(53, 48, 46, 1) : AppColors.white(0.5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -74,15 +77,19 @@ class _LanguageSelectState extends State<LanguageSelect> {
                           context.read<SettingBloc>().add(
                             SettingEvent.LanguageChanged(0),
                           );
+                          Provider.of<SettingProvider>(
+                            context,
+                            listen: false,
+                          ).changeLanguage(index);
                         },
                         child: Center(
                           child: ListTile(
                             title: Text(
-                              'English',
+                              Provider.of<SettingProvider>(context, listen: false).language == 0 ? TextConstants.english : TextConstants_Vietnam.english,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color:state.theme == 1 ? Colors.white : Colors.black,
                               ),
                             ),
                             trailing:
@@ -99,12 +106,12 @@ class _LanguageSelectState extends State<LanguageSelect> {
                                       ),
                                       child: CircleAvatar(
                                         radius: 8,
-                                        backgroundColor: Color.fromRGBO(
+                                        backgroundColor:state.theme == 1 ? Color.fromRGBO(
                                           53,
                                           48,
                                           46,
                                           1,
-                                        ), // Bán kính của CircleAvatar // Màu nền
+                                        ) : AppColors.white(0.5), // Bán kính của CircleAvatar // Màu nền
                                       ),
                                     )
                                     : SvgPicture.asset(
@@ -139,15 +146,19 @@ class _LanguageSelectState extends State<LanguageSelect> {
                           context.read<SettingBloc>().add(
                             SettingEvent.LanguageChanged(1),
                           );
+                          Provider.of<SettingProvider>(
+                            context,
+                            listen: false,
+                          ).changeLanguage(index);
                         },
                         child: Center(
                           child: ListTile(
                             title: Text(
-                              'VietNamese',
+                              Provider.of<SettingProvider>(context, listen: false).language == 0 ? TextConstants.vietnamese : TextConstants_Vietnam.vietnamese,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color:state.theme == 1 ? Colors.white : Colors.black,
                               ),
                             ),
                             trailing:
@@ -164,12 +175,12 @@ class _LanguageSelectState extends State<LanguageSelect> {
                                       ),
                                       child: CircleAvatar(
                                         radius: 8,
-                                        backgroundColor: Color.fromRGBO(
+                                        backgroundColor:state.theme == 1 ? Color.fromRGBO(
                                           53,
                                           48,
                                           46,
                                           1,
-                                        ), // Bán kính của CircleAvatar // Màu nền
+                                        ) : AppColors.white(0.5), // Bán kính của CircleAvatar // Màu nền
                                       ),
                                     )
                                     : SvgPicture.asset(
