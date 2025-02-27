@@ -7,11 +7,15 @@ import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:stargazer/features/prediction/presentation/bloc/prediction_bloc.dart';
 
 class PredictionContainer extends StatelessWidget {
-  const PredictionContainer({super.key});
+  PredictionContainer({super.key});
+
+  late HomeBloc homeBloc;
+  late PredictionBloc predictionBloc;
 
   @override
   Widget build(BuildContext context) {
-    final homeBloc = context.read<HomeBloc>();
+    homeBloc = context.read<HomeBloc>();
+    predictionBloc = context.read<PredictionBloc>();
 
     return BlocConsumer<PredictionBloc, PredictionState>(
       listener: (context, state) {},
@@ -26,76 +30,122 @@ class PredictionContainer extends StatelessWidget {
           backgroundColor: AppColors.coalLight(1.0),
           body: Container(
             padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 16,
-              children: [
-                Text(
-                  'The Universe is seeking...',
-                  style: TextStyle(color: AppColors.rice(1.0), fontSize: 16),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image.file(
-                    File(state.predictionImage!.path),
-                    width: 320,
-                    height: 320,
-                    fit: BoxFit.cover,
+            child:
+                state.predictionDone
+                    ? _buildPrediction()
+                    : _buildPredictionImage(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildPredictionImage() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 16,
+      children: [
+        Text(
+          'The Universe is seeking...',
+          style: TextStyle(color: AppColors.rice(1.0), fontSize: 16),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: Image.file(
+            File(predictionBloc.state.predictionImage!.path),
+            width: 320,
+            height: 320,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 32,
+          children: [
+            TextButton(
+              style: TextButton.styleFrom(fixedSize: Size(100, 100)),
+              onPressed: () {
+                homeBloc.add(HomeEvent.imageCaptured(null));
+              },
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.arrow_back_rounded,
+                    color: AppColors.rice(1.0),
+                    size: 56,
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 32,
+                  Text(
+                    'Choose again',
+                    style: TextStyle(color: AppColors.rice(1.0), fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(fixedSize: Size(100, 100)),
+              onPressed: () {
+                predictionBloc.add(PredictionEvent.predictionDone());
+              },
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColors.blue(1.0),
+                    size: 56,
+                  ),
+                  Text(
+                    'Done',
+                    style: TextStyle(color: AppColors.rice(1.0), fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPrediction() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 16,
+        children: [
+          Text(
+            predictionBloc.state.prediction,
+            style: TextStyle(color: AppColors.rice(1.0), fontSize: 16),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 32,
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(fixedSize: Size(100, 100)),
+                onPressed: () {
+                  homeBloc.add(HomeEvent.imageCaptured(null));
+                },
+                child: Column(
                   children: [
-                    TextButton(
-                      style: TextButton.styleFrom(fixedSize: Size(100, 100)),
-                      onPressed: () {
-                        homeBloc.add(HomeEvent.imageCaptured(null));
-                      },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.arrow_back_rounded,
-                            color: AppColors.rice(1.0),
-                            size: 56,
-                          ),
-                          Text(
-                            'Choose again',
-                            style: TextStyle(
-                              color: AppColors.rice(1.0),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                    Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColors.rice(1.0),
+                      size: 56,
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(fixedSize: Size(100, 100)),
-                      onPressed: () {},
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.check_circle_rounded,
-                            color: AppColors.blue(1.0),
-                            size: 56,
-                          ),
-                          Text(
-                            'Done',
-                            style: TextStyle(
-                              color: AppColors.rice(1.0),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      'Choose again',
+                      style: TextStyle(
+                        color: AppColors.rice(1.0),
+                        fontSize: 12,
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

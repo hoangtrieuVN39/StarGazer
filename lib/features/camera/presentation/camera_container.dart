@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stargazer/core/core.dart';
 import 'package:stargazer/features/camera/presentation/bloc/camera_bloc.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
-import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class CameraContainer extends StatelessWidget {
   const CameraContainer({super.key});
