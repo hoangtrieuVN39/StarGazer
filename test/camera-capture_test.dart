@@ -13,7 +13,7 @@ void main() {
     });
 
     test('Initial state should be CameraInitial', () {
-      expect(cameraBloc.state.CameraInitial, true);
+      expect(cameraBloc.state.cameraInitial, true);
     });
 
     test('CameraCaptureSuccess should contain image path', () {

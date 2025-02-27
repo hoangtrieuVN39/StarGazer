@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stargazer/features/camera/presentation/camera_page.dart';
 import 'package:stargazer/features/chat/presentation/chat_page.dart';
 import 'package:stargazer/features/home/presentation/home_page.dart';
-import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
+import 'package:stargazer/features/setting/presentation/view/LanguageSelect.dart';
 import 'package:stargazer/features/setting/presentation/view/SettingScreen.dart';
 import 'package:stargazer/features/splash/presentations/splash_page.dart';
 import '../constants.dart';
@@ -12,7 +12,8 @@ class AppRoutes {
     RouteConstants.splash,
     RouteConstants.home,
     RouteConstants.setting,
-    // RouteConstants.login,
+    RouteConstants.language,
+    RouteConstants.login,
   ];
 
   static const List<String> homeRoutes = [
@@ -51,6 +52,8 @@ class AppRoutes {
         return const HomePage();
       case RouteConstants.setting:
         return const SettingScreen();
+      case RouteConstants.language:
+        return const LanguageSelect();
       // case RouteConstants.login:
       //   return const LoginPage();
       case RouteConstants.camera:

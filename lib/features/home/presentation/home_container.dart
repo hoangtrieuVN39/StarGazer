@@ -1,9 +1,7 @@
 import 'dart:math';
-
-import 'package:camera/camera.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:stargazer/core/constants.dart';
 import 'package:stargazer/core/providers.dart';
 import 'package:stargazer/core/routes.dart';
@@ -11,7 +9,7 @@ import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
-import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
+import 'package:stargazer/features/setting/presentation/provider/setting_provider.dart';
 
 class HomeContainer extends StatefulWidget {
   const HomeContainer({super.key});
@@ -27,6 +25,8 @@ class _HomeContainerState extends State<HomeContainer> {
 
   @override
   Widget build(BuildContext context) {
+    int text = Provider.of<SettingProvider>(context).language;
+    int theme = Provider.of<SettingProvider>(context).theme;
     homeBloc = context.read<HomeBloc>();
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
@@ -52,9 +52,9 @@ class _HomeContainerState extends State<HomeContainer> {
                   AppRoutes.getHomePages()[1],
                 ],
               ),
-              bottomNavigationBar: _buildBottomNavigationBar(context),
-              appBar: _buildAppBar(_scaffoldKey),
-              drawer: _sideBar(context),
+              bottomNavigationBar: _buildBottomNavigationBar(context,text,theme),
+              appBar: _buildAppBar(_scaffoldKey , theme),
+              drawer: _sideBar(context,text,theme),
             ),
           ],
         );
@@ -62,14 +62,14 @@ class _HomeContainerState extends State<HomeContainer> {
     );
   }
 
-  _buildAppBar(GlobalKey<ScaffoldState> scaffoldKey) {
+  _buildAppBar(GlobalKey<ScaffoldState> scaffoldKey, int theme) {
     return AppBar(
       centerTitle: true,
       actionsPadding: EdgeInsets.symmetric(horizontal: 16),
       toolbarHeight: 80,
       leading: IconButton(
         onPressed: () => scaffoldKey.currentState!.openDrawer(),
-        icon: Icon(Icons.menu, color: AppColors.rice(1.0)),
+        icon: Icon(Icons.menu, color:theme == 1 ? AppColors.rice(1.0) : Colors.black),
       ),
 
       title: ShaderMask(
@@ -90,13 +90,13 @@ class _HomeContainerState extends State<HomeContainer> {
           icon: CircleAvatar(backgroundImage: NetworkImage(user?.image ?? '')),
         ),
       ],
-      backgroundColor: AppColors.coal(1.0),
+      backgroundColor:theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.3),
     );
   }
 
-  _buildBottomNavigationBar(BuildContext context) {
+  _buildBottomNavigationBar(BuildContext context ,int text, int theme) {
     return Container(
-      color: AppColors.coal(1.0),
+      color:theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.5),
       padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 24),
       child: TabBar(
         controller: homeBloc.tabController,
@@ -109,18 +109,18 @@ class _HomeContainerState extends State<HomeContainer> {
         ),
         dividerHeight: 0,
         indicatorSize: TabBarIndicatorSize.tab,
-        labelColor: AppColors.rice(1.0),
-        unselectedLabelColor: AppColors.rice(1.0),
-        tabs: [Tab(text: 'Fortune teller'), Tab(text: 'Chat')],
+        labelColor:theme == 1 ? AppColors.rice(1.0) : Colors.black,
+        unselectedLabelColor:theme == 1 ? AppColors.rice(1.0) : Colors.black,
+        tabs: [Tab(text:text ==0?'Fortune teller':'Bói toán'), Tab(text:text ==0? 'Chat':'Trò chuyện')],
       ),
     );
   }
 
-  _sideBar(BuildContext context) {
+  _sideBar(BuildContext context,int text , int theme) {
     return Container(
       decoration: BoxDecoration(
         border: Border(right: BorderSide(color: AppColors.rice(0.5), width: 2)),
-        color: AppColors.coal(1.0),
+        color:theme == 1 ? AppColors.coal(1.0) : Colors.white,
       ),
       width: 320,
       child: Padding(
@@ -138,32 +138,36 @@ class _HomeContainerState extends State<HomeContainer> {
                     ),
                     user?.name ?? '',
                     () {},
-                    AppColors.rice(1.0),
+                    theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                    theme
                   ),
                   Divider(color: AppColors.rice(0.5), thickness: 2),
                   _sidebarItem(
-                    Icon(Icons.home, color: AppColors.rice(1.0), size: 36),
-                    'Home',
+                    Icon(Icons.home, color: theme == 1 ? AppColors.rice(1.0) : Colors.black, size: 36),
+                    text==0? 'Home':'Trang chủ',
                     () {},
-                    AppColors.rice(1.0),
+theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                    theme
                   ),
                   _sidebarItem(
-                    Icon(Icons.settings, color: AppColors.rice(1.0), size: 36),
-                    'Settings',
+                    Icon(Icons.settings, color: theme == 1 ? AppColors.rice(1.0) : Colors.black, size: 36),
+                    text==0?'Settings':'Cài đặt',
                     () {
                       Navigator.pushNamed(context, RouteConstants.setting);
                     },
-                    AppColors.rice(1.0),
+theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                    theme
                   ),
                 ],
               ),
             ),
             Divider(color: AppColors.rice(0.5), thickness: 2),
             _sidebarItem(
-              Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
-              'Logout',
-              () {},
+Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
+              text==0?'Logout':'Thoát',
+              () {Navigator.pushNamed(context, RouteConstants.login);},
               AppColors.red(1.0),
+              theme
             ),
           ],
         ),
@@ -171,7 +175,7 @@ class _HomeContainerState extends State<HomeContainer> {
     );
   }
 
-  _sidebarItem(leading, title, onPressed, color) {
+  _sidebarItem(leading, title, onPressed, color , int theme) {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
@@ -182,9 +186,9 @@ class _HomeContainerState extends State<HomeContainer> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 12,
         children: [
           leading,
+          SizedBox(width: 10), // Add spacing between icon and text
           Text(title, style: TextStyle(color: color, fontSize: 16)),
         ],
       ),
