@@ -7,5 +7,7 @@ class CameraEvent with _$CameraEvent {
   const factory CameraEvent.stopped() = _Stopped;
   const factory CameraEvent.cameraLensDirectionChanged() =
       _CameraLensDirectionChanged;
+  const factory CameraEvent.cameraLensDirectionFailure() =
+      _CameraLensDirectionFailure;
   const factory CameraEvent.openGallery() = _OpenGallery;
 }

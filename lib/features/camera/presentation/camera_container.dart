@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stargazer/core/core.dart';
 import 'package:stargazer/features/camera/presentation/bloc/camera_bloc.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
-import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
 
 class CameraContainer extends StatelessWidget {
   const CameraContainer({super.key});
@@ -16,6 +16,15 @@ class CameraContainer extends StatelessWidget {
       listener: (context, state) {
         if (state.image != null) {
           context.read<HomeBloc>().add(HomeEvent.imageCaptured(state.image));
+        }
+        if (state.cameraLensDirectionFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            customSnackBar(
+              'Camera change lens direction failure',
+              backgroundColor: AppColors.red(1.0),
+            ),
+          );
+          cameraBloc.add(const CameraEvent.cameraLensDirectionChanged());
         }
       },
       builder: (context, state) {

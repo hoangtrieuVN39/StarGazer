@@ -56,9 +56,23 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
           cameraLensDirection,
         );
         await cameraController.initialize();
-        emit(state.copyWith(cameraInitial: true));
+        if (cameraController.value.isInitialized) {
+          emit(
+            state.copyWith(
+              cameraInitial: true,
+              cameraLensDirectionFailure: false,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              cameraInitial: false,
+              cameraLensDirectionFailure: true,
+            ),
+          );
+        }
       } catch (e) {
-        emit(state.copyWith(cameraFailure: true));
+        emit(state.copyWith(cameraLensDirectionFailure: true));
       }
     });
 

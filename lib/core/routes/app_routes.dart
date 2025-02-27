@@ -4,11 +4,12 @@ import 'package:stargazer/features/chat/presentation/chat_page.dart';
 import 'package:stargazer/features/home/presentation/home_page.dart';
 import 'package:stargazer/features/setting/presentation/view/LanguageSelect.dart';
 import 'package:stargazer/features/setting/presentation/view/SettingScreen.dart';
+import 'package:stargazer/features/splash/presentations/splash_page.dart';
 import '../constants.dart';
 
 class AppRoutes {
   static const List<String> mainRoutes = [
-    // RouteConstants.splash,
+    RouteConstants.splash,
     RouteConstants.home,
     RouteConstants.setting,
     RouteConstants.language,
@@ -23,7 +24,17 @@ class AppRoutes {
   static const List<String> cameraRoutes = [
     RouteConstants.face,
     RouteConstants.hand,
+    RouteConstants.prediction,
   ];
+
+  static Map<String, Widget Function(BuildContext)> routes = {
+    RouteConstants.splash: (context) => const SplashPage(),
+    RouteConstants.home: (context) => const HomePage(),
+    RouteConstants.setting: (context) => const SettingScreen(),
+    // RouteConstants.login: (context) => const LoginPage(),
+    RouteConstants.camera: (context) => const CameraPage(),
+    RouteConstants.chat: (context) => const ChatPage(),
+  };
 
   static Map<String, WidgetBuilder> getPages() {
     return {for (var route in mainRoutes) route: (context) => getPage(route)};
@@ -35,8 +46,8 @@ class AppRoutes {
 
   static Widget getPage(String route) {
     switch (route) {
-      // case RouteConstants.splash:
-      //   return const SplashPage();
+      case RouteConstants.splash:
+        return const SplashPage();
       case RouteConstants.home:
         return const HomePage();
       case RouteConstants.setting:
@@ -54,5 +65,13 @@ class AppRoutes {
     }
   }
 
-  static const initialRoute = RouteConstants.home;
+  static const initialRoute = RouteConstants.splash;
+
+  static bool isMainRoute(String routeName) {
+    return mainRoutes.contains(routeName);
+  }
+
+  static bool isRootRoute(String routeName) {
+    return homeRoutes.contains(routeName);
+  }
 }
