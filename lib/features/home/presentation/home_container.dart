@@ -146,16 +146,16 @@ class _HomeContainerState extends State<HomeContainer> {
                     Icon(Icons.home, color: theme == 1 ? AppColors.rice(1.0) : Colors.black, size: 36),
                     text==0? 'Home':'Trang chủ',
                     () {},
-                    theme == 1 ? AppColors.rice(1.0) : Colors.black,
+theme == 1 ? AppColors.rice(1.0) : Colors.black,
                     theme
                   ),
                   _sidebarItem(
                     Icon(Icons.settings, color: theme == 1 ? AppColors.rice(1.0) : Colors.black, size: 36),
                     text==0?'Settings':'Cài đặt',
                     () {
-                      Navigator.pushNamed(context,RouteConstants.setting );
+                      Navigator.pushNamed(context, RouteConstants.setting);
                     },
-                    theme == 1 ? AppColors.rice(1.0) : Colors.black,
+theme == 1 ? AppColors.rice(1.0) : Colors.black,
                     theme
                   ),
                 ],
@@ -163,9 +163,9 @@ class _HomeContainerState extends State<HomeContainer> {
             ),
             Divider(color: AppColors.rice(0.5), thickness: 2),
             _sidebarItem(
-              Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
+Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
               text==0?'Logout':'Thoát',
-              () {},
+              () {Navigator.pushNamed(context, RouteConstants.login);},
               AppColors.red(1.0),
               theme
             ),
@@ -186,9 +186,9 @@ class _HomeContainerState extends State<HomeContainer> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 12,
         children: [
           leading,
+          SizedBox(width: 10), // Add spacing between icon and text
           Text(title, style: TextStyle(color: color, fontSize: 16)),
         ],
       ),
