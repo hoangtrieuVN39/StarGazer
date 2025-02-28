@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+
 import 'package:stargazer/features/prediction/domain/usecases/predicting_usecase.dart';
 import 'package:image/image.dart' as img;
-import 'package:tflite_flutter/tflite_flutter.dart';
 
 void main() {
   group('Predicting Tests', () {
