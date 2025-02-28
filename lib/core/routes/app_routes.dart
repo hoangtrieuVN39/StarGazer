@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stargazer/features/camera/presentation/camera_page.dart';
-import 'package:stargazer/features/chat/presentation/chat_page.dart';
+import 'package:stargazer/features/chat/presentation/screens/chat/chat_screen.dart';
+
 import 'package:stargazer/features/home/presentation/home_page.dart';
 import 'package:stargazer/features/setting/presentation/view/LanguageSelect.dart';
 import 'package:stargazer/features/setting/presentation/view/SettingScreen.dart';
@@ -59,7 +60,8 @@ class AppRoutes {
       case RouteConstants.camera:
         return const CameraPage();
       case RouteConstants.chat:
-        return const ChatPage();
+        return ChatScreen();
+
       default:
         throw Exception('Route not found');
     }

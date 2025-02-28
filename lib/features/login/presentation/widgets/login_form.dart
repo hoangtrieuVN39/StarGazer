@@ -90,16 +90,14 @@ class _LoginFormState extends State<LoginForm> {
                   }
 
                   context.read<LoginBloc>().add(
-                    LoginButtonPressed(
-                      email: _usernameController.text,
-
-                      password: _passwordController.text,
-                    ),
-                  );
+                        LoginButtonPressed(
+                          email: _usernameController.text,
+                          password: _passwordController.text,
+                        ),
+                      );
 
                   // Handle login errors (moved to BlocListener)
                 },
-
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
@@ -108,24 +106,23 @@ class _LoginFormState extends State<LoginForm> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child:
-                    state is LoginLoading
-                        ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                        : const Text(
-                          'Continue with StarGazer',
-                          style: TextStyle(
-                            fontFamily: 'SF Pro',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
+                child: state is LoginLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
                         ),
+                      )
+                    : const Text(
+                        'Continue with StarGazer',
+                        style: TextStyle(
+                          fontFamily: 'SF Pro',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
               ),
             ),
             const SizedBox(height: 24),
@@ -135,7 +132,6 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 Navigator.pushNamed(context, '/forgot-password');
               },
-
               child: const Text(
                 'Forgot your password?',
                 style: TextStyle(color: Colors.grey, fontFamily: 'SF Pro'),
