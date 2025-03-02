@@ -1,1 +1,1 @@
-export 'commons/components/dialog.dart';
+export './commons/commons.dart';

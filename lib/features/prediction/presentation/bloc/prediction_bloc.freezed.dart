@@ -21,32 +21,38 @@ mixin _$PredictionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function() predictionMade,
+    required TResult Function() predictionDone,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function()? predictionMade,
+    TResult? Function()? predictionDone,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function()? predictionMade,
+    TResult Function()? predictionDone,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_PredictionMade value) predictionMade,
+    required TResult Function(_PredictionDone value) predictionDone,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_PredictionMade value)? predictionMade,
+    TResult? Function(_PredictionDone value)? predictionDone,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_PredictionMade value)? predictionMade,
+    TResult Function(_PredictionDone value)? predictionDone,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -118,6 +124,7 @@ class _$InitializedImpl implements _Initialized {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function() predictionMade,
+    required TResult Function() predictionDone,
   }) {
     return initialized();
   }
@@ -127,6 +134,7 @@ class _$InitializedImpl implements _Initialized {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function()? predictionMade,
+    TResult? Function()? predictionDone,
   }) {
     return initialized?.call();
   }
@@ -136,6 +144,7 @@ class _$InitializedImpl implements _Initialized {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function()? predictionMade,
+    TResult Function()? predictionDone,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -149,6 +158,7 @@ class _$InitializedImpl implements _Initialized {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_PredictionMade value) predictionMade,
+    required TResult Function(_PredictionDone value) predictionDone,
   }) {
     return initialized(this);
   }
@@ -158,6 +168,7 @@ class _$InitializedImpl implements _Initialized {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_PredictionMade value)? predictionMade,
+    TResult? Function(_PredictionDone value)? predictionDone,
   }) {
     return initialized?.call(this);
   }
@@ -167,6 +178,7 @@ class _$InitializedImpl implements _Initialized {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_PredictionMade value)? predictionMade,
+    TResult Function(_PredictionDone value)? predictionDone,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -225,6 +237,7 @@ class _$PredictionMadeImpl implements _PredictionMade {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function() predictionMade,
+    required TResult Function() predictionDone,
   }) {
     return predictionMade();
   }
@@ -234,6 +247,7 @@ class _$PredictionMadeImpl implements _PredictionMade {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function()? predictionMade,
+    TResult? Function()? predictionDone,
   }) {
     return predictionMade?.call();
   }
@@ -243,6 +257,7 @@ class _$PredictionMadeImpl implements _PredictionMade {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function()? predictionMade,
+    TResult Function()? predictionDone,
     required TResult orElse(),
   }) {
     if (predictionMade != null) {
@@ -256,6 +271,7 @@ class _$PredictionMadeImpl implements _PredictionMade {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_PredictionMade value) predictionMade,
+    required TResult Function(_PredictionDone value) predictionDone,
   }) {
     return predictionMade(this);
   }
@@ -265,6 +281,7 @@ class _$PredictionMadeImpl implements _PredictionMade {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_PredictionMade value)? predictionMade,
+    TResult? Function(_PredictionDone value)? predictionDone,
   }) {
     return predictionMade?.call(this);
   }
@@ -274,6 +291,7 @@ class _$PredictionMadeImpl implements _PredictionMade {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialized value)? initialized,
     TResult Function(_PredictionMade value)? predictionMade,
+    TResult Function(_PredictionDone value)? predictionDone,
     required TResult orElse(),
   }) {
     if (predictionMade != null) {
@@ -288,13 +306,128 @@ abstract class _PredictionMade implements PredictionEvent {
 }
 
 /// @nodoc
+abstract class _$$PredictionDoneImplCopyWith<$Res> {
+  factory _$$PredictionDoneImplCopyWith(
+    _$PredictionDoneImpl value,
+    $Res Function(_$PredictionDoneImpl) then,
+  ) = __$$PredictionDoneImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PredictionDoneImplCopyWithImpl<$Res>
+    extends _$PredictionEventCopyWithImpl<$Res, _$PredictionDoneImpl>
+    implements _$$PredictionDoneImplCopyWith<$Res> {
+  __$$PredictionDoneImplCopyWithImpl(
+    _$PredictionDoneImpl _value,
+    $Res Function(_$PredictionDoneImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of PredictionEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$PredictionDoneImpl implements _PredictionDone {
+  const _$PredictionDoneImpl();
+
+  @override
+  String toString() {
+    return 'PredictionEvent.predictionDone()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PredictionDoneImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialized,
+    required TResult Function() predictionMade,
+    required TResult Function() predictionDone,
+  }) {
+    return predictionDone();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialized,
+    TResult? Function()? predictionMade,
+    TResult? Function()? predictionDone,
+  }) {
+    return predictionDone?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialized,
+    TResult Function()? predictionMade,
+    TResult Function()? predictionDone,
+    required TResult orElse(),
+  }) {
+    if (predictionDone != null) {
+      return predictionDone();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_PredictionMade value) predictionMade,
+    required TResult Function(_PredictionDone value) predictionDone,
+  }) {
+    return predictionDone(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_PredictionMade value)? predictionMade,
+    TResult? Function(_PredictionDone value)? predictionDone,
+  }) {
+    return predictionDone?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_PredictionMade value)? predictionMade,
+    TResult Function(_PredictionDone value)? predictionDone,
+    required TResult orElse(),
+  }) {
+    if (predictionDone != null) {
+      return predictionDone(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PredictionDone implements PredictionEvent {
+  const factory _PredictionDone() = _$PredictionDoneImpl;
+}
+
+/// @nodoc
 mixin _$PredictionState {
   XFile? get image => throw _privateConstructorUsedError;
   XFile? get predictionImage => throw _privateConstructorUsedError;
   String get prediction => throw _privateConstructorUsedError;
+  List<double> get points => throw _privateConstructorUsedError;
   bool get predictionInProgress => throw _privateConstructorUsedError;
   bool get predictionSuccess => throw _privateConstructorUsedError;
   bool get predictionFailure => throw _privateConstructorUsedError;
+  bool get predictionDone => throw _privateConstructorUsedError;
 
   /// Create a copy of PredictionState
   /// with the given fields replaced by the non-null parameter values.
@@ -314,9 +447,11 @@ abstract class $PredictionStateCopyWith<$Res> {
     XFile? image,
     XFile? predictionImage,
     String prediction,
+    List<double> points,
     bool predictionInProgress,
     bool predictionSuccess,
     bool predictionFailure,
+    bool predictionDone,
   });
 }
 
@@ -338,9 +473,11 @@ class _$PredictionStateCopyWithImpl<$Res, $Val extends PredictionState>
     Object? image = freezed,
     Object? predictionImage = freezed,
     Object? prediction = null,
+    Object? points = null,
     Object? predictionInProgress = null,
     Object? predictionSuccess = null,
     Object? predictionFailure = null,
+    Object? predictionDone = null,
   }) {
     return _then(
       _value.copyWith(
@@ -359,6 +496,11 @@ class _$PredictionStateCopyWithImpl<$Res, $Val extends PredictionState>
                     ? _value.prediction
                     : prediction // ignore: cast_nullable_to_non_nullable
                         as String,
+            points:
+                null == points
+                    ? _value.points
+                    : points // ignore: cast_nullable_to_non_nullable
+                        as List<double>,
             predictionInProgress:
                 null == predictionInProgress
                     ? _value.predictionInProgress
@@ -373,6 +515,11 @@ class _$PredictionStateCopyWithImpl<$Res, $Val extends PredictionState>
                 null == predictionFailure
                     ? _value.predictionFailure
                     : predictionFailure // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            predictionDone:
+                null == predictionDone
+                    ? _value.predictionDone
+                    : predictionDone // ignore: cast_nullable_to_non_nullable
                         as bool,
           )
           as $Val,
@@ -393,9 +540,11 @@ abstract class _$$PredictionStateImplCopyWith<$Res>
     XFile? image,
     XFile? predictionImage,
     String prediction,
+    List<double> points,
     bool predictionInProgress,
     bool predictionSuccess,
     bool predictionFailure,
+    bool predictionDone,
   });
 }
 
@@ -416,9 +565,11 @@ class __$$PredictionStateImplCopyWithImpl<$Res>
     Object? image = freezed,
     Object? predictionImage = freezed,
     Object? prediction = null,
+    Object? points = null,
     Object? predictionInProgress = null,
     Object? predictionSuccess = null,
     Object? predictionFailure = null,
+    Object? predictionDone = null,
   }) {
     return _then(
       _$PredictionStateImpl(
@@ -437,6 +588,11 @@ class __$$PredictionStateImplCopyWithImpl<$Res>
                 ? _value.prediction
                 : prediction // ignore: cast_nullable_to_non_nullable
                     as String,
+        points:
+            null == points
+                ? _value._points
+                : points // ignore: cast_nullable_to_non_nullable
+                    as List<double>,
         predictionInProgress:
             null == predictionInProgress
                 ? _value.predictionInProgress
@@ -452,6 +608,11 @@ class __$$PredictionStateImplCopyWithImpl<$Res>
                 ? _value.predictionFailure
                 : predictionFailure // ignore: cast_nullable_to_non_nullable
                     as bool,
+        predictionDone:
+            null == predictionDone
+                ? _value.predictionDone
+                : predictionDone // ignore: cast_nullable_to_non_nullable
+                    as bool,
       ),
     );
   }
@@ -464,10 +625,12 @@ class _$PredictionStateImpl implements _PredictionState {
     this.image = null,
     this.predictionImage = null,
     this.prediction = '',
+    final List<double> points = const [],
     this.predictionInProgress = false,
     this.predictionSuccess = false,
     this.predictionFailure = false,
-  });
+    this.predictionDone = false,
+  }) : _points = points;
 
   @override
   @JsonKey()
@@ -478,6 +641,15 @@ class _$PredictionStateImpl implements _PredictionState {
   @override
   @JsonKey()
   final String prediction;
+  final List<double> _points;
+  @override
+  @JsonKey()
+  List<double> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
+  }
+
   @override
   @JsonKey()
   final bool predictionInProgress;
@@ -487,10 +659,13 @@ class _$PredictionStateImpl implements _PredictionState {
   @override
   @JsonKey()
   final bool predictionFailure;
+  @override
+  @JsonKey()
+  final bool predictionDone;
 
   @override
   String toString() {
-    return 'PredictionState(image: $image, predictionImage: $predictionImage, prediction: $prediction, predictionInProgress: $predictionInProgress, predictionSuccess: $predictionSuccess, predictionFailure: $predictionFailure)';
+    return 'PredictionState(image: $image, predictionImage: $predictionImage, prediction: $prediction, points: $points, predictionInProgress: $predictionInProgress, predictionSuccess: $predictionSuccess, predictionFailure: $predictionFailure, predictionDone: $predictionDone)';
   }
 
   @override
@@ -503,12 +678,15 @@ class _$PredictionStateImpl implements _PredictionState {
                 other.predictionImage == predictionImage) &&
             (identical(other.prediction, prediction) ||
                 other.prediction == prediction) &&
+            const DeepCollectionEquality().equals(other._points, _points) &&
             (identical(other.predictionInProgress, predictionInProgress) ||
                 other.predictionInProgress == predictionInProgress) &&
             (identical(other.predictionSuccess, predictionSuccess) ||
                 other.predictionSuccess == predictionSuccess) &&
             (identical(other.predictionFailure, predictionFailure) ||
-                other.predictionFailure == predictionFailure));
+                other.predictionFailure == predictionFailure) &&
+            (identical(other.predictionDone, predictionDone) ||
+                other.predictionDone == predictionDone));
   }
 
   @override
@@ -517,9 +695,11 @@ class _$PredictionStateImpl implements _PredictionState {
     image,
     predictionImage,
     prediction,
+    const DeepCollectionEquality().hash(_points),
     predictionInProgress,
     predictionSuccess,
     predictionFailure,
+    predictionDone,
   );
 
   /// Create a copy of PredictionState
@@ -539,9 +719,11 @@ abstract class _PredictionState implements PredictionState {
     final XFile? image,
     final XFile? predictionImage,
     final String prediction,
+    final List<double> points,
     final bool predictionInProgress,
     final bool predictionSuccess,
     final bool predictionFailure,
+    final bool predictionDone,
   }) = _$PredictionStateImpl;
 
   @override
@@ -551,11 +733,15 @@ abstract class _PredictionState implements PredictionState {
   @override
   String get prediction;
   @override
+  List<double> get points;
+  @override
   bool get predictionInProgress;
   @override
   bool get predictionSuccess;
   @override
   bool get predictionFailure;
+  @override
+  bool get predictionDone;
 
   /// Create a copy of PredictionState
   /// with the given fields replaced by the non-null parameter values.

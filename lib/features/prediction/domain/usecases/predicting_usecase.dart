@@ -1,144 +1,130 @@
-import 'package:camera/camera.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:image/image.dart' as img;
-import 'dart:io';
-import 'dart:typed_data';
-import 'dart:io' show Platform;
-import 'package:path_provider/path_provider.dart';
-import 'package:stargazer/core/constants.dart';
+import 'dart:math';
 
 class PredictingUsecase {
-  static const imageSize = 224; // Define your model's required image size
-  Interpreter? _interpreter;
-  bool _isInitialized = false;
-
-  Future<void> initialize() async {
-    try {
-      if (!_isInitialized) {
-        _interpreter = await Interpreter.fromAsset(MODEL_PATH);
-        _isInitialized = true;
-      }
-    } catch (e) {
-      print('Error initializing interpreter: $e');
-      rethrow;
-    }
-  }
-
-  Future<XFile> call(XFile imageFile) async {
-    // Check if interpreter is initialized
-    if (!_isInitialized || _interpreter == null) {
-      await initialize();
-    }
-
-    if (_interpreter == null) {
-      throw StateError('Failed to initialize TFLite interpreter');
-    }
-
-    // Read the image file
-    final File file = File(imageFile.path);
-    final bytes = await file.readAsBytes();
-
-    // Decode and preprocess the image
-    final image = img.decodeImage(bytes);
-    if (image == null) throw Exception('Failed to decode image');
-    final processedImage = preprocessImage(image);
-
-    // Reshape the input to match model's expected shape [1, 224, 224, 3]
-    final inputArray = processedImage.reshape([1, imageSize, imageSize, 3]);
-
-    // Get output shape and create output array
-    final outputShape = _interpreter!.getOutputTensor(0).shape;
-    final outputSize = outputShape.reduce((a, b) => a * b);
-    final output = List<double>.filled(outputSize, 0).reshape(outputShape);
-
-    try {
-      _interpreter!.run(inputArray, output);
-      return drawPrediction(imageFile, output);
-    } catch (e) {
-      print('Error during inference: $e');
-      rethrow;
-    }
-  }
-
-  Future<XFile> drawPrediction(XFile image, List<dynamic> prediction) async {
-    final file = File(image.path);
-    final bytes = await file.readAsBytes();
-    final originalImage = img.decodeImage(bytes)!;
-    final originalWidth = originalImage.width;
-    final originalHeight = originalImage.height;
-
-    // Calculate scale factors based on original image size
-    final scaleX = originalWidth / imageSize;
-    final scaleY = originalHeight / imageSize;
-
-    // Process each set of coordinates (x1, y1, x2, y2)
-    for (int i = 0; i + 3 < prediction.length; i += 4) {
-      final x1 = prediction[i] * scaleX;
-      final y1 = prediction[i + 1] * scaleY;
-      final x2 = prediction[i + 2] * scaleX;
-      final y2 = prediction[i + 3] * scaleY;
-
-      // Convert to integers and clamp within image bounds
-      final intX1 = x1.toInt().clamp(0, originalWidth - 1);
-      final intY1 = y1.toInt().clamp(0, originalHeight - 1);
-      final intX2 = x2.toInt().clamp(0, originalWidth - 1);
-      final intY2 = y2.toInt().clamp(0, originalHeight - 1);
-
-      // Draw rectangle with red border
-      img.drawRect(
-        originalImage,
-        x1: intX1,
-        y1: intY1,
-        x2: intX2,
-        y2: intY2,
-        color: img.ColorRgba8(255, 0, 0, 255),
-        thickness: 2,
+  Future<String> call(List<double> prediction) async {
+    if (prediction.length != 30) {
+      throw ArgumentError(
+        'Cần chính xác 30 điểm (3 đường chỉ x 5 điểm x 2 tọa độ)',
       );
     }
 
-    // Save to temporary file
-    final modifiedBytes = img.encodeJpg(originalImage);
-    final tempDir = await getTemporaryDirectory();
-    final tempFile = File(
-      '${tempDir.path}/processed_${DateTime.now().millisecondsSinceEpoch}.jpg',
-    );
-    await tempFile.writeAsBytes(modifiedBytes);
-    return XFile(tempFile.path);
+    final lines = {
+      'heart': HandLine(prediction.sublist(0, 10)),
+      'mind': HandLine(prediction.sublist(10, 20)),
+      'life': HandLine(prediction.sublist(20, 30)),
+    };
+
+    final heartReading = _analyzeHeartLine(lines['heart']!);
+    final mindReading = _analyzeMindLine(lines['mind']!);
+    final lifeReading = _analyzeLifeLine(lines['life']!);
+
+    return '''
+    Đường Tình Duyên: $heartReading
+    Đường Trí Đạo: $mindReading
+    Đường Sinh Mệnh: $lifeReading
+    ''';
   }
 
-  List<double> preprocessImage(img.Image image) {
-    // Resize the image
-    final resizedImage = img.copyResize(
-      image,
-      width: imageSize,
-      height: imageSize,
-    );
+  String _analyzeHeartLine(HandLine line) {
+    final length = line.calculateLength();
+    final curvature = line.calculateCurvature();
+    final branches = line.countBranches();
 
-    // Convert to RGB if needed
-    final rgbImage = img.grayscale(resizedImage);
-
-    // Create input array and normalize pixel values
-    final input = Float32List(1 * imageSize * imageSize * 3);
-    var pixelIndex = 0;
-
-    for (var y = 0; y < imageSize; y++) {
-      for (var x = 0; x < imageSize; x++) {
-        final pixel = rgbImage.getPixel(x, y);
-        // Normalize to [-1, 1] range
-        input[pixelIndex++] = (pixel.r / 255.0) * 2 - 1;
-        input[pixelIndex++] = (pixel.g / 255.0) * 2 - 1;
-        input[pixelIndex++] = (pixel.b / 255.0) * 2 - 1;
-      }
-    }
-    print(input);
-    return input;
+    if (curvature > 0.8) return 'Tình cảm nồng nhiệt, dễ yêu say đắm';
+    if (length > 120) return 'Trái tim nhạy cảm, dễ tổn thương';
+    if (branches > 2) return 'Đa tình, nhiều mối quan hệ phức tạp';
+    return 'Tình cảm ổn định, chung thủy';
   }
 
-  void dispose() {
-    if (_isInitialized) {
-      _interpreter?.close();
-      _interpreter = null;
-      _isInitialized = false;
+  String _analyzeMindLine(HandLine line) {
+    final slope = line.calculateSlope();
+    final straightness = line.calculateStraightness();
+
+    if (slope.abs() > 0.7) return 'Trí tuệ xuất chúng, tư duy sắc bén';
+    if (straightness > 0.9) return 'Thực tế, logic mạnh mẽ';
+    return 'Sáng tạo, trí tưởng tượng phong phú';
+  }
+
+  String _analyzeLifeLine(HandLine line) {
+    final depth = line.calculateDepth();
+    final breaks = line.countBreaks();
+
+    if (depth > 0.9) return 'Sức khỏe dồi dào, trường thọ';
+    if (breaks > 0) return 'Cuộc sống nhiều biến động cần lưu ý';
+    return 'Năng lượng ổn định, sinh lực tốt';
+  }
+}
+
+class HandLine {
+  final List<Point> points;
+
+  HandLine(List<double> coordinates) : points = _parseCoordinates(coordinates);
+
+  static List<Point> _parseCoordinates(List<double> coords) {
+    return List.generate(5, (i) => Point(coords[i * 2], coords[i * 2 + 1]));
+  }
+
+  double calculateLength() => points.first.distanceTo(points.last);
+
+  double calculateSlope() {
+    final deltaX = points.last.x - points.first.x;
+    if (deltaX == 0) return double.infinity;
+    return (points.last.y - points.first.y) / deltaX;
+  }
+
+  double calculateCurvature() {
+    final straightLength = points.first.distanceTo(points.last);
+    final totalLength = calculateTotalLength();
+    return totalLength > 0 ? (totalLength / straightLength) - 1 : 0.0;
+  }
+
+  double calculateTotalLength() {
+    double length = 0.0;
+    for (int i = 0; i < points.length - 1; i++) {
+      length += points[i].distanceTo(points[i + 1]);
     }
+    return length;
+  }
+
+  double calculateStraightness() {
+    final straightLength = points.first.distanceTo(points.last);
+    final totalLength = calculateTotalLength();
+    return totalLength > 0 ? straightLength / totalLength : 1.0;
+  }
+
+  int countBranches() {
+    int count = 0;
+    final avgY = points.map((p) => p.y).reduce((a, b) => a + b) / points.length;
+    for (final p in points) {
+      if (p.y > avgY * 1.2) count++;
+    }
+    return count;
+  }
+
+  int countBreaks() {
+    int breaks = 0;
+    for (int i = 1; i < points.length; i++) {
+      if (points[i].distanceTo(points[i - 1]) > 50) breaks++;
+    }
+    return breaks;
+  }
+
+  double calculateDepth() {
+    final start = points.first;
+    final end = points.last;
+    final midPoint = points[2];
+    final expectedY = (start.y + end.y) / 2;
+    return (midPoint.y - expectedY).abs();
+  }
+}
+
+class Point {
+  final double x;
+  final double y;
+
+  Point(this.x, this.y);
+
+  double distanceTo(Point other) {
+    return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
   }
 }
