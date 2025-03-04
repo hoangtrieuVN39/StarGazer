@@ -34,7 +34,7 @@ class AppRoutes {
     RouteConstants.setting: (context) => const SettingScreen(),
     // RouteConstants.login: (context) => const LoginPage(),
     RouteConstants.camera: (context) => const CameraPage(),
-    RouteConstants.chat: (context) => const ChatPage(),
+    RouteConstants.chat: (context) => ChatScreen(),
   };
 
   static Map<String, WidgetBuilder> getPages() {

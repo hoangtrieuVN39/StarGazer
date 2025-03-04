@@ -4,7 +4,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -61,7 +61,7 @@ flutter:
           weight: 600
 
   assets:
-    - assets/images/
+    - lib/assets/images/
     - lib/assets/
     - lib/assets/svgs/
     - lib/assets/model/
