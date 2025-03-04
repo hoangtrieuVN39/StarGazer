@@ -1,31 +1,14 @@
-import 'dart:convert';
-
-import 'package:stargazer/core/services/data/models/model.dart';
-import 'package:http/http.dart' as http;
-import 'package:stargazer/core/services/domain/entities/user.dart';
+import 'package:stargazer/core/services/data/models/model.dart'; // Keep this import for UserModel
+// Removed unused imports
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'package:stargazer/core/services/domain/entities/user.dart';
 
 abstract class UserRemoteDataSource {
   Future<UserModel> getUser();
 }
 
 class UserRemoteDataSourceImpl extends UserRemoteDataSource {
-  // final http.Client client;
-
-  // UserRemoteDataSourceImpl({required this.client});
-
-  // @override
-  // Future<UserModel> getUser() async {
-  //   final response = await _getUserFromUrl(
-  //     'https://jsonplaceholder.typicode.com/users/1',
-  //   );
-  //   return response;
-  // }
-
-  // Future<UserModel> _getUserFromUrl(String url) async {
-  //   final response = await client.get(Uri.parse(url));
-  //   return UserModel.fromJson(json.decode(response.body));
-  // }
-
   @override
   Future<UserModel> getUser() async {
     return UserModel(

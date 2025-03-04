@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../bloc/login_bloc.dart';
-import '../bloc/login_event.dart';
+
 import '../bloc/login_state.dart';
 import '../widgets/login_form.dart';
 
@@ -134,6 +134,26 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 20),
+
+                // Link to registration screen
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account?",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

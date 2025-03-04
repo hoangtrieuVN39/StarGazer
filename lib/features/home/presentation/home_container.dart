@@ -9,6 +9,8 @@ import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/core/utils/colors.dart';
 import 'package:stargazer/features/home/presentation/bloc/home_bloc.dart';
 import 'package:stargazer/features/prediction/presentation/prediction_page.dart';
+import 'package:stargazer/features/chat/presentation/screens/chat/chat_screen.dart';
+
 import 'package:stargazer/features/setting/presentation/provider/setting_provider.dart';
 
 class HomeContainer extends StatefulWidget {
@@ -49,12 +51,16 @@ class _HomeContainerState extends State<HomeContainer> {
                   state.image == null
                       ? AppRoutes.getHomePages()[0]
                       : PredictionPage(image: state.image!),
-                  AppRoutes.getHomePages()[1],
+                  ChatScreen(),
                 ],
               ),
-              bottomNavigationBar: _buildBottomNavigationBar(context,text,theme),
-              appBar: _buildAppBar(_scaffoldKey , theme),
-              drawer: _sideBar(context,text,theme),
+              bottomNavigationBar: _buildBottomNavigationBar(
+                context,
+                text,
+                theme,
+              ),
+              appBar: _buildAppBar(_scaffoldKey, theme),
+              drawer: _sideBar(context, text, theme),
             ),
           ],
         );
@@ -69,7 +75,10 @@ class _HomeContainerState extends State<HomeContainer> {
       toolbarHeight: 80,
       leading: IconButton(
         onPressed: () => scaffoldKey.currentState!.openDrawer(),
-        icon: Icon(Icons.menu, color:theme == 1 ? AppColors.rice(1.0) : Colors.black),
+        icon: Icon(
+          Icons.menu,
+          color: theme == 1 ? AppColors.rice(1.0) : Colors.black,
+        ),
       ),
 
       title: ShaderMask(
@@ -90,13 +99,13 @@ class _HomeContainerState extends State<HomeContainer> {
           icon: CircleAvatar(backgroundImage: NetworkImage(user?.image ?? '')),
         ),
       ],
-      backgroundColor:theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.3),
+      backgroundColor: theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.3),
     );
   }
 
-  _buildBottomNavigationBar(BuildContext context ,int text, int theme) {
+  _buildBottomNavigationBar(BuildContext context, int text, int theme) {
     return Container(
-      color:theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.5),
+      color: theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.5),
       padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 24),
       child: TabBar(
         controller: homeBloc.tabController,
@@ -109,18 +118,21 @@ class _HomeContainerState extends State<HomeContainer> {
         ),
         dividerHeight: 0,
         indicatorSize: TabBarIndicatorSize.tab,
-        labelColor:theme == 1 ? AppColors.rice(1.0) : Colors.black,
-        unselectedLabelColor:theme == 1 ? AppColors.rice(1.0) : Colors.black,
-        tabs: [Tab(text:text ==0?'Fortune teller':'Bói toán'), Tab(text:text ==0? 'Chat':'Trò chuyện')],
+        labelColor: theme == 1 ? AppColors.rice(1.0) : Colors.black,
+        unselectedLabelColor: theme == 1 ? AppColors.rice(1.0) : Colors.black,
+        tabs: [
+          Tab(text: text == 0 ? 'Fortune teller' : 'Bói toán'),
+          Tab(text: text == 0 ? 'Chat' : 'Trò chuyện'),
+        ],
       ),
     );
   }
 
-  _sideBar(BuildContext context,int text , int theme) {
+  _sideBar(BuildContext context, int text, int theme) {
     return Container(
       decoration: BoxDecoration(
         border: Border(right: BorderSide(color: AppColors.rice(0.5), width: 2)),
-        color:theme == 1 ? AppColors.coal(1.0) : Colors.white,
+        color: theme == 1 ? AppColors.coal(1.0) : Colors.white,
       ),
       width: 320,
       child: Padding(
@@ -139,43 +151,91 @@ class _HomeContainerState extends State<HomeContainer> {
                     user?.name ?? '',
                     () {},
                     theme == 1 ? AppColors.rice(1.0) : Colors.black,
-                    theme
+                    theme,
                   ),
                   Divider(color: AppColors.rice(0.5), thickness: 2),
                   _sidebarItem(
-                    Icon(Icons.home, color: theme == 1 ? AppColors.rice(1.0) : Colors.black, size: 36),
-                    text==0? 'Home':'Trang chủ',
+                    Icon(
+                      Icons.home,
+                      color: theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                      size: 36,
+                    ),
+                    text == 0 ? 'Home' : 'Trang chủ',
                     () {},
-theme == 1 ? AppColors.rice(1.0) : Colors.black,
-                    theme
+                    theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                    theme,
                   ),
                   _sidebarItem(
-                    Icon(Icons.settings, color: theme == 1 ? AppColors.rice(1.0) : Colors.black, size: 36),
-                    text==0?'Settings':'Cài đặt',
+                    Icon(
+                      Icons.settings,
+                      color: theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                      size: 36,
+                    ),
+                    text == 0 ? 'Settings' : 'Cài đặt',
                     () {
                       Navigator.pushNamed(context, RouteConstants.setting);
                     },
-theme == 1 ? AppColors.rice(1.0) : Colors.black,
-                    theme
+                    theme == 1 ? AppColors.rice(1.0) : Colors.black,
+                    theme,
                   ),
                 ],
               ),
             ),
             Divider(color: AppColors.rice(0.5), thickness: 2),
             _sidebarItem(
-Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
-              text==0?'Logout':'Thoát',
-              () {Navigator.pushNamed(context, RouteConstants.login);},
-              AppColors.red(1.0),
-              theme
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [AppColors.blue(0.5), AppColors.blue(1.0)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Icon(Icons.login, color: AppColors.rice(1.0), size: 28),
+              ),
+              'Login',
+              () {
+                Navigator.pushNamed(context, RouteConstants.login);
+              },
+              AppColors.rice(1.0),
+              theme,
             ),
+            SizedBox(height: 10), // Add spacing between buttons
+            _sidebarItem(
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [AppColors.red(0.5), AppColors.red(1.0)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Icon(Icons.logout, color: AppColors.rice(1.0), size: 28),
+              ),
+              'Logout',
+              () {},
+              AppColors.red(1.0),
+              theme,
+            ),
+            //             Divider(color: AppColors.rice(0.5), thickness: 2),
+            //             _sidebarItem(
+            // Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
+            //               text==0?'Logout':'Thoát',
+            //               () {Navigator.pushNamed(context, RouteConstants.login);},
+            //               AppColors.red(1.0),
+            //               theme
+            //             ),
           ],
         ),
       ),
     );
   }
 
-  _sidebarItem(leading, title, onPressed, color , int theme) {
+  _sidebarItem(leading, title, onPressed, color, int theme) {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
