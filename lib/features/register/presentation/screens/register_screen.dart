@@ -96,7 +96,7 @@ class RegisterScreen extends StatelessWidget {
                             'lib/assets/images/google_logo.png', // Path to Google logo
                             height: 24,
                           ),
-                          label: const Text('Login with Google'),
+                          label: const Text('Continue with Google'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: Colors.black,
@@ -118,7 +118,7 @@ class RegisterScreen extends StatelessWidget {
                             'lib/assets/images/apple_logo.png', // Path to Apple logo
                             height: 24,
                           ),
-                          label: const Text('Login with Apple'),
+                          label: const Text('Continue with Apple'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: Colors.black,

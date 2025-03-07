@@ -1,7 +1,6 @@
 import 'package:stargazer/core/services/domain/usecases/send_message.dart';
 import 'package:flutter/material.dart';
 import 'package:stargazer/core/services/domain/entities/chat_message.dart';
-import 'package:stargazer/core/utils/rate_limiter.dart';
 
 class ChatProvider with ChangeNotifier {
   final SendMessage _sendMessage;
@@ -20,8 +19,15 @@ class ChatProvider with ChangeNotifier {
   void _initializeConversation() {
     _addSystemMessage('''
 🔮 Xin chào! Tôi là thầy bói Gemini.
-Để xem chính xác vận mệnh, 
-tôi cần biết thêm thông tin của bạn.
+Để xem chính xác vận mệnh của con, thầy cần biết:
+
+THÔNG TIN CƠ BẢN:
+- Tên của con (Nhớ viết hoa giúp thầy nhé)
+- Năm sinh
+- Giới tính nam/nữ
+
+THÔNG TIN BỔ SUNG:
+- Giờ sinh (nếu nhớ)
 ''');
   }
 
@@ -157,10 +163,15 @@ class ConversationContext {
       _userProfile['birthYear'] = birthYearMatch.group(0);
     }
 
-    // Trích xuất tên
-    final nameMatch = RegExp(r'tên (của )?tôi là (\w+)').firstMatch(message);
-    if (nameMatch != null) {
-      _userProfile['name'] = nameMatch.group(2);
+    // Trích xuất tên - tìm từ viết hoa đầu không chứa số hoặc ký tự đặc biệt
+    var words = message.split(' ');
+    for (var word in words) {
+      if (word.isNotEmpty &&
+          word[0].toUpperCase() == word[0] &&
+          !word.contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
+        _userProfile['name'] = word;
+        break;
+      }
     }
 
     // Trích xuất giới tính
@@ -182,20 +193,42 @@ class ConversationContext {
   }
 
   String generateMissingInformationPrompt() {
-    final missingFields = _userProfile.entries
-        .where((entry) => entry.value == null)
-        .map((entry) => _getFieldDescription(entry.key))
-        .toList();
+    List<String> basicInfo = [];
+    List<String> additionalInfo = [];
 
-    return missingFields.isEmpty
-        ? ''
-        : 'Hãy cho thầy biết con là ai: ${missingFields.join(', ')}';
+    _userProfile.forEach((key, value) {
+      if (value == null) {
+        String field = _getFieldDescription(key);
+        if (key == 'birthTime') {
+          additionalInfo.add(field);
+        } else {
+          basicInfo.add(field);
+        }
+      }
+    });
+
+    if (basicInfo.isEmpty && additionalInfo.isEmpty) return '';
+
+    StringBuffer prompt = StringBuffer('Xin con cho thầy biết:\n\n');
+
+    if (basicInfo.isNotEmpty) {
+      prompt.writeln('THÔNG TIN CẦN THIẾT:');
+      basicInfo.forEach((field) => prompt.writeln('- $field'));
+    }
+
+    if (additionalInfo.isNotEmpty) {
+      if (basicInfo.isNotEmpty) prompt.writeln();
+      prompt.writeln('THÔNG TIN BỔ SUNG:');
+      additionalInfo.forEach((field) => prompt.writeln('- $field'));
+    }
+
+    return prompt.toString();
   }
 
   String _getFieldDescription(String field) {
     switch (field) {
       case 'name':
-        return 'Tên của bạn (theo cấu trúc "Tên tôi là...")';
+        return 'Tên của bạn (Con nhớ viết hoa giúp thầy nhé)';
       case 'birthYear':
         return 'Năm sinh';
       case 'gender':
