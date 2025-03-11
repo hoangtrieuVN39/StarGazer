@@ -4,16 +4,28 @@ import 'package:stargazer/features/login/presentation/bloc/login_bloc.dart';
 import 'package:stargazer/core/core.dart';
 
 class LoginContainer extends StatelessWidget {
-  const LoginContainer({super.key});
+  LoginContainer({super.key});
+
+  late LoginBloc _loginBloc;
+  late UserProvider _userProvider;
 
   @override
   Widget build(BuildContext context) {
+    _loginBloc = context.read<LoginBloc>();
+    _userProvider = context.read<UserProvider>();
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.isSignUpBtnPressed) {
           Navigator.popAndPushNamed(
             context,
             RouteConstants.register,
+          );
+        }
+        if (state.success) {
+          _userProvider.setUser(state.user!);
+          Navigator.popAndPushNamed(
+            context,
+            RouteConstants.home,
           );
         }
       },
@@ -104,6 +116,9 @@ class LoginContainer extends StatelessWidget {
                   color: AppColors.rice(1.0), fontSize: 24),
             ),
             TextField(
+              onChanged: (value) {
+                _loginBloc.add(LoginEvent.emailChanged(value));
+              },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: AppColors.coalLight(1.0),
@@ -120,6 +135,9 @@ class LoginContainer extends StatelessWidget {
               ),
             ),
             TextField(
+              onChanged: (value) {
+                _loginBloc.add(LoginEvent.passwordChanged(value));
+              },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: AppColors.coalLight(1.0),
@@ -136,7 +154,9 @@ class LoginContainer extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _loginBloc.add(LoginEvent.loginButtonPressed());
+              },
               style: TextButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -153,7 +173,9 @@ class LoginContainer extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _loginBloc.add(LoginEvent.onGoogleLoginPressed());
+              },
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

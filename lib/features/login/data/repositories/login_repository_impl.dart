@@ -1,63 +1,27 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:stargazer/core/services/data/models/model.dart';
+import 'package:stargazer/core/services/data/services/firebase_reference.dart';
+import 'package:stargazer/core/services/domain/entities/user.dart';
 import 'package:stargazer/features/login/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
-  final FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
+  final FirebaseReference firebaseReference;
 
-  LoginRepositoryImpl({
-    FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+  LoginRepositoryImpl({required this.firebaseReference});
 
   @override
-  Future<UserCredential> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<User> getUser(String userId) async {
     try {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+      final snapshot = await firebaseReference.getUserByID(userId).get();
+      final userModel = UserModel.fromJson(snapshot.value);
+      final user = User(
+        id: userModel.id,
+        name: userModel.name,
+        email: userModel.email,
+        image: userModel.image,
       );
-      return userCredential;
+      return user;
     } catch (e) {
-      throw Exception('Failed to sign in with email and password: $e');
+      throw Exception(e);
     }
   }
-
-  @override
-  Future<UserCredential> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        throw Exception('Google sign in was cancelled');
-      }
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      return await _firebaseAuth.signInWithCredential(credential);
-    } catch (e) {
-      throw Exception('Failed to sign in with Google: $e');
-    }
-  }
-
-  @override
-  Future<void> signOut() async {
-    await Future.wait([
-      _firebaseAuth.signOut(),
-      _googleSignIn.signOut(),
-    ]);
-  }
-
-  @override
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 }

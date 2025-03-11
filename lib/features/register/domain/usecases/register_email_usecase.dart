@@ -11,7 +11,7 @@ class RegisterEmailUsecase {
           email: email, password: password);
       return credential.user!.uid;
     } catch (e) {
-      return '';
+      throw Exception(e);
     }
   }
 }

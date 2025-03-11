@@ -54,6 +54,8 @@ class RegisterContainer extends StatelessWidget {
                   color: AppColors.rice(1.0), fontSize: 24),
             ),
             TextField(
+              style: AppTexts.SFProRegular(
+                  color: AppColors.rice(1.0), fontSize: 16),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: AppColors.coalLight(1.0),
@@ -73,7 +75,9 @@ class RegisterContainer extends StatelessWidget {
               },
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                _registerBloc.add(RegisterEvent.onSignUpPressed());
+              },
               style: TextButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

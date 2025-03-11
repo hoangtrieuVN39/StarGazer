@@ -37,85 +37,33 @@ class $LoginEventCopyWith<$Res> {
 
 /// @nodoc
 
+class _OnInitial implements LoginEvent {
+  const _OnInitial();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _OnInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'LoginEvent.onInitial()';
+  }
+}
+
+/// @nodoc
+
 class _LoginButtonPressed implements LoginEvent {
-  const _LoginButtonPressed({required this.email, required this.password});
-
-  final String email;
-  final String password;
-
-  /// Create a copy of LoginEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$LoginButtonPressedCopyWith<_LoginButtonPressed> get copyWith =>
-      __$LoginButtonPressedCopyWithImpl<_LoginButtonPressed>(this, _$identity);
+  const _LoginButtonPressed();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _LoginButtonPressed &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, email, password);
-
-  @override
-  String toString() {
-    return 'LoginEvent.loginButtonPressed(email: $email, password: $password)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$LoginButtonPressedCopyWith<$Res>
-    implements $LoginEventCopyWith<$Res> {
-  factory _$LoginButtonPressedCopyWith(
-          _LoginButtonPressed value, $Res Function(_LoginButtonPressed) _then) =
-      __$LoginButtonPressedCopyWithImpl;
-  @useResult
-  $Res call({String email, String password});
-}
-
-/// @nodoc
-class __$LoginButtonPressedCopyWithImpl<$Res>
-    implements _$LoginButtonPressedCopyWith<$Res> {
-  __$LoginButtonPressedCopyWithImpl(this._self, this._then);
-
-  final _LoginButtonPressed _self;
-  final $Res Function(_LoginButtonPressed) _then;
-
-  /// Create a copy of LoginEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? email = null,
-    Object? password = null,
-  }) {
-    return _then(_LoginButtonPressed(
-      email: null == email
-          ? _self.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _self.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _CheckLoginStatus implements LoginEvent {
-  const _CheckLoginStatus();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _CheckLoginStatus);
+        (other.runtimeType == runtimeType && other is _LoginButtonPressed);
   }
 
   @override
@@ -123,19 +71,19 @@ class _CheckLoginStatus implements LoginEvent {
 
   @override
   String toString() {
-    return 'LoginEvent.checkLoginStatus()';
+    return 'LoginEvent.loginButtonPressed()';
   }
 }
 
 /// @nodoc
 
-class _RegisterButtonPressed implements LoginEvent {
-  const _RegisterButtonPressed();
+class _OnGoogleLoginPressed implements LoginEvent {
+  const _OnGoogleLoginPressed();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _RegisterButtonPressed);
+        (other.runtimeType == runtimeType && other is _OnGoogleLoginPressed);
   }
 
   @override
@@ -143,27 +91,7 @@ class _RegisterButtonPressed implements LoginEvent {
 
   @override
   String toString() {
-    return 'LoginEvent.registerButtonPressed()';
-  }
-}
-
-/// @nodoc
-
-class _GoogleLoginRequested implements LoginEvent {
-  const _GoogleLoginRequested();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _GoogleLoginRequested);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  String toString() {
-    return 'LoginEvent.googleLoginRequested()';
+    return 'LoginEvent.onGoogleLoginPressed()';
   }
 }
 
@@ -188,13 +116,143 @@ class _SignUp implements LoginEvent {
 }
 
 /// @nodoc
+
+class _EmailChanged implements LoginEvent {
+  const _EmailChanged(this.email);
+
+  final String email;
+
+  /// Create a copy of LoginEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EmailChangedCopyWith<_EmailChanged> get copyWith =>
+      __$EmailChangedCopyWithImpl<_EmailChanged>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _EmailChanged &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  @override
+  String toString() {
+    return 'LoginEvent.emailChanged(email: $email)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$EmailChangedCopyWith<$Res>
+    implements $LoginEventCopyWith<$Res> {
+  factory _$EmailChangedCopyWith(
+          _EmailChanged value, $Res Function(_EmailChanged) _then) =
+      __$EmailChangedCopyWithImpl;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$EmailChangedCopyWithImpl<$Res>
+    implements _$EmailChangedCopyWith<$Res> {
+  __$EmailChangedCopyWithImpl(this._self, this._then);
+
+  final _EmailChanged _self;
+  final $Res Function(_EmailChanged) _then;
+
+  /// Create a copy of LoginEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_EmailChanged(
+      null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _PasswordChanged implements LoginEvent {
+  const _PasswordChanged(this.password);
+
+  final String password;
+
+  /// Create a copy of LoginEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PasswordChangedCopyWith<_PasswordChanged> get copyWith =>
+      __$PasswordChangedCopyWithImpl<_PasswordChanged>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _PasswordChanged &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, password);
+
+  @override
+  String toString() {
+    return 'LoginEvent.passwordChanged(password: $password)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$PasswordChangedCopyWith<$Res>
+    implements $LoginEventCopyWith<$Res> {
+  factory _$PasswordChangedCopyWith(
+          _PasswordChanged value, $Res Function(_PasswordChanged) _then) =
+      __$PasswordChangedCopyWithImpl;
+  @useResult
+  $Res call({String password});
+}
+
+/// @nodoc
+class __$PasswordChangedCopyWithImpl<$Res>
+    implements _$PasswordChangedCopyWith<$Res> {
+  __$PasswordChangedCopyWithImpl(this._self, this._then);
+
+  final _PasswordChanged _self;
+  final $Res Function(_PasswordChanged) _then;
+
+  /// Create a copy of LoginEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? password = null,
+  }) {
+    return _then(_PasswordChanged(
+      null == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
 mixin _$LoginState {
   bool get loading;
   bool get success;
   bool get failure;
-  bool get googleLoginSuccess;
-  bool get googleLoginFailure;
   bool get isSignUpBtnPressed;
+  User? get user;
+  String get email;
+  String get password;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -211,21 +269,21 @@ mixin _$LoginState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.success, success) || other.success == success) &&
             (identical(other.failure, failure) || other.failure == failure) &&
-            (identical(other.googleLoginSuccess, googleLoginSuccess) ||
-                other.googleLoginSuccess == googleLoginSuccess) &&
-            (identical(other.googleLoginFailure, googleLoginFailure) ||
-                other.googleLoginFailure == googleLoginFailure) &&
             (identical(other.isSignUpBtnPressed, isSignUpBtnPressed) ||
-                other.isSignUpBtnPressed == isSignUpBtnPressed));
+                other.isSignUpBtnPressed == isSignUpBtnPressed) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, loading, success, failure,
-      googleLoginSuccess, googleLoginFailure, isSignUpBtnPressed);
+      isSignUpBtnPressed, user, email, password);
 
   @override
   String toString() {
-    return 'LoginState(loading: $loading, success: $success, failure: $failure, googleLoginSuccess: $googleLoginSuccess, googleLoginFailure: $googleLoginFailure, isSignUpBtnPressed: $isSignUpBtnPressed)';
+    return 'LoginState(loading: $loading, success: $success, failure: $failure, isSignUpBtnPressed: $isSignUpBtnPressed, user: $user, email: $email, password: $password)';
   }
 }
 
@@ -239,9 +297,10 @@ abstract mixin class $LoginStateCopyWith<$Res> {
       {bool loading,
       bool success,
       bool failure,
-      bool googleLoginSuccess,
-      bool googleLoginFailure,
-      bool isSignUpBtnPressed});
+      bool isSignUpBtnPressed,
+      User? user,
+      String email,
+      String password});
 }
 
 /// @nodoc
@@ -259,9 +318,10 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object? loading = null,
     Object? success = null,
     Object? failure = null,
-    Object? googleLoginSuccess = null,
-    Object? googleLoginFailure = null,
     Object? isSignUpBtnPressed = null,
+    Object? user = freezed,
+    Object? email = null,
+    Object? password = null,
   }) {
     return _then(_self.copyWith(
       loading: null == loading
@@ -276,18 +336,22 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as bool,
-      googleLoginSuccess: null == googleLoginSuccess
-          ? _self.googleLoginSuccess
-          : googleLoginSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
-      googleLoginFailure: null == googleLoginFailure
-          ? _self.googleLoginFailure
-          : googleLoginFailure // ignore: cast_nullable_to_non_nullable
-              as bool,
       isSignUpBtnPressed: null == isSignUpBtnPressed
           ? _self.isSignUpBtnPressed
           : isSignUpBtnPressed // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -299,9 +363,10 @@ class _LoginState implements LoginState {
       {this.loading = false,
       this.success = false,
       this.failure = false,
-      this.googleLoginSuccess = false,
-      this.googleLoginFailure = false,
-      this.isSignUpBtnPressed = false});
+      this.isSignUpBtnPressed = false,
+      this.user = null,
+      this.email = '',
+      this.password = ''});
 
   @override
   @JsonKey()
@@ -314,13 +379,16 @@ class _LoginState implements LoginState {
   final bool failure;
   @override
   @JsonKey()
-  final bool googleLoginSuccess;
-  @override
-  @JsonKey()
-  final bool googleLoginFailure;
-  @override
-  @JsonKey()
   final bool isSignUpBtnPressed;
+  @override
+  @JsonKey()
+  final User? user;
+  @override
+  @JsonKey()
+  final String email;
+  @override
+  @JsonKey()
+  final String password;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -338,21 +406,21 @@ class _LoginState implements LoginState {
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.success, success) || other.success == success) &&
             (identical(other.failure, failure) || other.failure == failure) &&
-            (identical(other.googleLoginSuccess, googleLoginSuccess) ||
-                other.googleLoginSuccess == googleLoginSuccess) &&
-            (identical(other.googleLoginFailure, googleLoginFailure) ||
-                other.googleLoginFailure == googleLoginFailure) &&
             (identical(other.isSignUpBtnPressed, isSignUpBtnPressed) ||
-                other.isSignUpBtnPressed == isSignUpBtnPressed));
+                other.isSignUpBtnPressed == isSignUpBtnPressed) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, loading, success, failure,
-      googleLoginSuccess, googleLoginFailure, isSignUpBtnPressed);
+      isSignUpBtnPressed, user, email, password);
 
   @override
   String toString() {
-    return 'LoginState(loading: $loading, success: $success, failure: $failure, googleLoginSuccess: $googleLoginSuccess, googleLoginFailure: $googleLoginFailure, isSignUpBtnPressed: $isSignUpBtnPressed)';
+    return 'LoginState(loading: $loading, success: $success, failure: $failure, isSignUpBtnPressed: $isSignUpBtnPressed, user: $user, email: $email, password: $password)';
   }
 }
 
@@ -368,9 +436,10 @@ abstract mixin class _$LoginStateCopyWith<$Res>
       {bool loading,
       bool success,
       bool failure,
-      bool googleLoginSuccess,
-      bool googleLoginFailure,
-      bool isSignUpBtnPressed});
+      bool isSignUpBtnPressed,
+      User? user,
+      String email,
+      String password});
 }
 
 /// @nodoc
@@ -388,9 +457,10 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
     Object? loading = null,
     Object? success = null,
     Object? failure = null,
-    Object? googleLoginSuccess = null,
-    Object? googleLoginFailure = null,
     Object? isSignUpBtnPressed = null,
+    Object? user = freezed,
+    Object? email = null,
+    Object? password = null,
   }) {
     return _then(_LoginState(
       loading: null == loading
@@ -405,18 +475,22 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as bool,
-      googleLoginSuccess: null == googleLoginSuccess
-          ? _self.googleLoginSuccess
-          : googleLoginSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
-      googleLoginFailure: null == googleLoginFailure
-          ? _self.googleLoginFailure
-          : googleLoginFailure // ignore: cast_nullable_to_non_nullable
-              as bool,
       isSignUpBtnPressed: null == isSignUpBtnPressed
           ? _self.isSignUpBtnPressed
           : isSignUpBtnPressed // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

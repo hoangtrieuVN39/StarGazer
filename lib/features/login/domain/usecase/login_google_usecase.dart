@@ -1,8 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:stargazer/core/services/domain/entities/user.dart';
+import 'package:stargazer/features/login/domain/repositories/login_repository.dart';
 
 class LoginGoogleUsecase {
-  Future<UserCredential> call() async {
+  final LoginRepository loginRepository;
+
+  LoginGoogleUsecase({required this.loginRepository});
+
+  Future<User> call() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -17,6 +23,11 @@ class LoginGoogleUsecase {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final user =
+        await loginRepository.getUser(FirebaseAuth.instance.currentUser!.uid);
+
+    return user;
   }
 }
