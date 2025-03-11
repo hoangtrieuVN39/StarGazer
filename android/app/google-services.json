@@ -8,48 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1050301262511:android:22cd1b15d229d13d21c25a",
-        "android_client_info": {
-          "package_name": "com.example.myapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1050301262511-mtfc0osn7q6nrfbt4fd5b46jindl4h4r.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDarIihCevNnyQEt2lZ-3E7HCFH5MIijLU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1050301262511-mtfc0osn7q6nrfbt4fd5b46jindl4h4r.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1050301262511-9e9plcpco9tcvn8310rfjeuhjg09oqob.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.stargazer"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:1050301262511:android:0a72a27ac94485b021c25a",
         "android_client_info": {
           "package_name": "com.example.stargazer"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1050301262511-ca1jmc1l3rqp1n38p7ldqsdderfggls6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stargazer",
+            "certificate_hash": "101838321986c4c9ec93d7bf4e80cd4268bcd047"
+          }
+        },
         {
           "client_id": "1050301262511-mtfc0osn7q6nrfbt4fd5b46jindl4h4r.apps.googleusercontent.com",
           "client_type": 3
