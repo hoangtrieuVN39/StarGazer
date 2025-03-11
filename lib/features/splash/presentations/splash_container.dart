@@ -13,7 +13,7 @@ class SplashContainer extends StatelessWidget {
     return BlocConsumer<SplashBloc, SplashState>(
       listener: (_, state) {
         if (state.state == true) {
-          Navigator.pushNamed(context, RouteConstants.home);
+          Navigator.popAndPushNamed(context, RouteConstants.login);
         }
       },
       builder: (context, state) {

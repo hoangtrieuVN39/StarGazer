@@ -5,13 +5,11 @@ class UserModel extends User {
     required String id,
     required String name,
     required String email,
-    required String password,
     required String image,
   }) : super(
          id: id,
          name: name,
          email: email,
-         password: password,
          image: image,
        );
 
@@ -20,8 +18,16 @@ class UserModel extends User {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      password: json['password'],
       image: json['image'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'image': image,
+    };
   }
 }

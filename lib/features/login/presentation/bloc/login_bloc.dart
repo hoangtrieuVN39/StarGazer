@@ -1,87 +1,85 @@
-import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stargazer/features/login/domain/repositories/login_repository.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'login_event.dart';
-import 'login_state.dart';
+part 'login_event.dart';
+part 'login_state.dart';
+part 'login_bloc.freezed.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial()) {
-    on<LoginButtonPressed>(_onLoginButtonPressed);
-    on<CheckLoginStatus>(_onCheckLoginStatus);
-    on<LogoutRequested>(_onLogoutRequested);
+  final LoginRepository _loginRepository;
+
+  LoginBloc({required LoginRepository loginRepository})
+      : _loginRepository = loginRepository,
+        super(const LoginState(loading: false)) {
+    on<_CheckLoginStatus>((event, emit) async {
+      _onCheckLoginStatus(event, emit);
+    });
+
+    on<_LoginButtonPressed>((event, emit) async {
+      await _onLoginButtonPressed(event, emit);
+    });
+
+    on<_GoogleLoginRequested>((event, emit) async {
+      await _onGoogleLoginRequested(event, emit);
+    });
+
+    on<_RegisterButtonPressed>((event, emit) async {
+      await _onRegisterButtonPressed(event, emit);
+    });
+
+    on<_SignUp>((event, emit) async {
+      emit(const LoginState(isSignUpBtnPressed: true));
+    });
   }
 
   Future<void> _onLoginButtonPressed(
-    LoginButtonPressed event,
+    _LoginButtonPressed event,
     Emitter<LoginState> emit,
   ) async {
-    emit(LoginLoading());
-
     try {
-      // Simulate API call with delay
-      await Future.delayed(const Duration(seconds: 1));
-
-      // Validate credentials (in a real app, you would check against an API)
-      if (event.email.isNotEmpty && event.password.isNotEmpty) {
-        // Save login info
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('username', event.email);
-        await prefs.setString('email', '${event.email}@example.com');
-        await prefs.setBool('isLoggedIn', true);
-
-        emit(LoginSuccess(message: 'Login successful!'));
-      } else {
-        emit(LoginFailure(error: 'Invalid credentials'));
-      }
+      emit(const LoginState(loading: true));
+      await _loginRepository.signInWithEmailAndPassword(
+        event.email,
+        event.password,
+      );
+      emit(const LoginState(success: true));
     } catch (e) {
-      emit(LoginFailure(error: e.toString()));
+      emit(LoginState(failure: true));
+    }
+  }
+
+  Future<void> _onGoogleLoginRequested(
+    _GoogleLoginRequested event,
+    Emitter<LoginState> emit,
+  ) async {
+    try {
+      emit(const LoginState(loading: true));
+      await _loginRepository.signInWithGoogle();
+      emit(const LoginState(googleLoginSuccess: true));
+    } catch (e) {
+      emit(LoginState(googleLoginFailure: true));
     }
   }
 
   Future<void> _onCheckLoginStatus(
-    CheckLoginStatus event,
+    _CheckLoginStatus event,
     Emitter<LoginState> emit,
   ) async {
-    emit(LoginLoading());
-
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-
-      if (isLoggedIn) {
-        final username = prefs.getString('email');
-
-        final email = prefs.getString('email');
-
-        if (username != null && email != null) {
-          emit(LoginSuccess(message: 'Welcome back, $username!'));
-        } else {
-          emit(LoginInitial());
-        }
+    _loginRepository.authStateChanges.listen((User? user) {
+      if (user != null) {
+        emit(const LoginState(success: true));
       } else {
-        emit(LoginInitial());
+        emit(const LoginState(loading: false));
       }
-    } catch (e) {
-      emit(LoginFailure(error: e.toString()));
-    }
+    });
   }
 
-  Future<void> _onLogoutRequested(
-    LogoutRequested event,
+  Future<void> _onRegisterButtonPressed(
+    _RegisterButtonPressed event,
     Emitter<LoginState> emit,
   ) async {
-    emit(LoginLoading());
-
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', false);
-      await prefs.remove('username');
-      await prefs.remove('email');
-
-      emit(LoginInitial());
-    } catch (e) {
-      emit(LoginFailure(error: e.toString()));
-    }
+    emit(const LoginState(loading: false));
   }
 }

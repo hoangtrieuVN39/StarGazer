@@ -12,14 +12,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (context) => HomeBloc(
-            getUserUseCase: GetUserUseCase(
-              userRepository: UserRepositoryImpl(
-                userRemoteDataSource: UserRemoteDataSourceImpl(),
-              ),
-            ),
+      create: (context) => HomeBloc(
+        getUserUseCase: GetUserUseCase(
+          userRepository: UserRepositoryImpl(
+            userRemoteDataSource: UserRemoteDataSourceImpl(),
           ),
+        ),
+      ),
       child: HomeContainer(),
     );
   }

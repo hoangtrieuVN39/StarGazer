@@ -1,20 +1,13 @@
-import 'package:equatable/equatable.dart';
+part of 'login_bloc.dart';
 
-abstract class LoginEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
+@freezed
+class LoginEvent with _$LoginEvent {
+  const factory LoginEvent.loginButtonPressed({
+    required String email,
+    required String password,
+  }) = _LoginButtonPressed;
+  const factory LoginEvent.checkLoginStatus() = _CheckLoginStatus;
+  const factory LoginEvent.registerButtonPressed() = _RegisterButtonPressed;
+  const factory LoginEvent.googleLoginRequested() = _GoogleLoginRequested;
+  const factory LoginEvent.signUp() = _SignUp;
 }
-
-class LoginButtonPressed extends LoginEvent {
-  final String email;
-  final String password;
-
-  LoginButtonPressed({required this.email, required this.password});
-
-  @override
-  List<Object?> get props => [email, password];
-}
-
-class CheckLoginStatus extends LoginEvent {}
-
-class LogoutRequested extends LoginEvent {}

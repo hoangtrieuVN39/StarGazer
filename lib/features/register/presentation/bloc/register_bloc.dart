@@ -1,28 +1,114 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stargazer/features/register/domain/usecases/email_verification.dart';
+import 'package:stargazer/features/register/domain/usecases/fields_validation_usecase.dart';
+import 'package:stargazer/features/register/domain/usecases/register_email_usecase.dart';
+import 'package:stargazer/features/register/domain/usecases/register_google_usecase.dart';
+import 'package:stargazer/features/register/domain/usecases/signup_sharedprefs_usecase.dart';
+import 'package:stargazer/features/register/domain/usecases/user_create_usecase.dart';
+import 'package:stargazer/features/register/domain/usecases/email_check_verification.dart';
 
-import 'register_event.dart';
-import 'register_state.dart';
+part 'register_event.dart';
+part 'register_state.dart';
+part 'register_bloc.freezed.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  RegisterBloc() : super(RegisterInitial());
+  final RegisterGoogleUsecase registerGoogleUsecase;
+  final RegisterEmailUsecase registerEmailUsecase;
+  final EmailVerificationUsecase emailVerificationUsecase;
+  final UserCreateUsecase userCreateUsecase;
+  final EmailCheckVerificationUsecase emailCheckVerificationUsecase;
+  final SignUpSharedPrefsUsecase signUpSharedPrefsUsecase;
 
-  @override
-  Stream<RegisterState> mapEventToState(RegisterEvent event) async* {
-    if (event is RegisterButtonPressed) {
-      yield RegisterLoading();
+  RegisterBloc({
+    required this.registerGoogleUsecase,
+    required this.registerEmailUsecase,
+    required this.emailVerificationUsecase,
+    required this.userCreateUsecase,
+    required this.emailCheckVerificationUsecase,
+    required this.signUpSharedPrefsUsecase,
+  }) : super(const RegisterState()) {
+    on<_OnGoogleSignUpPressed>((event, emit) async {
+      final credential = await registerGoogleUsecase();
+      final uid = credential[0];
+      final email = credential[1];
+      emit(state.copyWith(
+        isGoogleSignUp: true,
+        email: email,
+        uid: uid,
+      ));
+    });
 
-      try {
-        // Simulate registration process
-        await Future.delayed(Duration(seconds: 2));
-
-        if (event.password != event.confirmPassword) {
-          yield RegisterFailure(error: 'Passwords do not match');
-        } else {
-          yield RegisterSuccess(message: 'Registration successful');
-        }
-      } catch (error) {
-        yield RegisterFailure(error: error.toString());
+    on<_OnEmailSignUpPressed>((event, emit) async {
+      if (FieldsValidationUsecase.call(
+          state.email, state.password, state.name)) {
+        await registerEmailUsecase(state.email, state.password);
+        emit(state.copyWith(isEmailSignUp: true));
+        await emailVerificationUsecase();
+      } else {
+        emit(state.copyWith(isSignUpSuccess: false, isEmailSignUp: false));
       }
-    }
+    });
+
+    on<_OnVerifyEmailPressed>((event, emit) async {
+      final isVerified = await emailCheckVerificationUsecase();
+      if (isVerified.isNotEmpty) {
+        emit(state.copyWith(
+          uid: isVerified,
+        ));
+        await userCreateUsecase(
+          state.uid,
+          state.email,
+          state.name,
+        );
+        add(const _OnSignUpSuccess());
+      } else {
+        emit(state.copyWith(isEmailSignUp: false));
+      }
+    });
+
+    on<_OnPasswordVisibleChanged>((event, emit) {
+      emit(state.copyWith(isPasswordVisible: !state.isPasswordVisible));
+    });
+
+    on<_OnEmailChanged>((event, emit) {
+      emit(state.copyWith(email: event.email));
+    });
+
+    on<_OnPasswordChanged>((event, emit) {
+      emit(state.copyWith(password: event.password));
+    });
+
+    on<_OnNameChanged>((event, emit) {
+      emit(state.copyWith(name: event.name));
+    });
+
+    on<_OnSignUpPressed>((event, emit) async {
+      emit(state.copyWith(name: state.name));
+      if (FieldsValidationUsecase.call(
+          state.email, state.password, state.name)) {
+        await userCreateUsecase(
+          state.uid,
+          state.email,
+          state.name,
+        );
+      }
+      await signUpSharedPrefsUsecase(state.name, state.email);
+      add(const _OnSignUpSuccess());
+    });
+
+    on<_OnSignUpSuccess>((event, emit) async {
+      emit(state.copyWith(
+        isSignUpSuccess: true,
+        isEmailSignUp: false,
+        isGoogleSignUp: false,
+      ));
+      await Future.delayed(const Duration(seconds: 2));
+      emit(state.copyWith(isLogin: true));
+    });
+
+    on<_OnLoginPressed>((event, emit) {
+      emit(state.copyWith(isLoginPressed: true));
+    });
   }
 }
