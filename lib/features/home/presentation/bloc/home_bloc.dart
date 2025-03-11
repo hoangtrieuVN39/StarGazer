@@ -21,8 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc({required this.getUserUseCase}) : super(HomeState()) {
     on<_Initialized>((event, emit) async {
-      final user = await getUserUseCase.call();
-      emit(state.copyWith(index: 0, user: user));
+      emit(state.copyWith(index: 0));
     });
 
     on<_IndexChanged>((event, emit) async {

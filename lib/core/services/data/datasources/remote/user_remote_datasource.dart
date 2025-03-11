@@ -1,23 +1,40 @@
-import 'package:stargazer/core/services/data/models/model.dart'; // Keep this import for UserModel
-// Removed unused imports
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
-// import 'package:stargazer/core/services/domain/entities/user.dart';
+import 'package:stargazer/core/services/data/models/model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class UserRemoteDataSource {
-  Future<UserModel> getUser();
+  Future<UserModel> getUser(String userId);
+  Future<UserModel> addUser(UserModel user);
 }
 
 class UserRemoteDataSourceImpl extends UserRemoteDataSource {
   @override
-  Future<UserModel> getUser() async {
-    return UserModel(
-      id: '1',
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: 'password',
-      image:
-          'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-    );
+  Future<UserModel> getUser(String userId) async {
+    final user = await getUserFirestore(userId);
+    if (user == null) {
+      throw Exception('User not found');
+    }
+    return user;
   }
+
+  @override
+  Future<UserModel> addUser(UserModel user) async {
+    await addUserFirestore(user);
+    return user;
+  }
+}
+
+Future<UserModel?> getUserFirestore(String userId) async {
+  final userDoc = FirebaseFirestore.instance.collection('users').doc(userId);
+  final docSnapshot = await userDoc.get();
+
+  if (docSnapshot.exists) {
+    return UserModel.fromJson(docSnapshot.data() as Map<String, dynamic>);
+  } else {
+    return null;
+  }
+}
+
+Future<void> addUserFirestore(UserModel user) async {
+  final userDoc = FirebaseFirestore.instance.collection('users').doc(user.id);
+  await userDoc.set(user.toJson());
 }

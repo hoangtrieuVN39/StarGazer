@@ -6,7 +6,7 @@ class GetUserUseCase {
 
   GetUserUseCase({required this.userRepository});
 
-  Future<User> call() async {
-    return userRepository.getUser();
+  Future<User> call(String userId) async {
+    return userRepository.getUser(userId);
   }
 }

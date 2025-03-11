@@ -1,7 +1,9 @@
 part of 'prediction_bloc.dart';
 
 @freezed
-class PredictionState with _$PredictionState {
+abstract class PredictionState with _$PredictionState {
+  const PredictionState._();
+
   const factory PredictionState({
     @Default(null) XFile? image,
     @Default(null) XFile? predictionImage,

@@ -1,28 +1,17 @@
-import 'package:equatable/equatable.dart';
+part of 'register_bloc.dart';
 
-abstract class RegisterState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class RegisterInitial extends RegisterState {}
-
-class RegisterLoading extends RegisterState {}
-
-class RegisterSuccess extends RegisterState {
-  final String message;
-
-  RegisterSuccess({required this.message});
-
-  @override
-  List<Object?> get props => [message];
-}
-
-class RegisterFailure extends RegisterState {
-  final String error;
-
-  RegisterFailure({required this.error});
-
-  @override
-  List<Object?> get props => [error];
+@freezed
+abstract class RegisterState with _$RegisterState {
+  const factory RegisterState({
+    @Default('') String email,
+    @Default('') String name,
+    @Default('') String uid,
+    @Default('') String password,
+    @Default(false) bool isPasswordVisible,
+    @Default(false) bool isGoogleSignUp,
+    @Default(false) bool isEmailSignUp,
+    @Default(false) bool isSignUpSuccess,
+    @Default(false) bool isLoginPressed,
+    @Default(false) bool isLogin,
+  }) = _RegisterState;
 }

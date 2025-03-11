@@ -30,13 +30,9 @@ class _HomeContainerState extends State<HomeContainer> {
     int text = Provider.of<SettingProvider>(context).language;
     int theme = Provider.of<SettingProvider>(context).theme;
     homeBloc = context.read<HomeBloc>();
+    user = context.read<UserProvider>().getUser();
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {
-        if (state.user != null && user == null) {
-          user = state.user;
-          context.read<UserProvider>().setUser(user!);
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (user == null) {
           return Center(child: CircularProgressIndicator());
@@ -69,6 +65,9 @@ class _HomeContainerState extends State<HomeContainer> {
   }
 
   _buildAppBar(GlobalKey<ScaffoldState> scaffoldKey, int theme) {
+    ImageProvider image = user?.image.isNotEmpty == true
+        ? NetworkImage(user!.image)
+        : AssetImage('lib/assets/images/logo.png') as ImageProvider;
     return AppBar(
       centerTitle: true,
       actionsPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -80,7 +79,6 @@ class _HomeContainerState extends State<HomeContainer> {
           color: theme == 1 ? AppColors.rice(1.0) : Colors.black,
         ),
       ),
-
       title: ShaderMask(
         shaderCallback: (Rect bounds) {
           return LinearGradient(
@@ -96,7 +94,13 @@ class _HomeContainerState extends State<HomeContainer> {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: CircleAvatar(backgroundImage: NetworkImage(user?.image ?? '')),
+          icon: ClipOval(
+            child: Image(
+              image: image,
+              width: 32,
+              height: 32,
+            ),
+          ),
         ),
       ],
       backgroundColor: theme == 1 ? AppColors.coal(1.0) : AppColors.white(0.3),

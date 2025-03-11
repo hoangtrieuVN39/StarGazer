@@ -10,7 +10,8 @@ part 'prediction_event.dart';
 part 'prediction_state.dart';
 part 'prediction_bloc.freezed.dart';
 
-class PredictionBloc extends Bloc<PredictionEvent, PredictionState> {
+@freezed
+class PredictionBloc extends Bloc<PredictionEvent, PredictionState> with _$PredictionBloc {
   XFile? image;
   PredictingImageUsecase predictingImageUsecase;
   PredictingUsecase predictingUsecase;

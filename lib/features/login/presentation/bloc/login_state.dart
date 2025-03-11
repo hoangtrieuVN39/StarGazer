@@ -1,28 +1,13 @@
-import 'package:equatable/equatable.dart';
+part of 'login_bloc.dart';
 
-abstract class LoginState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class LoginInitial extends LoginState {}
-
-class LoginLoading extends LoginState {}
-
-class LoginSuccess extends LoginState {
-  final String message;
-
-  LoginSuccess({required this.message});
-
-  @override
-  List<Object?> get props => [message];
-}
-
-class LoginFailure extends LoginState {
-  final String error;
-
-  LoginFailure({required this.error});
-
-  @override
-  List<Object?> get props => [error];
+@freezed
+abstract class LoginState with _$LoginState {
+  const factory LoginState(
+      {@Default(false) bool loading,
+      @Default(false) bool success,
+      @Default(false) bool failure,
+      @Default(false) bool isSignUpBtnPressed,
+      @Default(null) User? user,
+      @Default('') String email,
+      @Default('') String password}) = _LoginState;
 }

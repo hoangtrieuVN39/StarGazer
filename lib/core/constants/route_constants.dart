@@ -4,6 +4,7 @@ class RouteConstants {
   static const String home = '/home';
   static const String setting = '/setting';
   static const String login = '/login';
+  static const String register = '/register';
 
   //Home
   static const String camera = '/camera';
