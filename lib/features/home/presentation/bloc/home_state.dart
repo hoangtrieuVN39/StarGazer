@@ -6,5 +6,6 @@ abstract class HomeState with _$HomeState {
     @Default(1) int index,
     @Default(null) User? user,
     @Default(null) XFile? image,
+    @Default(false) bool isLogoutPressed,
   }) = _HomeState;
 }

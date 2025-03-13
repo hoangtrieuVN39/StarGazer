@@ -370,6 +370,26 @@ class _OnPasswordVisibleChanged implements RegisterEvent {
 }
 
 /// @nodoc
+
+class _OnInitial implements RegisterEvent {
+  const _OnInitial();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _OnInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'RegisterEvent.onInitial()';
+  }
+}
+
+/// @nodoc
 mixin _$RegisterState {
   String get email;
   String get name;

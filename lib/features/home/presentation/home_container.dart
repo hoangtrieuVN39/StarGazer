@@ -32,7 +32,11 @@ class _HomeContainerState extends State<HomeContainer> {
     homeBloc = context.read<HomeBloc>();
     user = context.read<UserProvider>().getUser();
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.isLogoutPressed) {
+          Navigator.popAndPushNamed(context, RouteConstants.login);
+        }
+      },
       builder: (context, state) {
         if (user == null) {
           return Center(child: CircularProgressIndicator());
@@ -133,6 +137,9 @@ class _HomeContainerState extends State<HomeContainer> {
   }
 
   _sideBar(BuildContext context, int text, int theme) {
+    ImageProvider image = user?.image.isNotEmpty == true
+        ? NetworkImage(user!.image)
+        : AssetImage('lib/assets/images/logo.png') as ImageProvider;
     return Container(
       decoration: BoxDecoration(
         border: Border(right: BorderSide(color: AppColors.rice(0.5), width: 2)),
@@ -149,7 +156,7 @@ class _HomeContainerState extends State<HomeContainer> {
                 children: [
                   _sidebarItem(
                     CircleAvatar(
-                      backgroundImage: NetworkImage(user?.image ?? ''),
+                      backgroundImage: image,
                       radius: 18,
                     ),
                     user?.name ?? '',
@@ -192,27 +199,6 @@ class _HomeContainerState extends State<HomeContainer> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
-                    colors: [AppColors.blue(0.5), AppColors.blue(1.0)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Icon(Icons.login, color: AppColors.rice(1.0), size: 28),
-              ),
-              'Login',
-              () {
-                Navigator.pushNamed(context, RouteConstants.login);
-              },
-              AppColors.rice(1.0),
-              theme,
-            ),
-            SizedBox(height: 10), // Add spacing between buttons
-            _sidebarItem(
-              Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
                     colors: [AppColors.red(0.5), AppColors.red(1.0)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -221,18 +207,12 @@ class _HomeContainerState extends State<HomeContainer> {
                 child: Icon(Icons.logout, color: AppColors.rice(1.0), size: 28),
               ),
               'Logout',
-              () {},
+              () {
+                homeBloc.add(HomeEvent.logoutPressed());
+              },
               AppColors.red(1.0),
               theme,
             ),
-            //             Divider(color: AppColors.rice(0.5), thickness: 2),
-            //             _sidebarItem(
-            // Icon(Icons.logout, color: AppColors.red(1.0), size: 36),
-            //               text==0?'Logout':'Thoát',
-            //               () {Navigator.pushNamed(context, RouteConstants.login);},
-            //               AppColors.red(1.0),
-            //               theme
-            //             ),
           ],
         ),
       ),

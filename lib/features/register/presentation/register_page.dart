@@ -20,8 +20,10 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final id = getRouteId(context);
     return BlocProvider(
       create: (context) => RegisterBloc(
+        id: id,
         emailCheckVerificationUsecase: EmailCheckVerificationUsecase(
           firebaseAuth: FirebaseAuth.instance,
         ),
@@ -46,5 +48,16 @@ class RegisterPage extends StatelessWidget {
       ),
       child: RegisterContainer(),
     );
+  }
+
+  String? getRouteId(BuildContext context) {
+    final routeArgs = ModalRoute.of(context)?.settings.arguments;
+    if (routeArgs is String) {
+      return routeArgs;
+    }
+    if (routeArgs is Map<String, String>) {
+      return routeArgs['id'];
+    }
+    return null;
   }
 }

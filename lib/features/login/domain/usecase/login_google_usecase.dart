@@ -8,7 +8,7 @@ class LoginGoogleUsecase {
 
   LoginGoogleUsecase({required this.loginRepository});
 
-  Future<User> call() async {
+  Future<Map<String, String>> call() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -25,9 +25,9 @@ class LoginGoogleUsecase {
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
 
-    final user =
-        await loginRepository.getUser(FirebaseAuth.instance.currentUser!.uid);
-
-    return user;
+    return {
+      'id': FirebaseAuth.instance.currentUser!.uid,
+      'email': FirebaseAuth.instance.currentUser!.email!,
+    };
   }
 }

@@ -19,8 +19,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserCreateUsecase userCreateUsecase;
   final EmailCheckVerificationUsecase emailCheckVerificationUsecase;
   final SaveSharedPrefsUsecase saveSharedPrefsUsecase;
+  final String? id;
 
   RegisterBloc({
+    required this.id,
     required this.registerGoogleUsecase,
     required this.registerEmailUsecase,
     required this.emailVerificationUsecase,
@@ -79,7 +81,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<_OnSignUpPressed>((event, emit) async {
       emit(state.copyWith(name: state.name));
       if (FieldsValidationUsecase.validateName(
-
         state.name,
       )) {
         await userCreateUsecase(state.uid, state.email, state.name);
@@ -104,5 +105,13 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<_OnLoginPressed>((event, emit) {
       emit(state.copyWith(isLoginPressed: true));
     });
+
+    on<_OnInitial>((event, emit) {
+      if (id != null) {
+        emit(state.copyWith(uid: id!, isGoogleSignUp: true));
+      }
+    });
+
+    add(const _OnInitial());
   }
 }

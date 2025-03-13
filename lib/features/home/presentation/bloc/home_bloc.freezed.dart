@@ -247,10 +247,31 @@ class __$ImageCapturedCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
+class _LogoutPressed implements HomeEvent {
+  const _LogoutPressed();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _LogoutPressed);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HomeEvent.logoutPressed()';
+  }
+}
+
+/// @nodoc
 mixin _$HomeState {
   int get index;
   User? get user;
   XFile? get image;
+  bool get isLogoutPressed;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -266,15 +287,18 @@ mixin _$HomeState {
             other is HomeState &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.isLogoutPressed, isLogoutPressed) ||
+                other.isLogoutPressed == isLogoutPressed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, user, image);
+  int get hashCode =>
+      Object.hash(runtimeType, index, user, image, isLogoutPressed);
 
   @override
   String toString() {
-    return 'HomeState(index: $index, user: $user, image: $image)';
+    return 'HomeState(index: $index, user: $user, image: $image, isLogoutPressed: $isLogoutPressed)';
   }
 }
 
@@ -283,7 +307,7 @@ abstract mixin class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) =
       _$HomeStateCopyWithImpl;
   @useResult
-  $Res call({int index, User? user, XFile? image});
+  $Res call({int index, User? user, XFile? image, bool isLogoutPressed});
 }
 
 /// @nodoc
@@ -301,6 +325,7 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     Object? index = null,
     Object? user = freezed,
     Object? image = freezed,
+    Object? isLogoutPressed = null,
   }) {
     return _then(_self.copyWith(
       index: null == index
@@ -315,6 +340,10 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
               as XFile?,
+      isLogoutPressed: null == isLogoutPressed
+          ? _self.isLogoutPressed
+          : isLogoutPressed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -322,7 +351,11 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
 /// @nodoc
 
 class _HomeState implements HomeState {
-  const _HomeState({this.index = 1, this.user = null, this.image = null});
+  const _HomeState(
+      {this.index = 1,
+      this.user = null,
+      this.image = null,
+      this.isLogoutPressed = false});
 
   @override
   @JsonKey()
@@ -333,6 +366,9 @@ class _HomeState implements HomeState {
   @override
   @JsonKey()
   final XFile? image;
+  @override
+  @JsonKey()
+  final bool isLogoutPressed;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -349,15 +385,18 @@ class _HomeState implements HomeState {
             other is _HomeState &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.isLogoutPressed, isLogoutPressed) ||
+                other.isLogoutPressed == isLogoutPressed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index, user, image);
+  int get hashCode =>
+      Object.hash(runtimeType, index, user, image, isLogoutPressed);
 
   @override
   String toString() {
-    return 'HomeState(index: $index, user: $user, image: $image)';
+    return 'HomeState(index: $index, user: $user, image: $image, isLogoutPressed: $isLogoutPressed)';
   }
 }
 
@@ -369,7 +408,7 @@ abstract mixin class _$HomeStateCopyWith<$Res>
       __$HomeStateCopyWithImpl;
   @override
   @useResult
-  $Res call({int index, User? user, XFile? image});
+  $Res call({int index, User? user, XFile? image, bool isLogoutPressed});
 }
 
 /// @nodoc
@@ -387,6 +426,7 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
     Object? index = null,
     Object? user = freezed,
     Object? image = freezed,
+    Object? isLogoutPressed = null,
   }) {
     return _then(_HomeState(
       index: null == index
@@ -401,6 +441,10 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
           ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
               as XFile?,
+      isLogoutPressed: null == isLogoutPressed
+          ? _self.isLogoutPressed
+          : isLogoutPressed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

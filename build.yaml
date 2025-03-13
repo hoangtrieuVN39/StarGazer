@@ -1,12 +1,1 @@
-targets:
-  $default:
-    builders:
-      freezed:
-        generate_for:
-          include:
-            - lib/features/login/presentation/bloc/login_bloc.dart
-            - lib/features/login/presentation/bloc/login_event.dart
-            - lib/features/login/presentation/bloc/login_state.dart
-            - lib/features/register/presentation/bloc/register_bloc.dart
-            - lib/features/register/presentation/bloc/register_event.dart
-            - lib/features/register/presentation/bloc/register_state.dart 
+
