@@ -5,12 +5,19 @@ import 'package:stargazer/features/login/domain/repositories/login_repository.da
 
 class LoginGoogleUsecase {
   final LoginRepository loginRepository;
+  final FirebaseAuth auth;
+  final GoogleSignIn googleSignIn;
 
-  LoginGoogleUsecase({required this.loginRepository});
+  LoginGoogleUsecase({
+    required this.loginRepository,
+    FirebaseAuth? auth,
+    GoogleSignIn? googleSignIn,
+  })  : this.auth = auth ?? FirebaseAuth.instance,
+        this.googleSignIn = googleSignIn ?? GoogleSignIn();
 
   Future<Map<String, String>> call() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
@@ -23,11 +30,11 @@ class LoginGoogleUsecase {
     );
 
     // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    await auth.signInWithCredential(credential);
 
     return {
-      'id': FirebaseAuth.instance.currentUser!.uid,
-      'email': FirebaseAuth.instance.currentUser!.email!,
+      'id': auth.currentUser!.uid,
+      'email': auth.currentUser!.email!,
     };
   }
 }

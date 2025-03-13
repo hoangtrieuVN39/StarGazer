@@ -27,12 +27,14 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    dynamic text = Provider.of<SettingProvider>(context, listen: false).language;
-    dynamic theme = Provider.of<SettingProvider>(context).theme; 
+    dynamic text =
+        Provider.of<SettingProvider>(context, listen: false).language;
+    dynamic theme = Provider.of<SettingProvider>(context).theme;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color:theme ==1 ? Colors.white : Colors.black),
+          icon: Icon(Icons.arrow_back,
+              color: theme == 1 ? Colors.white : Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -42,9 +44,10 @@ class _SettingScreenState extends State<SettingScreen> {
         toolbarHeight: 80,
         title: Text(
           text == 0 ? TextConstants.setting : TextConstants_Vietnam.setting,
-          style: TextStyle(fontSize: 24, color:theme == 1? Colors.white : Colors.black),
+          style: TextStyle(
+              fontSize: 24, color: theme == 1 ? Colors.white : Colors.black),
         ),
-        backgroundColor:theme == 1? AppColors.coal(1.0) : AppColors.rice(0.3),
+        backgroundColor: theme == 1 ? AppColors.coal(1.0) : AppColors.rice(0.3),
       ),
       body: BlocProvider(
         create: (content) => SettingBloc(),
@@ -56,15 +59,21 @@ class _SettingScreenState extends State<SettingScreen> {
               selectedLanguage = state.language;
             }
             return Container(
-              color:theme == 1? Color.fromRGBO(53, 48, 46, 1) : AppColors.white(1.0),
+              color: theme == 1
+                  ? Color.fromRGBO(53, 48, 46, 1)
+                  : AppColors.white(1.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 10, top: 10),
                     child: Text(
-                      text == 0 ? TextConstants.language : TextConstants_Vietnam.language,
-                      style : TextStyle(fontSize: 22, color:theme ==1 ? Colors.white : Colors.black),
+                      text == 0
+                          ? TextConstants.language
+                          : TextConstants_Vietnam.language,
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: theme == 1 ? Colors.white : Colors.black),
                     ),
                   ),
                   Padding(
@@ -90,8 +99,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             if (result != null) {
                               context
                                   .findAncestorStateOfType<
-                                    _SettingScreenState
-                                  >()
+                                      _SettingScreenState>()
                                   ?.yourFunction(result as int);
                             }
                           });
@@ -103,12 +111,12 @@ class _SettingScreenState extends State<SettingScreen> {
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color:theme ==1 ? Colors.white: Colors.black,
+                                color: theme == 1 ? Colors.white : Colors.black,
                               ),
                             ),
                             trailing: Icon(
                               Icons.arrow_forward_ios,
-                              color:theme ==1 ? Colors.white : Colors.black,
+                              color: theme == 1 ? Colors.white : Colors.black,
                             ),
                           ),
                         ),
@@ -118,11 +126,14 @@ class _SettingScreenState extends State<SettingScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 10, top: 10),
                     child: Text(
-                      text == 0 ? TextConstants.theme : TextConstants_Vietnam.theme,
-                      style: TextStyle(fontSize: 22, color:theme ==1? Colors.white : Colors.black),
+                      text == 0
+                          ? TextConstants.theme
+                          : TextConstants_Vietnam.theme,
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: theme == 1 ? Colors.white : Colors.black),
                     ),
                   ),
-
                   Padding(
                     padding: EdgeInsets.only(left: 10, top: 10),
                     child: Row(
@@ -131,8 +142,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         InkWell(
                           onTap: () {
                             context.read<SettingBloc>().add(
-                              SettingEvent.ThemeChanged(0),
-                            );
+                                  SettingEvent.ThemeChanged(0),
+                                );
                             Provider.of<SettingProvider>(
                               context,
                               listen: false,
@@ -149,12 +160,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   width: 70,
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
-                                      begin:
-                                          Alignment
-                                              .topLeft, // Bắt đầu từ góc trên bên trái
-                                      end:
-                                          Alignment
-                                              .bottomRight, // Kết thúc ở góc dưới bên phải
+                                      begin: Alignment
+                                          .topLeft, // Bắt đầu từ góc trên bên trái
+                                      end: Alignment
+                                          .bottomRight, // Kết thúc ở góc dưới bên phải
                                       colors: [
                                         Color.fromRGBO(
                                           242,
@@ -179,45 +188,42 @@ class _SettingScreenState extends State<SettingScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 20, top: 7),
                                 child: Text(
-                                  text==0?'Light':'Nền sáng',
+                                  text == 0 ? 'Light' : 'Nền sáng',
                                   style: TextStyle(
                                     fontSize: 22,
-                                    color:theme ==1? Colors.white : Colors.black,
+                                    color: theme == 1
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                               ),
-
                               Padding(
                                 padding: EdgeInsets.only(left: 20, top: 7),
-                                child:
-                                    state.theme != 0
-                                        ? Container(
-                                          decoration: BoxDecoration(
-                                            shape:
-                                                BoxShape
-                                                    .circle, // Đảm bảo hình dạng là hình tròn
-                                            border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1,
-                                            ), // Viền màu xám
-                                          ),
-                                          child: CircleAvatar(
-                                            radius: 8,
-                                            backgroundColor:theme == 1? Color.fromRGBO(
-                                              53,
-                                              48,
-                                              46,
-                                              1,
-                                            ) : AppColors.white(0.5), // Bán kính của CircleAvatar // Màu nền
-                                          ),
-                                        )
-                                        : SvgPicture.asset(
-                                          'lib/assets/svgs/check.svg',
-                                          width: 22.0,
-                                          height: 22.0,
-                                          // ignore: deprecated_member_use
-                                          color: Colors.lightBlue,
+                                child: state.theme != 0
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape
+                                              .circle, // Đảm bảo hình dạng là hình tròn
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                            width: 1,
+                                          ), // Viền màu xám
                                         ),
+                                        child: CircleAvatar(
+                                          radius: 8,
+                                          backgroundColor: theme == 1
+                                              ? AppColors.coal(1.0)
+                                              : AppColors.white(
+                                                  0.5), // Bán kính của CircleAvatar // Màu nền
+                                        ),
+                                      )
+                                    : SvgPicture.asset(
+                                        'lib/assets/svgs/check.svg',
+                                        width: 22.0,
+                                        height: 22.0,
+                                        // ignore: deprecated_member_use
+                                        color: Colors.lightBlue,
+                                      ),
                               ),
                             ],
                           ),
@@ -225,8 +231,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         InkWell(
                           onTap: () {
                             context.read<SettingBloc>().add(
-                              SettingEvent.ThemeChanged(1),
-                            );
+                                  SettingEvent.ThemeChanged(1),
+                                );
                             Provider.of<SettingProvider>(
                               context,
                               listen: false,
@@ -243,12 +249,10 @@ class _SettingScreenState extends State<SettingScreen> {
                                   width: 70,
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
-                                      begin:
-                                          Alignment
-                                              .topLeft, // Bắt đầu từ góc trên bên trái
-                                      end:
-                                          Alignment
-                                              .bottomRight, // Kết thúc ở góc dưới bên phải
+                                      begin: Alignment
+                                          .topLeft, // Bắt đầu từ góc trên bên trái
+                                      end: Alignment
+                                          .bottomRight, // Kết thúc ở góc dưới bên phải
                                       colors: [
                                         Color(0xFF0033FF), // Màu đầu tiên
                                         Color(0xFF00033D), // Màu thứ hai
@@ -263,45 +267,47 @@ class _SettingScreenState extends State<SettingScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 40, top: 7),
                                 child: Text(
-                                  text==0?'Dark':'Nền tối',
+                                  text == 0 ? 'Dark' : 'Nền tối',
                                   style: TextStyle(
                                     fontSize: 22,
-                                    color:theme ==1? Colors.white : Colors.black,
+                                    color: theme == 1
+                                        ? Colors.white
+                                        : Colors.black,
                                   ),
                                 ),
                               ),
-
                               Padding(
                                 padding: EdgeInsets.only(left: 40, top: 7),
-                                child:
-                                    state.theme != 1
-                                        ? Container(
-                                          decoration: BoxDecoration(
-                                            shape:
-                                                BoxShape
-                                                    .circle, // Đảm bảo hình dạng là hình tròn
-                                            border: Border.all(
-                                              color: Colors.grey,
-                                              width: 1,
-                                            ), // Viền màu xám
-                                          ),
-                                          child: CircleAvatar(
-                                            radius: 8,
-                                            backgroundColor:theme ==1 ? Color.fromRGBO(
-                                              53,
-                                              48,
-                                              46,
-                                              1,
-                                            ) : AppColors.white(0.5), // Bán kính của CircleAvatar // Màu nền
-                                          ),
-                                        )
-                                        : SvgPicture.asset(
-                                          'lib/assets/svgs/check.svg',
-                                          width: 22.0,
-                                          height: 22.0,
-                                          // ignore: deprecated_member_use
-                                          color: Colors.lightBlue,
+                                child: state.theme != 1
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape
+                                              .circle, // Đảm bảo hình dạng là hình tròn
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                            width: 1,
+                                          ), // Viền màu xám
                                         ),
+                                        child: CircleAvatar(
+                                          radius: 8,
+                                          backgroundColor: theme == 1
+                                              ? Color.fromRGBO(
+                                                  53,
+                                                  48,
+                                                  46,
+                                                  1,
+                                                )
+                                              : AppColors.white(
+                                                  0.5), // Bán kính của CircleAvatar // Màu nền
+                                        ),
+                                      )
+                                    : SvgPicture.asset(
+                                        'lib/assets/svgs/check.svg',
+                                        width: 22.0,
+                                        height: 22.0,
+                                        // ignore: deprecated_member_use
+                                        color: Colors.lightBlue,
+                                      ),
                               ),
                             ],
                           ),

@@ -3,10 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stargazer/core/services/data/services/remove_sharedprefs_usecase.dart';
 import 'package:stargazer/core/services/data/services/save_sharedprefs_usecase.dart';
 import 'package:stargazer/core/services/domain/entities/user.dart';
-import 'package:stargazer/core/services/domain/usecases/get_user_usecase.dart';
-import 'package:stargazer/features/login/data/repositories/login_repository_impl.dart';
-import 'package:stargazer/features/login/domain/repositories/login_repository.dart';
-import 'package:stargazer/features/login/domain/usecase/auth_state_change_usecase.dart';
 import 'package:stargazer/features/login/domain/usecase/login_email_usecase.dart';
 import 'package:stargazer/features/login/domain/usecase/login_google_usecase.dart';
 import 'package:stargazer/features/login/domain/usecase/login_sharedprefs_usecase.dart';
@@ -20,7 +16,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginGoogleUsecase loginGoogleUsecase;
   final LoginEmailUsecase loginEmailUsecase;
   final LoginSharedPrefsUsecase loginSharedPrefsUsecase;
-  final AuthStateChangeUsecase authStateChangeUsecase;
   final SaveSharedPrefsUsecase saveSharedPrefsUsecase;
   final RemoveSharedPrefsUsecase removeSharedPrefsUsecase;
   final UserGetUsecase userGetUsecase;
@@ -31,7 +26,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     required this.loginGoogleUsecase,
     required this.loginEmailUsecase,
     required this.loginSharedPrefsUsecase,
-    required this.authStateChangeUsecase,
     required this.saveSharedPrefsUsecase,
   }) : super(const LoginState(loading: false)) {
     on<_OnInitial>((event, emit) async {
