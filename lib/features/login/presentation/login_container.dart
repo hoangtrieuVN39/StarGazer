@@ -152,6 +152,8 @@ class LoginContainer extends StatelessWidget {
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
+              style: AppTexts.SFProRegular(
+                  color: AppColors.rice(1.0), fontSize: 16),
             ),
             TextField(
               onChanged: (value) {
@@ -171,6 +173,8 @@ class LoginContainer extends StatelessWidget {
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
+              style: AppTexts.SFProRegular(
+                  color: AppColors.rice(1.0), fontSize: 16),
             ),
             TextButton(
               onPressed: () {
