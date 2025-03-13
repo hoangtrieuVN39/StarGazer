@@ -9,10 +9,7 @@ class CameraUtils {
     CameraLensDirection cameraLensDirection,
   ) async {
     final cameras = await availableCameras();
-    final camera = cameras.firstWhere(
-      (camera) => camera.lensDirection == cameraLensDirection,
-    );
-
+    final camera = cameras.first;
     return CameraController(camera, resolutionPreset, enableAudio: false);
   }
 
