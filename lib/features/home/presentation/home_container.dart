@@ -194,19 +194,12 @@ class _HomeContainerState extends State<HomeContainer> {
             ),
             Divider(color: AppColors.rice(0.5), thickness: 2),
             _sidebarItem(
-              Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [AppColors.red(0.5), AppColors.red(1.0)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Icon(Icons.logout, color: AppColors.rice(1.0), size: 28),
+              Icon(
+                Icons.logout,
+                color: AppColors.red(1.0),
+                size: 36,
               ),
-              'Logout',
+              text == 0 ? 'Logout' : 'Đăng xuất',
               () {
                 homeBloc.add(HomeEvent.logoutPressed());
               },
