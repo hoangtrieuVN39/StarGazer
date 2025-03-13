@@ -7,6 +7,8 @@ Widget hiển thị một tin nhắn:
 import 'package:flutter/material.dart';
 import 'package:stargazer/core/services/domain/entities/chat_message.dart';
 
+import '../../../../../../core/core.dart';
+
 class CustomChatBubble extends StatelessWidget {
   final ChatMessage message;
 
@@ -16,33 +18,14 @@ class CustomChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: message.isUser ? 50 : 16,
-        right: message.isUser ? 16 : 50,
+        left: message.isUser ? 64 : 16,
+        right: message.isUser ? 16 : 64,
         bottom: 16,
       ),
       child: Container(
         decoration: BoxDecoration(
-          gradient: message.isUser
-              ? LinearGradient(
-                  colors: [Colors.purple.shade400, Colors.purple.shade500],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
-          color: message.isUser ? null : Colors.grey.shade800,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(message.isUser ? 20 : 0),
-            bottomRight: Radius.circular(message.isUser ? 0 : 20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: Offset(0, 2),
-            ),
-          ],
+          color: message.isUser ? AppColors.rice(0.25) : AppColors.blue(1.0),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -52,7 +35,7 @@ class CustomChatBubble extends StatelessWidget {
               Text(
                 message.text,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white(1.0),
                   fontSize: 15,
                   height: 1.4,
                 ),
