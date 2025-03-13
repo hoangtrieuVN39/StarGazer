@@ -3,14 +3,18 @@ import 'package:stargazer/features/login/domain/repositories/login_repository.da
 
 class LoginEmailUsecase {
   final LoginRepository loginRepository;
+  final FirebaseAuth auth;
 
-  LoginEmailUsecase({required this.loginRepository});
+  LoginEmailUsecase({
+    required this.loginRepository,
+    FirebaseAuth? auth,
+  }) : this.auth = auth ?? FirebaseAuth.instance;
 
   Future<String> call(String email, String password) async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+    await auth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
-    return FirebaseAuth.instance.currentUser!.uid;
+    return auth.currentUser!.uid;
   }
 }

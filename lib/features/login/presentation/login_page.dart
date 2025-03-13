@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stargazer/core/services/data/datasources/remote/user_remote_datasource.dart';
-import 'package:stargazer/core/services/data/repositories/user_repository_impl.dart';
 import 'package:stargazer/core/services/data/services/firebase_reference.dart';
 import 'package:stargazer/core/services/data/services/remove_sharedprefs_usecase.dart';
 import 'package:stargazer/core/services/data/services/save_sharedprefs_usecase.dart';
-import 'package:stargazer/core/services/domain/usecases/get_user_usecase.dart';
 import 'package:stargazer/features/login/data/repositories/login_repository_impl.dart';
-import 'package:stargazer/features/login/domain/usecase/auth_state_change_usecase.dart';
 import 'package:stargazer/features/login/domain/usecase/login_email_usecase.dart';
 import 'package:stargazer/features/login/domain/usecase/login_google_usecase.dart';
 import 'package:stargazer/features/login/domain/usecase/login_sharedprefs_usecase.dart';
@@ -42,7 +38,6 @@ class LoginPage extends StatelessWidget {
             firebaseReference: FirebaseReference(),
           ),
         ),
-        authStateChangeUsecase: AuthStateChangeUsecase(),
         saveSharedPrefsUsecase: SaveSharedPrefsUsecase(),
         removeSharedPrefsUsecase: RemoveSharedPrefsUsecase(),
       ),

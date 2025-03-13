@@ -80,7 +80,7 @@ class _HomeContainerState extends State<HomeContainer> {
         onPressed: () => scaffoldKey.currentState!.openDrawer(),
         icon: Icon(
           Icons.menu,
-          color: theme == 1 ? AppColors.rice(1.0) : Colors.black,
+          color: theme == 1 ? AppColors.rice(1.0) : AppColors.coal(1.0),
         ),
       ),
       title: ShaderMask(

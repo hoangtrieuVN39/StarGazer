@@ -1,15 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class EmailCheckVerificationUsecase {
-  final FirebaseAuth _firebaseAuth;
+  final FirebaseAuth firebaseAuth;
 
-  EmailCheckVerificationUsecase({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth;
+  EmailCheckVerificationUsecase({
+    FirebaseAuth? firebaseAuth,
+  }) : this.firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   Future<String> call() async {
-    await _firebaseAuth.currentUser?.reload();
-    if (_firebaseAuth.currentUser?.emailVerified == true) {
-      return _firebaseAuth.currentUser!.uid;
+    await firebaseAuth.currentUser?.reload();
+    if (firebaseAuth.currentUser?.emailVerified == true) {
+      return firebaseAuth.currentUser!.uid;
     } else {
       return '';
     }
