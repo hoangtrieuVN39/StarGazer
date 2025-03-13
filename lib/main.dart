@@ -20,7 +20,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-  FlutterNativeSplash.remove();
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
@@ -30,6 +29,7 @@ void main() async {
   );
 
   runApp(MyApp());
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {

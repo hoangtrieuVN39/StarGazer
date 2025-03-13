@@ -59,7 +59,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     _OnInitial event,
     Emitter<LoginState> emit,
   ) async {
-    await removeSharedPrefsUsecase();
+    // await removeSharedPrefsUsecase();
     final user = await loginSharedPrefsUsecase();
     if (user != null) {
       emit(state.copyWith(user: user));

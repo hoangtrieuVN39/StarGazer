@@ -1,7 +1,6 @@
 import 'package:stargazer/core/services/domain/usecases/send_message.dart';
 import 'package:flutter/material.dart';
 import 'package:stargazer/core/services/domain/entities/chat_message.dart';
-import 'package:stargazer/core/utils/rate_limiter.dart';
 
 class ChatProvider with ChangeNotifier {
   final SendMessage _sendMessage;
@@ -21,8 +20,7 @@ class ChatProvider with ChangeNotifier {
     _addSystemMessage('''
 🔮 Xin chào! Tôi là thầy bói Gemini.
 Để xem chính xác vận mệnh, 
-tôi cần biết thêm thông tin của bạn.
-''');
+tôi cần biết thêm thông tin của bạn.''');
   }
 
   Future<void> sendMessage(String message) async {
