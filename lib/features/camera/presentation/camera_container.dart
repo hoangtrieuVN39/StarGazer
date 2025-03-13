@@ -71,13 +71,17 @@ class CameraContainer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      _buildBottomButton(
-                        icon: Icons.flip_camera_ios,
-                        onTap: () {
-                          cameraBloc.add(
-                            const CameraEvent.cameraLensDirectionChanged(),
-                          );
-                        },
+                      // _buildBottomButton(
+                      //   icon: Icons.flip_camera_ios,
+                      //   onTap: () {
+                      //     cameraBloc.add(
+                      //       const CameraEvent.cameraLensDirectionChanged(),
+                      //     );
+                      //   },
+                      // ),
+                      const SizedBox(
+                        width: 60,
+                        height: 60,
                       ),
                     ],
                   ),
