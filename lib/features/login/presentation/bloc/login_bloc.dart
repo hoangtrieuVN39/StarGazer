@@ -62,7 +62,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // await removeSharedPrefsUsecase();
     final user = await loginSharedPrefsUsecase();
     if (user != null) {
-      emit(state.copyWith(user: user));
+      emit(state.copyWith(user: user, googleSuccess: true));
     } else {
       emit(state.copyWith(loading: false));
     }
