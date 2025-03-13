@@ -9,17 +9,21 @@ class UserRepositoryImpl extends UserRepository {
   UserRepositoryImpl({required this.userRemoteDataSource});
 
   @override
-  Future<User> getUser(String userId) async {
+  Future<User?> getUser(String userId) async {
     return userRemoteDataSource.getUser(userId);
   }
 
   @override
   Future<User> addUser(User user) async {
-    return userRemoteDataSource.addUser(UserModel(
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      image: user.image,
-    ));
+    try {
+      return userRemoteDataSource.addUser(UserModel(
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+      ));
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 }

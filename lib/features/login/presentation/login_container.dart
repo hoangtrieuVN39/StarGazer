@@ -19,13 +19,31 @@ class LoginContainer extends StatelessWidget {
           Navigator.popAndPushNamed(
             context,
             RouteConstants.register,
+            arguments: {
+              'id': null,
+            },
           );
         }
-        if (state.success) {
+        if (state.emailSuccess || state.googleSuccess) {
           _userProvider.setUser(state.user!);
           Navigator.popAndPushNamed(
             context,
             RouteConstants.home,
+          );
+        }
+        if (state.emailFailure || state.googleFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Login failed')),
+          );
+        }
+        if (state.googleUserNotFound) {
+          Navigator.popAndPushNamed(
+            context,
+            RouteConstants.register,
+            arguments: {
+              'id': state.id,
+              'email': state.email,
+            },
           );
         }
       },
@@ -38,33 +56,34 @@ class LoginContainer extends StatelessWidget {
             listener: (context, state) {},
             builder: (context, state) {
               return Scaffold(
-                  backgroundColor: AppColors.coal(1.0),
-                  body: Center(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  _buildLogo(),
-                                  const SizedBox(height: 16),
-                                  _buildLoginForm(),
-                                ],
-                              ),
+                backgroundColor: AppColors.coal(1.0),
+                body: Center(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                _buildLogo(),
+                                const SizedBox(height: 16),
+                                _buildLoginForm(),
+                              ],
                             ),
-                            _buildSignUpBtn(
-                              () {
-                                context
-                                    .read<LoginBloc>()
-                                    .add(LoginEvent.signUp());
-                              },
-                            ),
-                          ],
-                        )),
-                  ));
+                          ),
+                          _buildSignUpBtn(
+                            () {
+                              context
+                                  .read<LoginBloc>()
+                                  .add(LoginEvent.signUp());
+                            },
+                          ),
+                        ],
+                      )),
+                ),
+              );
             },
           ),
         );

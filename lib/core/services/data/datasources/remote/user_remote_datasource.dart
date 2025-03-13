@@ -2,17 +2,14 @@ import 'package:stargazer/core/services/data/models/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class UserRemoteDataSource {
-  Future<UserModel> getUser(String userId);
+  Future<UserModel?> getUser(String userId);
   Future<UserModel> addUser(UserModel user);
 }
 
 class UserRemoteDataSourceImpl extends UserRemoteDataSource {
   @override
-  Future<UserModel> getUser(String userId) async {
+  Future<UserModel?> getUser(String userId) async {
     final user = await getUserFirestore(userId);
-    if (user == null) {
-      throw Exception('User not found');
-    }
     return user;
   }
 

@@ -21,7 +21,12 @@ class LoginRepositoryImpl implements LoginRepository {
       );
       return user;
     } catch (e) {
-      throw Exception(e);
+      throw UserNotFoundException(e.toString());
     }
   }
+}
+
+class UserNotFoundException implements Exception {
+  final String message;
+  UserNotFoundException(this.message);
 }

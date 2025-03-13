@@ -14,4 +14,5 @@ class RegisterEvent with _$RegisterEvent {
   const factory RegisterEvent.onNameChanged(String name) = _OnNameChanged;
   const factory RegisterEvent.onPasswordVisibleChanged() =
       _OnPasswordVisibleChanged;
+  const factory RegisterEvent.onInitial() = _OnInitial;
 }
